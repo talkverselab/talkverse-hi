@@ -1,0 +1,29 @@
+{
+  "lang": "hi",
+  "variety": "hi_IN",
+  "label": "힌디어 (콘텐츠 대기)",
+  "version": "v1-2026-09-03",
+  "schema": "v1",
+  "levels": {
+    "L1": {
+      "file": "L1.json",
+      "schema": "5ep40turn",
+      "target_turns": 200,
+      "current_turns": 0,
+      "status": "콘텐츠 대기"
+    },
+    "L2": {
+      "file": null,
+      "schema": "TBD",
+      "target_turns": 300,
+      "status": "미착수"
+    },
+    "L3": {
+      "file": null,
+      "schema": "TBD",
+      "target_turns": 300,
+      "status": "미착수"
+    }
+  },
+  "characters_canonical": {}
+}

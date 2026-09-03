@@ -1,0 +1,18 @@
+{
+  "level": "L1",
+  "variety": "hi_IN",
+  "version": "v1-2026-09-03",
+  "schema": "v1-L1-5ep40turn",
+  "title": "L1 — 콘텐츠 대기",
+  "description": "힌디어 L1 대화 — 콘텐츠 대기",
+  "kpi": {
+    "episodes_target": 5,
+    "turns_per_episode": 40,
+    "turns_total_target": 200,
+    "turns_total_current": 0,
+    "progress_pct": 0.0
+  },
+  "characters": {},
+  "function_words": [],
+  "episodes": []
+}
