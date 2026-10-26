@@ -30,7 +30,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const TileBadge(text: 'HI', size: 60, color: AppColors.tinta),
+                const TileBadge(text: 'HI', size: 60, color: AppColors.lusa),
                 SizedBox(width: 14),
                 Expanded(
                   child: Column(
@@ -77,7 +77,7 @@ class ProfileScreen extends StatelessWidget {
                   subtitle: tr('아이폰은 TestFlight 앱에서 새 빌드를 받습니다')),
             _SettingItem(icon: Icons.volume_up, title: tr('TTS 음성'), subtitle: tr('hi-IN (시스템 보이스)')),
             _SettingItem(icon: Icons.public, title: tr('변종'), subtitle: tr('Mānak Hindī (표준 힌디어)')),
-            _SettingItem(icon: Icons.palette, title: tr('테마'), subtitle: tr('낮 · 사프란·그린 #FF9933')),
+            _SettingItem(icon: Icons.palette, title: tr('테마'), subtitle: tr('낮 · 남색·인디고 #635BFF')),
           ]),
           const SizedBox(height: 16),
           _SectionTitle(tr('정보')),
