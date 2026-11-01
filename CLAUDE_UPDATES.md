@@ -8,13 +8,11 @@
 - `157f99f` (2026-09-04) 고유 런처 아이콘 (`अ`, Nirmala 폰트)
 
 ## 앱 생성 방식 (es 템플릿 스캐폴드)
-- `flutter create` 후 spanish_universe(es)의 `lib/`·`assets/`·`pubspec.yaml`·`tool/parse_table_generic.py` 복사.
+- `flutter create` 후 spanish_universe(es)의 `lib/`·`assets/`·`pubspec.yaml` 복사.
 - 클래스·문자열 치환(앱명·언어), `core/theme.dart` 색 값만 국기 팔레트로 교체(식별자 유지), TTS locale·보이스 필터 교체, 프로필 배지 교체.
 - **콘텐츠는 빈 구조**: `assets/data/dialogues/L1.json`(episodes []) · `grammar/verbs_core.json`(verbs []) · `freq/lang_es_top.csv`(헤더만) · `assets/data/vocab/travel_words.json`·`travel_expressions.json`(themes []).
   - 회화·동사·빈도·단어·표현 메뉴는 열리지만 비어 있음.
-- **콘텐츠 투입 방법**: 표 형식(`| 한국어 | 원문 | 독음 |` 표, `##` 섹션 제목) MD가 생기면
-  `py tool/parse_table_generic.py <src.md> assets/data/vocab/travel_words.json assets/data/vocab/travel_expressions.json "<이름>"`
-  → 테마 자동 분류(제목 키워드)·단어/표현 분리·ko 키워드 아이콘 부여. 권말 사전 섹션은 DICT_SEC 정규식으로 제외(언어별 제목 패턴 확인 필요).
+- **콘텐츠 투입 방법**: 자체 제작 콘텐츠만 `_update_kit/content/hi.py` → `build_content.py` 로 넣는다(외부 교재·책에서 옮기지 않는다 — CLAUDE.md §4). 2026-11-02 교재 표 변환 스크립트는 삭제했다.
 - 포함된 zh 기능: 주제별 단어 1×1 아이콘 타일 그리드 / 표현 목록 / 외우기 모드 / 외움 체크 / 독음 [한] 토글 (`topic_vocab_screen.dart`, `services/ko_reading.dart`, `services/memorized_store.dart`).
 
 ## 런처 아이콘
