@@ -45,7 +45,7 @@ void main() {
     await shot(t, '01_home_wide');
 
     // 홈 메뉴 「회화」 → 오른쪽 칸에 새 회화 리더 홈
-    await t.tap(find.text('회화').first);
+    await t.tap(find.text('Bātchīt').first);
     await wait(t, 2500);
     await shot(t, '02_dialogue_home_right');
 
@@ -56,6 +56,13 @@ void main() {
     await t.tap(find.text('첫 인사').first);
     await wait(t, 1500);
     await shot(t, '04_reader');
+
+    // 글자 풀이(UX 시안 01) — 캡션의 낱말을 누른다. 세로 아이패드 오른쪽 칸은 좁아 아래 시트로 뜬다
+    await t.tap(find.text('हूँ').first);
+    await wait(t, 1200);
+    await shot(t, '04b_glyph_sheet');
+    await t.tap(find.byIcon(Icons.close).last);
+    await wait(t, 800);
 
     await t.tap(find.text('재생').first);
     await wait(t, 6000);

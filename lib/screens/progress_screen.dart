@@ -51,7 +51,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
     return Scaffold(
       backgroundColor: AppColors.cal,
       appBar: AppBar(
-        title: Text(tr('진행 · Progreso')),
+        title: Text(tr('진행 · Pragati')),
         actions: [
           IconButton(icon: const Icon(Icons.refresh), onPressed: _load),
         ],
@@ -92,7 +92,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
                 const SizedBox(height: 12),
                 Center(
                   child: Text(
-                    'Poco a poco se va lejos',
+                    'Dhīre-dhīre · 천천히, 꾸준히',
                     style: TextStyle(color: AppColors.tintaLight, fontSize: 12, letterSpacing: 2),
                   ),
                 ),

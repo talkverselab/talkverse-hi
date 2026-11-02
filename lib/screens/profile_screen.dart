@@ -49,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        tr('Día 1 · 입문 (A1)'),
+                        tr('Din 1 · 입문'),
                         style: TextStyle(
                           color: AppColors.gualdaBright,
                           fontSize: 13,
