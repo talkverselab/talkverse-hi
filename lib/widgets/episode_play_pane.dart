@@ -9,6 +9,7 @@ import '../core/theme.dart';
 import '../screens/dialogue_card_screen.dart';
 import '../services/achievement_service.dart';
 import '../services/art_service.dart';
+import '../services/devanagari.dart';
 import '../services/dialogue_service.dart';
 import '../services/learner_prefs.dart';
 import '../services/tts_service.dart';
@@ -40,6 +41,7 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
   int _session = 0; // 재생 루프 세대(중단 판별)
   bool _done = false; // 완주 연출 표시
   bool _firstDone = false;
+  String? _word; // 글자 풀이 중인 낱말(UX 시안 01)
   late final List<GlobalKey> _keys = List.generate(widget.dialogue.turns.length, (_) => GlobalKey());
 
   Dialogue get d => widget.dialogue;
@@ -74,7 +76,7 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
         if (mounted && my == _session) setState(() { _done = true; _firstDone = first; });
         break;
       }
-      setState(() => _i++);
+      setState(() { _i++; _word = null; });
     }
     if (mounted && my == _session) setState(() => _playing = false);
   }
@@ -92,6 +94,7 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
     setState(() {
       _i = n;
       _playing = false;
+      _word = null;
     });
     _scrollTo(n);
     if (play) _play();
@@ -109,6 +112,23 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
     return t.tl.replaceAll(RegExp(r'\([^)]*\)'), '').replaceAll(RegExp(r'\{[a-z_]+\}'), '').trim();
   }
 
+  bool _inlineSheet = false;
+
+  /// 낱말을 누르면 글자 풀이 — 넓은 화면은 컷 아래 칸에, 좁은 화면은 아래에서 올라오는 시트로.
+  void _openWord(String w) {
+    if (!Devanagari.isDevanagari(w)) return;
+    if (_inlineSheet) {
+      setState(() => _word = _word == w ? null : w);
+      return;
+    }
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      backgroundColor: AppColors.washi,
+      builder: (c) => SafeArea(top: false, child: GlyphSheet(word: w, note: turn.note, onClose: () => Navigator.pop(c))),
+    );
+  }
+
   String _gender(String sp) => d.voiceGender(sp); // 지금 회화는 화자 성별이 데이터에 정해져 있다(A Minjun 남 · B Priya 여)
 
   @override
@@ -123,8 +143,8 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
       showKo: _showKo,
       onTap: (i) => _goto(i, play: true),
       onSpeak: _speakOne,
+      onWord: _openWord,
     );
-    final cut = _CutPanel(d: d, turn: turn, showGloss: _showGloss, showRd: _showRd, showKo: _showKo, onSpeak: () => _speakOne(turn));
     final controls = _ControlBar(
       playing: _playing,
       index: _i,
@@ -145,6 +165,10 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
     return LayoutBuilder(builder: (context, c) {
       // 칸이 넓으면(아이패드 가로·전체 화면 900 이상) 좌 스크립트 · 우 컷, 좁으면(아이패드 세로 오른쪽 칸·폰) 컷 위 · 스크립트 아래
       final sideBySide = wide && c.maxWidth >= 900;
+      _inlineSheet = sideBySide;
+      final cut = _CutPanel(
+          d: d, turn: turn, showGloss: _showGloss, showRd: _showRd, showKo: _showKo, onSpeak: () => _speakOne(turn), onWord: _openWord,
+          sheet: sideBySide && _word != null ? GlyphSheet(word: _word!, note: turn.note, onClose: () => setState(() => _word = null)) : null);
       final body = Column(children: [
         Expanded(
           child: sideBySide
@@ -186,7 +210,8 @@ class _Script extends StatelessWidget {
   final bool showGloss, showRd, showKo;
   final void Function(int) onTap;
   final void Function(DialogueTurn) onSpeak;
-  const _Script({required this.d, required this.current, required this.keys, required this.showGloss, required this.showRd, required this.showKo, required this.onTap, required this.onSpeak});
+  final void Function(String) onWord;
+  const _Script({required this.d, required this.current, required this.keys, required this.showGloss, required this.showRd, required this.showKo, required this.onTap, required this.onSpeak, required this.onWord});
 
   @override
   Widget build(BuildContext context) {
@@ -236,10 +261,13 @@ class _Script extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        Text(LearnerPrefs.fill(t.tl), style: TextStyle(fontSize: on ? 16.5 : 15, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.35)),
+                        on
+                            ? TapWords(text: LearnerPrefs.fill(t.tl), style: const TextStyle(fontSize: 16.5, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.5), onWord: onWord)
+                            : Text(LearnerPrefs.fill(t.tl), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.5)),
                         if (showGloss && t.gloss.isNotEmpty && t.gloss != t.tl) Text(t.gloss, style: const TextStyle(fontSize: 11, color: AppColors.ai, fontWeight: FontWeight.w600)),
                         if (showRd && t.rd.isNotEmpty) Text(LearnerPrefs.fill(t.rd, ko: true), style: const TextStyle(fontSize: 11.5, color: AppColors.muted)),
                         if (showKo) Text(LearnerPrefs.fill(t.ko, ko: true), style: const TextStyle(fontSize: 12.5, color: AppColors.sumiLight, height: 1.35)),
+                        TurnTags(turn: t),
                         if (on && t.note.isNotEmpty) Padding(padding: const EdgeInsets.only(top: 4), child: Text('💡 ${t.note}', style: const TextStyle(fontSize: 11, color: AppColors.beniDeep, height: 1.35))),
                       ]),
                     ),
@@ -279,7 +307,9 @@ class _CutPanel extends StatelessWidget {
   final DialogueTurn turn;
   final bool showGloss, showRd, showKo;
   final VoidCallback onSpeak;
-  const _CutPanel({required this.d, required this.turn, required this.showGloss, required this.showRd, required this.showKo, required this.onSpeak});
+  final void Function(String) onWord;
+  final Widget? sheet; // 넓은 화면의 글자 풀이 칸(컷 아래)
+  const _CutPanel({required this.d, required this.turn, required this.showGloss, required this.showRd, required this.showKo, required this.onSpeak, required this.onWord, this.sheet});
 
   @override
   Widget build(BuildContext context) {
@@ -300,7 +330,8 @@ class _CutPanel extends StatelessWidget {
           ),
         Expanded(child: SceneCut(dialogue: d, turn: turn, bubble: true)),
         const SizedBox(height: 10),
-        _Caption(d: d, turn: turn, showGloss: showGloss, showRd: showRd, showKo: showKo, onSpeak: onSpeak),
+        _Caption(d: d, turn: turn, showGloss: showGloss, showRd: showRd, showKo: showKo, onSpeak: onSpeak, onWord: onWord),
+        if (sheet != null) ...[const SizedBox(height: 10), sheet!],
       ]),
     );
   }
@@ -312,7 +343,8 @@ class _Caption extends StatelessWidget {
   final DialogueTurn turn;
   final bool showGloss, showRd, showKo;
   final VoidCallback onSpeak;
-  const _Caption({required this.d, required this.turn, required this.showGloss, required this.showRd, required this.showKo, required this.onSpeak});
+  final void Function(String) onWord;
+  const _Caption({required this.d, required this.turn, required this.showGloss, required this.showRd, required this.showKo, required this.onSpeak, required this.onWord});
 
   @override
   Widget build(BuildContext context) {
@@ -327,7 +359,7 @@ class _Caption extends StatelessWidget {
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(LearnerPrefs.fill(turn.tl), style: TextStyle(fontSize: wide ? 20 : 17, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.35)),
+              TapWords(text: LearnerPrefs.fill(turn.tl), style: TextStyle(fontSize: wide ? 20 : 17, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.5), onWord: onWord),
               if (showGloss && turn.gloss.isNotEmpty && turn.gloss != turn.tl) Text(turn.gloss, style: const TextStyle(fontSize: 12, color: AppColors.ai, fontWeight: FontWeight.w600)),
               if (showRd && turn.rd.isNotEmpty) Text(LearnerPrefs.fill(turn.rd, ko: true), style: const TextStyle(fontSize: 12.5, color: AppColors.muted)),
               if (showKo) Padding(padding: const EdgeInsets.only(top: 2), child: Text(LearnerPrefs.fill(turn.ko, ko: true), style: const TextStyle(fontSize: 13.5, color: AppColors.sumiLight, height: 1.35))),
@@ -560,5 +592,103 @@ class _SceneCard extends StatelessWidget {
         ]),
       );
     });
+  }
+}
+
+
+/// 문장을 낱말 단위로 누를 수 있게 — 누르면 글자 풀이(UX 시안 01). 띄어쓰기·문장 부호는 그대로 둔다.
+class TapWords extends StatelessWidget {
+  final String text;
+  final TextStyle style;
+  final void Function(String) onWord;
+  const TapWords({super.key, required this.text, required this.style, required this.onWord});
+
+  @override
+  Widget build(BuildContext context) {
+    final parts = RegExp(r'[\p{L}\p{M}\p{N}]+|[^\p{L}\p{M}\p{N}]+', unicode: true).allMatches(text).map((m) => m[0]!).toList();
+    return Wrap(children: [
+      for (final p in parts)
+        RegExp(r'^[\p{L}\p{M}\p{N}]+$', unicode: true).hasMatch(p) && Devanagari.isDevanagari(p)
+            ? GestureDetector(behavior: HitTestBehavior.opaque, onTap: () => onWord(p), child: Text(p, style: style))
+            : Text(p, style: style),
+    ]);
+  }
+}
+
+/// 말투 꼬리표 — 존대(आप/तुम/तू)·성별형(note 의 (남성)/(여성)). 누르면 한 줄 설명.
+class TurnTags extends StatelessWidget {
+  final DialogueTurn turn;
+  const TurnTags({super.key, required this.turn});
+
+  @override
+  Widget build(BuildContext context) {
+    final tags = [Devanagari.register(turn.tl), Devanagari.gender(turn.note)].whereType<({String label, String tip})>().toList();
+    if (tags.isEmpty) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(top: 4),
+      child: Wrap(spacing: 6, runSpacing: 4, children: [
+        for (final t in tags)
+          Tooltip(
+            message: tr(t.tip),
+            triggerMode: TooltipTriggerMode.tap,
+            showDuration: const Duration(seconds: 4),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+              decoration: BoxDecoration(color: AppColors.beni.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(20)),
+              child: Text(tr(t.label), style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.beni)),
+            ),
+          ),
+      ]),
+    );
+  }
+}
+
+/// 글자 풀이 — 낱말을 자음·모음 부호·비음 칸으로(UX 시안 01). 자음 = 남색, 모음 부호 = 자홍, 비음·결합 = 인디고 테두리.
+class GlyphSheet extends StatelessWidget {
+  final String word;
+  final String note;
+  final VoidCallback onClose;
+  const GlyphSheet({super.key, required this.word, required this.note, required this.onClose});
+
+  Color _edge(GlyphKind k) => switch (k) {
+        GlyphKind.consonant => AppColors.sumi,
+        GlyphKind.sign || GlyphKind.vowel => AppColors.beni,
+        _ => AppColors.ai,
+      };
+
+  @override
+  Widget build(BuildContext context) {
+    final gs = Devanagari.split(word);
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(16, 10, 8, 12),
+      decoration: BoxDecoration(color: AppColors.washi, border: Border.all(color: AppColors.line), borderRadius: BorderRadius.circular(14), boxShadow: kCardShadow),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+        Row(children: [
+          Text(tr('글자 풀이'), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppColors.sumi)),
+          const SizedBox(width: 10),
+          Text(word, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.beni)),
+          const Spacer(),
+          IconButton(visualDensity: VisualDensity.compact, onPressed: onClose, icon: const Icon(Icons.close, size: 18, color: AppColors.muted)),
+        ]),
+        const SizedBox(height: 6),
+        Wrap(spacing: 8, runSpacing: 8, children: [
+          for (final g in gs)
+            Container(
+              constraints: const BoxConstraints(minWidth: 72),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(color: Colors.white, border: Border.all(color: _edge(g.kind), width: 1.4), borderRadius: BorderRadius.circular(10)),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(g.text, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: AppColors.sumi, height: 1.4)),
+                Text('${tr(g.role)} ${g.sound}', style: const TextStyle(fontSize: 11, color: AppColors.sumiLight)),
+              ]),
+            ),
+        ]),
+        if (note.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          Text(note, style: const TextStyle(fontSize: 13, color: AppColors.sumi, height: 1.4)),
+        ],
+      ]),
+    );
   }
 }
