@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'core/theme.dart';
+import 'data/account.dart';
+import 'data/entitlement.dart';
+import 'data/purchase.dart';
 import 'data/db/app_database.dart';
 import 'data/db/seed_loader.dart';
 import 'screens/main_screen.dart';
@@ -15,6 +18,8 @@ void main() async {
   await SeedLoader(appDb).seedIfNeeded();
   await KoReadingPrefs.load();
   await AppLangPrefs.load();
+  Account.load(); // 저장된 로그인 표시 + 뒤에서 토큰 갱신(기다리지 않음)
+  Purchase.configure({Entitlement.lang: (Entitlement.iosProduct, Entitlement.androidProduct)});
   runApp(const HindiUniverseApp());
 }
 
