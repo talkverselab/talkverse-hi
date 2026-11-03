@@ -8,21 +8,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'app_database.dart';
 
 class SeedLoader {
-  // v1: 초기 시드 (L1 샘플 대화 + 빈도 단어 + 핵심 동사)
-  static const _kSeededKey = 'db_seeded_v2'; // v2: 독음(rd) + 회화 초안
-
   final AppDatabase db;
   SeedLoader(this.db);
 
+  /// 번들 `assets/data/version.json` 의 `db`(업데이트 번호)와 저장된 번호가 다르면 DB 를 전부 다시 채운다(일본어앱 2026-11-04).
+  /// 옛 키 `db_seeded_v2` 는 더 쓰지 않는다 — 데이터를 바꿀 때 version.json 의 번호만 올린다.
+  static const _kDbVersion = 'db_version';
   Future<void> seedIfNeeded() async {
     final prefs = await SharedPreferences.getInstance();
-    if (prefs.getBool(_kSeededKey) == true) return;
-
+    final bundled = await bundledVersion();
+    if (prefs.getInt(_kDbVersion) == bundled) return;
+    await db.delete(db.words).go();
     await _seedWords();
     await _seedVerbs();
-    await _seedTurns();
+    // 회화 턴은 처음 한 번만 — 다시 넣으면 턴 id 가 바뀌어 학습 기록(user_progress)이 떨어진다. 레마·그림은 JSON 에서 읽는다
+    if (await turnCount() == 0) await _seedTurns();
+    await prefs.setInt(_kDbVersion, bundled);
+  }
 
-    await prefs.setBool(_kSeededKey, true);
+  static Future<int> bundledVersion() async {
+    try {
+      final j = json.decode(await rootBundle.loadString('assets/data/version.json')) as Map<String, dynamic>;
+      return (j['db'] as num).toInt();
+    } catch (_) {
+      return 0;
+    }
   }
 
   static String? _s(dynamic v) {
@@ -33,26 +43,24 @@ class SeedLoader {
   Future<void> _seedWords() async {
     final String raw;
     try {
-      raw = await rootBundle.loadString('assets/data/freq/lang_es_top.csv');
+      raw = await rootBundle.loadString('assets/data/freq/hi_words.csv');
     } catch (_) {
       return;
     }
-    final rows = const CsvToListConverter(eol: '\n').convert(raw);
+    final rows = const CsvToListConverter(eol: '\n', shouldParseNumbers: false).convert(raw);
     final batch = <Insertable<WordRow>>[];
-    // header: rank,word,pos,gender,ko,freq,cum_pct,region,cefr
+    // 단어장 1,500(2026-11-03, 영화·드라마 자막 빈도 — HANDOFF.md). header: rank,word,reading,ko,en,pos,level,picturable
+    // 칸 대응: region = 절벽 구간(R1~R5), cefr = 한글 독음(작게 표시되는 칸)
     for (var i = 1; i < rows.length; i++) {
       final row = rows[i];
-      if (row.length < 9) continue;
+      if (row.length < 8) continue;
       batch.add(WordsCompanion.insert(
         rank: Value(int.tryParse('${row[0]}') ?? 0),
         word: '${row[1]}',
-        pos: Value(_s(row[2])),
-        gender: Value(_s(row[3])),
-        meaningKo: Value(_s(row[4])),
-        freq: Value(double.tryParse('${row[5]}')),
-        cumPct: Value(double.tryParse('${row[6]}')),
-        region: Value(_s(row[7])),
-        cefr: Value(_s(row[8])),
+        pos: Value(_s(row[5])),
+        meaningKo: Value(_s(row[3])),
+        region: Value(_s(row[6])),
+        cefr: Value(_s(row[2])),
       ));
     }
     await db.batch((b) => b.insertAllOnConflictUpdate(db.words, batch));

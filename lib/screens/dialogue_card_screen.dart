@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../services/content_sync.dart';
+import '../widgets/lemma_chips.dart';
+
 import '../core/l10n.dart';
 import '../core/platform.dart';
 import '../core/theme.dart';
@@ -113,6 +116,8 @@ class _CardArt extends StatelessWidget {
   const _CardArt({super.key, required this.d, required this.t});
 
   Future<String?> _url() async {
+    final scene = await ArtService.instance.sceneCut(d.id, t.num);
+    if (scene != null) return scene;
     if (t.art != null) return t.art;
     for (final w in t.pictureWords) {
       final u = await ArtService.instance.urlFor(w);
@@ -131,7 +136,7 @@ class _CardArt extends StatelessWidget {
           decoration: BoxDecoration(color: AppColors.washiDeep, border: Border.all(color: AppColors.line), borderRadius: BorderRadius.circular(18), boxShadow: kCardShadow),
           child: snap.data == null
               ? Center(child: Text(d.emoji, style: const TextStyle(fontSize: 72)))
-              : Image.network(snap.data!, fit: BoxFit.contain, errorBuilder: (_, _, _) => Center(child: Text(d.emoji, style: const TextStyle(fontSize: 72)))),
+              : Image(image: artProvider(snap.data!), fit: BoxFit.contain, errorBuilder: (_, _, _) => Center(child: Text(d.emoji, style: const TextStyle(fontSize: 72)))),
         ),
       );
 }
@@ -162,13 +167,17 @@ class _CardText extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(LearnerPrefs.fill(t.ko, ko: true), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.4)),
                 if (t.note.isNotEmpty) ...[const SizedBox(height: 10), Text('💡 ${t.note}', style: const TextStyle(fontSize: 12, color: AppColors.beniDeep, height: 1.4))],
+                if (t.lemmas.isNotEmpty) ...[const SizedBox(height: 12), LemmaChips(turn: t)],
               ]),
             )
           : Center(
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Text(name, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: AppColors.sumi)),
-                const SizedBox(height: 8),
-                Text(tr('그림을 보고 힌디어로 말해 보세요'), style: const TextStyle(fontSize: 12, color: AppColors.muted)),
+                const SizedBox(height: 10),
+                // 앞면에 한국어 뜻 — 무엇을 말할지 알고 힌디어로(일본어앱 2026-11-04)
+                Text(LearnerPrefs.fill(t.ko, ko: true), textAlign: TextAlign.center, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.4)),
+                const SizedBox(height: 12),
+                Text(tr('이 말을 힌디어로 해 보세요'), style: const TextStyle(fontSize: 12, color: AppColors.muted)),
                 const SizedBox(height: 4),
                 Text(tr('탭해서 확인'), style: const TextStyle(fontSize: 11, color: AppColors.muted, letterSpacing: 2)),
               ]),

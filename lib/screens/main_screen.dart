@@ -386,7 +386,7 @@ class _MenuGrid extends StatelessWidget {
         builder: (_) => const ChunkSearchScreen()),
     ];
     final words = <_MenuItem>[
-      _MenuItem(label: tr('빈도 단어'), sub: 'Āvṛtti', badge: 'F', color: AppColors.lusa, soon: true,
+      _MenuItem(label: tr('빈도 단어'), sub: 'Āvṛtti', badge: 'F', color: AppColors.lusa,
         builder: (_) => const WordFreqScreen()),
       _MenuItem(label: tr('단어'), sub: 'Śabd', badge: 'W', color: AppColors.oliva,
         builder: (_) => const TopicVocabScreen()),
