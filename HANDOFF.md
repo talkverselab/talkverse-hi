@@ -25,6 +25,24 @@
   - 2026-11-03 실행 결과 10장, 넘침 0.
 - 회화 원칙의 힌디어 특이점: `docs/DIALOGUE_NOTES.md`(변이·성별판·독음 표기표·턴 길이 — 초안).
 
+## 2026-11-04 일본어앱 9962316 변경 옮김(`6992414`·`9bd96b9`, Zealot 빌드 11 https://apps.talkverse.uk/Bt9EU/254)
+- 회화 그림 위 말풍선을 없앴다. 「오늘의 컷」은 그림 아래 띠로, 재생 화면은 아래 문장 칸으로 대사를 보인다.
+- 그림 카드 앞면에 한국어 뜻을 크게 보인다.
+- **문장 레마 칩**:
+  - `tools/add_lemmas.py` 가 턴마다 `lemmas` 를 넣는다(스크래치 venv 의 stanza 힌디어 모델).
+  - 회화를 `build_content.py` 로 다시 만들면 이 스크립트도 다시 돌린다.
+  - 단어장에 없는 레마는 `data/review/write/missing_lemmas.csv` 에 모아 uk 세션에 넘긴다.
+- **단어장** `assets/data/freq/hi_words.csv`:
+  - 1,511개 = 절벽 1,500 + uk 가 추가한 11개(3001~3011). DB `words` 에 들어가 「빈도 단어」 메뉴에도 보인다.
+  - 칸 대응: region = 구간, cefr = 한글 독음.
+- **DB 업데이트 번호** `assets/data/version.json`(지금 db=4):
+  - 단어장을 바꾸면 이 번호만 올린다.
+  - 회화 턴은 학습 기록 보존을 위해 처음 한 번만 넣는다.
+- 그림 기기 내려받기(`lib/services/content_sync.dart`·`lib/screens/sync_screen.dart`)와 `artProvider` 를 붙였다.
+- 장면 컷 조회(`ArtService.sceneCut`)는 학습자가 여자면 `<편id>_f` 컷을 먼저 찾는다.
+- `{name}` 대사가 있는 회화를 열 때 이름이 비어 있으면 이름·성별 창을 띄운다. 지금 회화는 민준 고정이라 해당 없음.
+- **보류**: 조연 캐릭터 시트(Grok 대기 지시).
+
 ## 사용자 결정 대기
 1. **평생 이용권으로 무엇을 잠글지 + 가격** — "나중에"(2026-11-03). 그전에는 잠그지 않는다. 스토어 심사 전에 꼭 정해야 한다.
 2. **개발자 포털 App ID `com.talkverse.hindiUniverse` 에 Sign in with Apple 켜기**(사용자 몫). 지금 IPA 에는 `applesignin` 이 없어 iOS 의 Apple 로그인만 동작하지 않는다. 켠 뒤 `bash tools/ios_release.sh` 로 다시 올린다.
