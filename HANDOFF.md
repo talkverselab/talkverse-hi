@@ -89,3 +89,8 @@
   2. 샘플 1~2개로 먼저 시험한다.
   3. PushNotification 으로 사용자 통과를 받는다.
   4. 통과 뒤 본작업을 한다.
+- **Grok 요청문 작성법(2026-11-03 중국어앱 공유)**: `/Users/talkverse/talkverse/GROK_PROMPT_GUIDE.md`. 틀 파일은 `~/talkverse/zh/tools/`(`prompts/rewrite_grok.md`·`rewrite_request.py`·`scene_prompts.py`·`grok_*.py`)를 복사해 언어 코드만 바꾼다.
+  - 전문가 모델을 쓰고, 편마다 새 대화방을 연다.
+  - 재작성 요청에는 「판정 말고 재작성 · 모든 줄 새로」를 넣는다.
+  - 받은 재작성은 그대로 쓰지 말고 리뷰한다.
+  - 장면 컷은 한 요청에 컷 하나. 캐릭터 시트·시안을 첨부하고 접촉 시트로 리뷰한다.
