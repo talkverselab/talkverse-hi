@@ -1499,3 +1499,14 @@ rank,word,reading,ko,en,pos,level,picturable
 1563,दिशा,디샤,방향,direction,noun,R5,N
 1564,वर्तमान,와르타만,현재의,present,adj,R5,N
 1565,सम्मानित,삼마니트,존경받는,honored,adj,R5,N
+3001,हिंदी,힌디,힌디어,Hindi,n,R5,N
+3002,रात्रि,라트리,밤(격식),night (formal),n,R5,N
+3003,दूध,두드,우유,milk,n,R5,Y
+3004,गुलाब,굴랍,장미,rose,n,R5,Y
+3005,जामुन,자문,자문(검보라색 열매),jamun (java plum),n,R5,Y
+3006,खिलाना,킬라나,먹여 주다,to feed,v,R5,Y
+3007,संग्रहालय,상그라할라이,박물관,museum,n,R5,Y
+3008,बाएं,바엔,왼쪽,left,adv,R5,Y
+3009,पैदल,패달,걸어서,on foot,adv,R5,Y
+3010,दुखद,두카드,슬픈,sad,adj,R5,Y
+3011,मैसेज,매세지,메시지,message,n,R5,Y
