@@ -56,3 +56,12 @@
 - Zealot 앱이름 `힌디어유니버스` 는 고정이다. Zealot 에는 CI 가 만든 APK 를 올린다(CLAUDE.md §8).
 - 아이콘은 talkverse.uk 세션 담당 — 직접 고치지 않는다.
 - M6 과부하 공지가 오면 빌드·시뮬레이터를 즉시 멈춘다.
+- **Grok·Gemini 를 직접 쓸 때(2026-11-03 공지)**:
+  - 로그인 원본은 M4 `~/chrome-grok`. 쿠키 복사는 M4 안에서 `~/chrome-grok-hi/` 로 한다.
+  - 자기 포트로 띄우고, M6 에서는 `ssh -fN -L` 로 터널을 연다. 첨부는 M4 `/tmp/grok_att/hi/` 에 둔다.
+  - 상세는 `/Users/talkverse/talkverse/GROK_M4_LOGIN.md`, 구현 예는 `~/talkverse/ko/tools/grok_base.py`.
+  - 사용자 지시 없이 미리 켜지 않는다. 한 번에 한 작업만 하고, 연 탭과 Chrome 은 끝나면 닫는다.
+- **회화를 쓰게 되면(공통 원칙 §9)**:
+  - 반전 비율: 카오스 30% 이상. 연애·플러팅 편마다 심쿵 한 줄, 여성 주도 편을 더 많이.
+  - 편마다 `twist_type`(chaos·slip·reveal·emotion·ignore)을 단다. 새 편은 왕초보·초급 위주.
+  - 그림은 A·B 쌍 1컷, 말풍선·글자 없이. 인물 기준 그림을 첨부한다.
