@@ -30,7 +30,8 @@
 ## 감정(2026-11-07 사용자 지시 — 음성을 고려해 함께 쓴다)
 - 턴마다 `emotion` 을 넣는다. 값: neutral polite stiff cheerful amused teasing excited surprised shout tsukkomi annoyed sad worried flustered shy gentle.
 - 한 턴에서 감정이 바뀌면 `segs` = `[[감정, 본문], …]` 로 나눈다(이어 붙이면 `tl`). neutral 만 쓰지 말 것: 점원·안내는 polite, 받아치기는 tsukkomi, 심쿵 턴은 gentle·shy.
-- 11-07 초안 150편에는 이 칸이 없다. Grok 재작성본을 넣을 때 함께 채운다(그때까지는 `data/tts/plan/` 로 쓴다).
+- 여성판이 다른 턴에서 감정이 나뉘면 `segs_f`. 음성 계획은 손으로 쓰지 않고 `tools/tts/make_plan.py` 로 만든다.
+- 11-07 초안 150편 중 예시 3편 외에는 이 칸이 없다. Grok 재작성본을 넣을 때 함께 채운다.
 
 ## 출력 — `assets/data/dialogues/<R>/<island>/<id>.json`
 ```json
