@@ -1,0 +1,140 @@
+{
+ "_meta": "힌디어 회화 음성 — 목소리·감정·자리 채움. 참고 음성은 VoxCPM2(설명 instruct 는 영어), 문장은 MOSS-TTS.",
+ "base_text": "आज दोपहर में मेरी एक मीटिंग है, इसलिए मैं सारे काग़ज़ पहले से तैयार कर रहा हूँ। काम ख़त्म होने के बाद साथ में खाना खाने चलोगे?",
+ "voices": {
+  "am": {
+   "desc": "A young Indian man in his twenties speaking Hindi, clear and gentle voice"
+  },
+  "af": {
+   "desc": "A young Indian woman in her twenties speaking Hindi, clear and soft voice"
+  },
+  "priya": {
+   "desc": "An Indian woman in her early twenties speaking Hindi, bright, quick and talkative voice"
+  },
+  "ananya": {
+   "desc": "An Indian woman in her mid twenties speaking Hindi, calm, smart and slightly playful voice"
+  },
+  "rohan": {
+   "desc": "An Indian man in his early twenties speaking Hindi, relaxed, lazy and slightly husky voice"
+  },
+  "arjun": {
+   "desc": "An Indian man in his mid twenties speaking Hindi, direct, steady and warm low voice"
+  },
+  "man_y": {
+   "desc": "An Indian man around twenty speaking Hindi, natural and clear voice"
+  },
+  "man_m": {
+   "desc": "An Indian man in his forties speaking Hindi, firm and practical voice"
+  },
+  "man_o": {
+   "desc": "An elderly Indian man speaking Hindi, slow and warm voice"
+  },
+  "woman_y": {
+   "desc": "An Indian woman around twenty speaking Hindi, natural and friendly voice"
+  },
+  "woman_m": {
+   "desc": "An Indian woman in her forties speaking Hindi, strong and caring voice"
+  },
+  "woman_o": {
+   "desc": "An elderly Indian woman speaking Hindi, soft and motherly voice"
+  },
+  "kid": {
+   "desc": "An Indian child around ten speaking Hindi, high and lively voice"
+  }
+ },
+ "emotions": {
+  "neutral": {
+   "instruct": "calm and natural, everyday tone",
+   "ref": "आज दोपहर में मीटिंग है, इसलिए मैं काग़ज़ पहले से तैयार कर रहा हूँ।"
+  },
+  "polite": {
+   "instruct": "polite and professional, like a clerk or station staff",
+   "ref": "नमस्ते जी, आपका ऑर्डर तैयार है। कृपया यहाँ बैठिए।"
+  },
+  "stiff": {
+   "instruct": "very nervous and stiff, formal and overly polite",
+   "ref": "आपने समय दिया, उसके लिए बहुत धन्यवाद। मैं पूरी कोशिश करूँगा।"
+  },
+  "cheerful": {
+   "instruct": "cheerful, bright and friendly",
+   "ref": "अरे, आ गए तुम! आज मौसम भी अच्छा है, मज़ा आ गया।"
+  },
+  "amused": {
+   "instruct": "amused, laughing warmly, relaxed",
+   "ref": "हा हा, यार, ये तो बहुत मज़ेदार है। बस ऐसे ही चलने दो।"
+  },
+  "teasing": {
+   "instruct": "teasing, playful and mischievous",
+   "ref": "अच्छा जी, ये चेहरा क्यों बना रखा है? सच बताओ, किसी को नहीं बोलूँगी।"
+  },
+  "excited": {
+   "instruct": "excited, bursting with energy, bright and loud",
+   "ref": "हो गया, हो गया! मुझे ख़ुद यक़ीन नहीं हो रहा! सच में!"
+  },
+  "surprised": {
+   "instruct": "surprised, caught off guard, voice jumps",
+   "ref": "क्या? सच में? अरे रुको, ये क्या बोल रहे हो?"
+  },
+  "shout": {
+   "instruct": "shouting loudly, angry or urgent",
+   "ref": "अरे रुको! वहाँ मत जाओ! सुन रहे हो या नहीं?"
+  },
+  "tsukkomi": {
+   "instruct": "quick comic retort, exasperated but friendly",
+   "ref": "अरे यार, ये क्या बात हुई? ऐसा कौन करता है!"
+  },
+  "annoyed": {
+   "instruct": "annoyed and irritated, sighing",
+   "ref": "बस करो यार, कितनी बार बोलूँ? मुझे अभी बात नहीं करनी।"
+  },
+  "sad": {
+   "instruct": "sad and quiet, low energy",
+   "ref": "कोई बात नहीं। शायद मुझे ही नहीं आना चाहिए था।"
+  },
+  "worried": {
+   "instruct": "worried and anxious, unsure",
+   "ref": "अब क्या होगा? फ़ोन भी नहीं उठा रहा, मुझे डर लग रहा है।"
+  },
+  "flustered": {
+   "instruct": "flustered and panicking, words tumbling out",
+   "ref": "नहीं नहीं, मेरा वो मतलब नहीं था! मैं तो बस… रुको, समझाता हूँ।"
+  },
+  "shy": {
+   "instruct": "shy and soft, almost whispering, hesitant",
+   "ref": "वो… मुझे लगा… तुम भी आओगे तो अच्छा लगेगा।"
+  },
+  "gentle": {
+   "instruct": "gentle, warm and tender",
+   "ref": "कोई बात नहीं, मैं यहीं हूँ। आराम से बताओ।"
+  }
+ },
+ "fill": {
+  "{name}": {
+   "m": {
+    "text": "एलेक्स",
+    "rd": "엘렉스",
+    "ko": "알렉스"
+   },
+   "f": {
+    "text": "एमा",
+    "rd": "에마",
+    "ko": "에마"
+   }
+  },
+  "{country}": {
+   "text": "कनाडा",
+   "rd": "카나다",
+   "ko": "캐나다"
+  },
+  "{city}": {
+   "text": "टोरंटो",
+   "rd": "토론토",
+   "ko": "토론토"
+  },
+  "{lang}": {
+   "text": "अंग्रेज़ी",
+   "rd": "앙그레지",
+   "ko": "영어"
+  }
+ }
+}
