@@ -44,67 +44,67 @@
  },
  "emotions": {
   "neutral": {
-   "instruct": "calm and natural, everyday tone",
+   "instruct": "calm and natural, everyday tone, natural conversational pace, subtle",
    "ref": "आज दोपहर में मीटिंग है, इसलिए मैं काग़ज़ पहले से तैयार कर रहा हूँ।"
   },
   "polite": {
-   "instruct": "polite and professional, like a clerk or station staff",
+   "instruct": "polite and professional, like a clerk or station staff, natural conversational pace, subtle",
    "ref": "नमस्ते जी, आपका ऑर्डर तैयार है। कृपया यहाँ बैठिए।"
   },
   "stiff": {
-   "instruct": "very nervous and stiff, formal and overly polite",
+   "instruct": "very nervous and stiff, formal and overly polite, natural conversational pace, subtle",
    "ref": "आपने समय दिया, उसके लिए बहुत धन्यवाद। मैं पूरी कोशिश करूँगा।"
   },
   "cheerful": {
-   "instruct": "cheerful, bright and friendly",
+   "instruct": "cheerful, bright and friendly, natural conversational pace, subtle",
    "ref": "अरे, आ गए तुम! आज मौसम भी अच्छा है, मज़ा आ गया।"
   },
   "amused": {
-   "instruct": "amused, laughing warmly, relaxed",
+   "instruct": "amused, laughing warmly, relaxed, natural conversational pace, subtle",
    "ref": "हा हा, यार, ये तो बहुत मज़ेदार है। बस ऐसे ही चलने दो।"
   },
   "teasing": {
-   "instruct": "teasing, playful and mischievous",
+   "instruct": "teasing, playful and mischievous, natural conversational pace, subtle",
    "ref": "अच्छा जी, ये चेहरा क्यों बना रखा है? सच बताओ, किसी को नहीं बोलूँगी।"
   },
   "excited": {
-   "instruct": "excited, bursting with energy, bright and loud",
+   "instruct": "excited, bursting with energy, bright and loud, natural conversational pace, subtle",
    "ref": "हो गया, हो गया! मुझे ख़ुद यक़ीन नहीं हो रहा! सच में!"
   },
   "surprised": {
-   "instruct": "surprised, caught off guard, voice jumps",
+   "instruct": "surprised, caught off guard, voice jumps, natural conversational pace, subtle",
    "ref": "क्या? सच में? अरे रुको, ये क्या बोल रहे हो?"
   },
   "shout": {
-   "instruct": "shouting loudly, angry or urgent",
-   "ref": "अरे रुको! वहाँ मत जाओ! सुन रहे हो या नहीं?"
+   "instruct": "raised voice, comic disbelief, not screaming, natural conversational pace, subtle",
+   "ref": "क्या? अभी? अरे, अब मैं क्या करूँ?"
   },
   "tsukkomi": {
-   "instruct": "quick comic retort, exasperated but friendly",
+   "instruct": "quick comic retort, exasperated but friendly, natural conversational pace, subtle",
    "ref": "अरे यार, ये क्या बात हुई? ऐसा कौन करता है!"
   },
   "annoyed": {
-   "instruct": "annoyed and irritated, sighing",
+   "instruct": "annoyed and irritated, sighing, natural conversational pace, subtle",
    "ref": "बस करो यार, कितनी बार बोलूँ? मुझे अभी बात नहीं करनी।"
   },
   "sad": {
-   "instruct": "sad and quiet, low energy",
-   "ref": "कोई बात नहीं। शायद मुझे ही नहीं आना चाहिए था।"
+   "instruct": "slightly sad and quiet, natural conversational pace, subtle",
+   "ref": "बस थोड़ा थक गया हूँ। कोई ख़ास बात नहीं।"
   },
   "worried": {
-   "instruct": "worried and anxious, unsure",
-   "ref": "अब क्या होगा? फ़ोन भी नहीं उठा रहा, मुझे डर लग रहा है।"
+   "instruct": "a little worried, unsure, natural conversational pace, subtle",
+   "ref": "पता नहीं क्या होगा। फ़ोन भी नहीं उठा रहा।"
   },
   "flustered": {
-   "instruct": "flustered and panicking, words tumbling out",
-   "ref": "नहीं नहीं, मेरा वो मतलब नहीं था! मैं तो बस… रुको, समझाता हूँ।"
+   "instruct": "a little flustered, hurrying to explain, natural conversational pace, subtle",
+   "ref": "नहीं नहीं, मेरा मतलब वो नहीं था। रुको, समझाता हूँ।"
   },
   "shy": {
-   "instruct": "shy and soft, almost whispering, hesitant",
+   "instruct": "shy and soft, almost whispering, hesitant, natural conversational pace, subtle",
    "ref": "वो… मुझे लगा… तुम भी आओगे तो अच्छा लगेगा।"
   },
   "gentle": {
-   "instruct": "gentle, warm and tender",
+   "instruct": "gentle, warm and tender, natural conversational pace, subtle",
    "ref": "कोई बात नहीं, मैं यहीं हूँ। आराम से बताओ।"
   }
  },
@@ -136,5 +136,6 @@
    "rd": "앙그레지",
    "ko": "영어"
   }
- }
+ },
+ "rate": 10.5
 }

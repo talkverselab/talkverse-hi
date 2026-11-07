@@ -56,15 +56,19 @@ def build(ep):
     return P, None
 
 
-def main():
-    ids = sys.argv[1:] or sorted(L.EP)
+def sync(ids=None):
     ok = 0; skip = []
-    for ep in ids:
+    for ep in ids or sorted(L.EP):
         P, e = build(ep)
         if not P:
             skip.append(f'{ep}: {e}'); continue
         json.dump(P, open(f'{L.R}/data/tts/plan/{ep}.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
         ok += 1
+    return ok, skip
+
+
+def main():
+    ok, skip = sync(sys.argv[1:])
     print('계획', ok, '건너뜀', len(skip))
     if sys.argv[1:]:
         print(*skip, sep='\n')

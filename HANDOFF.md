@@ -7,6 +7,12 @@
 - 앱은 아직 `L1.json` 만 읽는다(pubspec 은 `assets/data/dialogues/` 바로 아래만 묶는다). 리뷰 통과 뒤 `DialogueService` 를 R 구조로 바꾸고 pubspec 에 폴더를 넣고 `tools/add_lemmas.py` 를 새 칸(`tl`)에 맞춘다.
 - 여성 학습자판은 턴의 `tl_f`·`rd_f`·`ko_f`(255턴), 사랑 편의 여성판 상대는 `speakers_f`(아르준). 다음은 Grok(11-10 까지 주간 한도)·음성(uk 순서)·리뷰 페이지.
 
+## 음성 시험(2026-11-08)
+
+- 예시 3편(`r1_survival_s1`·`r1_friends_a1`·`r1_love_a1`)을 MOSS 로 생성해 R2 에 올렸다. D1 에는 넣지 않았다(사용자가 듣고 판단한 뒤). 도구 `tools/tts/`(터키어앱판 이식), 작업 폴더 `~/tts_work/hi`, 말 속도 기준 10.5 글자/초, whisper 는 `~/tts_work/it/venv`.
+- 받아쓰기 44조각 중 31 합격, 13 미달. 미달 대부분은 숫자 표기(दो सौ → 200)·철자 차이라 측정 쪽이고, 실제로 들어 볼 것은 `r1_love_a1` 턴2 चाय(चाहिए 로 들림), af 음량이 낮은 조각(-20dB)이다. 전편 전에 `qa.py` 에 숫자 표기 맞춤을 넣을 것.
+- 감정 계획은 `tools/tts/make_plan.py`(회화의 `emotion`·`segs`). 나머지 147편은 Grok 재작성 때 감정 칸을 채운다.
+
 ## 2026-11-07 단어·메뉴 개편(일본어앱 `docs/MENU_WORDS_2026-11-07.md` §1·3~6, §2 는 해당 없음)
 
 - 앱을 고치면 Zealot·TestFlight 를 항상 함께 올린다(사용자 지시).

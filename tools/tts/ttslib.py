@@ -55,5 +55,10 @@ def seg_files(ep):
     return out
 
 
+def job(ep, name, voice, emo, text, out=None):
+    """조각 하나의 PC 작업(MOSS)."""
+    return {'out': out or f'hi/{ep}/{name}', 'text': text, 'language': 'Hindi', 'reference': f'out/ref_hi/{voice}_{emo}.wav'}
+
+
 def planned():
     return sorted(os.path.basename(p)[:-5] for p in glob.glob(f'{R}/data/tts/plan/*.json') if os.path.basename(p)[:-5] in EP)
