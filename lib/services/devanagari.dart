@@ -42,6 +42,12 @@ class Devanagari {
 
   static bool isDevanagari(String s) => RegExp(r'[ऀ-ॿ]').hasMatch(s);
 
+  /// 단어장 표기로 맞춤 — 누크타 제거, 찬드라빈두 → 아누스바라(빈도표·단어 DB 와 같은 규칙).
+  static String normalize(String s) {
+    const pre = {'\u0958': 'क', '\u0959': 'ख', '\u095A': 'ग', '\u095B': 'ज', '\u095C': 'ड', '\u095D': 'ढ', '\u095E': 'फ', '\u095F': 'य'};
+    return s.split('').map((c) => pre[c] ?? c).join().replaceAll('\u093C', '').replaceAll('\u0901', '\u0902');
+  }
+
   /// 단어를 글자 칸으로 나눈다. 예: हूँ → [ह 자음 ㅎ][◌ू 긴 우][◌ँ 비음 ㅇ], नमस्ते → [न][म][स्त 결합][◌े].
   static List<Glyph> split(String word) {
     final cps = word.runes.map(String.fromCharCode).toList();

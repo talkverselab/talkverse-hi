@@ -58,7 +58,7 @@ void main() {
     await shot(t, '04_reader');
 
     // 글자 풀이(UX 시안 01) — 캡션의 낱말을 누른다. 세로 아이패드 오른쪽 칸은 좁아 아래 시트로 뜬다
-    await t.tap(find.text('हूँ').first);
+    await t.longPress(find.text('हूँ').first);
     await wait(t, 1200);
     await shot(t, '04b_glyph_sheet');
     await t.tap(find.byIcon(Icons.close).last);
@@ -84,5 +84,21 @@ void main() {
     await t.tap(rail('프로필'));
     await wait(t, 1500);
     await shot(t, '09_profile');
+
+    // 절벽 단어(20어 단원·타일)·앱 소개 — 2026-11-07
+    await t.tap(rail('홈'));
+    await wait(t, 800);
+    await t.scrollUntilVisible(find.text('절벽 단어'), 200, scrollable: find.byType(Scrollable).first);
+    await t.tap(find.text('절벽 단어').first);
+    await wait(t, 2000);
+    await shot(t, '10_cliff_words');
+    await t.tap(find.textContaining('회화 단어 포함'));
+    await wait(t, 800);
+    await t.tap(find.textContaining('R5 ·'));
+    await wait(t, 1200);
+    await shot(t, '11_cliff_r5');
+    await t.tap(find.descendant(of: find.byType(NavigationRail), matching: find.text('앱 소개')));
+    await wait(t, 1500);
+    await shot(t, '12_about');
   });
 }

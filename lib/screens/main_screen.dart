@@ -5,6 +5,7 @@ import '../core/platform.dart';
 import '../core/theme.dart';
 import '../main.dart';
 import '../widgets/spanish_decor.dart';
+import 'about_screen.dart';
 import 'chunk_search_screen.dart';
 import 'conversation_screen.dart';
 import 'dialogue_screen.dart';
@@ -88,6 +89,27 @@ class _MainScreenState extends State<MainScreen> {
                     for (final t in tabs)
                       NavigationRailDestination(icon: t.icon, selectedIcon: t.selectedIcon, label: Text(t.label)),
                   ],
+                  // 맨 아래 「앱 소개」 — 절벽구간 설명(사용자 지시 2026-11-07)
+                  trailing: Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: InkWell(
+                          onTap: () => openPane(context, (_) => const AboutScreen()),
+                          borderRadius: BorderRadius.circular(8),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                            child: Column(mainAxisSize: MainAxisSize.min, children: [
+                              const Icon(Icons.info_outline, color: AppColors.muted, size: 22),
+                              const SizedBox(height: 4),
+                              Text(tr('앱 소개'), style: const TextStyle(color: AppColors.muted, fontSize: 11, fontWeight: FontWeight.w600)),
+                            ]),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
                 const VerticalDivider(width: 1, thickness: 1, color: AppColors.line),
                 SizedBox(width: left, child: stack),
@@ -365,7 +387,7 @@ class _TodayMissionState extends State<_TodayMission> {
 }
 
 class _MenuGrid extends StatelessWidget {
-  // UX 시안 01(2026-11-03 통과): 메뉴 12개를 묶음 3개로. 준비중(성·수·발음)은 타일 대신 묶음 끝 한 줄,
+  // UX 시안 01(2026-11-03 통과): 메뉴를 묶음 3개로 — 순서 문법 → 회화 → 단어(2026-11-07, 일본어앱과 같은 순서). 준비중(성·수·발음)은 타일 대신 묶음 끝 한 줄,
   // 데이터가 아직 빈 메뉴(동사 활용·표현·빈도 단어)는 타일에 「준비 중」 꼬리표.
   @override
   Widget build(BuildContext context) {
@@ -374,7 +396,7 @@ class _MenuGrid extends StatelessWidget {
         builder: (_) => const DialogueHomeScreen()),
       _MenuItem(label: tr('문장 카드'), sub: 'वाक्य', badge: 'S', color: AppColors.tinta,
         builder: (_) => const SentenceFlashcardScreen()),
-      _MenuItem(label: tr('말하기'), sub: 'बोलना', badge: '🎙', color: AppColors.rojo,
+      _MenuItem(label: tr('문장 말하기'), sub: tr('한글 보고 힌디어로'), badge: '🎙', color: AppColors.rojo,
         builder: (_) => const SpeakingPracticeScreen()),
     ];
     final grammar = <_MenuItem>[
@@ -386,7 +408,7 @@ class _MenuGrid extends StatelessWidget {
         builder: (_) => const ChunkSearchScreen()),
     ];
     final words = <_MenuItem>[
-      _MenuItem(label: tr('빈도 단어'), sub: 'Āvṛtti', badge: 'F', color: AppColors.lusa,
+      _MenuItem(label: tr('절벽 단어'), sub: 'R1~R5', badge: 'F', color: AppColors.lusa,
         builder: (_) => const WordFreqScreen()),
       _MenuItem(label: tr('단어'), sub: 'Śabd', badge: 'W', color: AppColors.oliva,
         builder: (_) => const TopicVocabScreen()),
@@ -416,14 +438,14 @@ class _MenuGrid extends StatelessWidget {
         );
 
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      title(tr('회화')),
-      grid(talk),
       title(tr('문법·글자')),
       grid(grammar),
       Padding(
         padding: const EdgeInsets.fromLTRB(2, 10, 2, 0),
         child: Text(tr('곧 열려요 · 성·수 · 발음'), style: const TextStyle(fontSize: 12, color: AppColors.gualdaDeep)),
       ),
+      title(tr('회화')),
+      grid(talk),
       title(tr('단어')),
       grid(words),
     ]);

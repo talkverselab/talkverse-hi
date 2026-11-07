@@ -11,9 +11,11 @@ import '../services/achievement_service.dart';
 import '../services/art_service.dart';
 import '../services/devanagari.dart';
 import '../services/dialogue_service.dart';
+import '../services/ko_reading.dart';
 import '../services/learner_prefs.dart';
 import '../services/content_sync.dart';
 import '../services/tts_service.dart';
+import '../data/db/app_database.dart';
 import 'learner_setup_dialog.dart';
 import 'lemma_chips.dart';
 import 'achievement_desk.dart';
@@ -39,7 +41,7 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
   bool _playing = false;
   double _rate = 1.0; // 0.75 / 1.0 / 1.25
   bool _showGloss = false;
-  bool _showRd = true;
+  bool get _showRd => KoReadingPrefs.show.value; // 전역 설정(기본 미표시)
   bool _showKo = true;
   int _session = 0; // 재생 루프 세대(중단 판별)
   bool _done = false; // 완주 연출 표시
@@ -50,9 +52,12 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
   Dialogue get d => widget.dialogue;
   DialogueTurn get turn => d.turns[_i];
 
+  void _onRd() { if (mounted) setState(() {}); }
+
   @override
   void initState() {
     super.initState();
+    KoReadingPrefs.show.addListener(_onRd);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!mounted) return;
       // 대사에 {name} 자리가 있는데 이름이 없으면 먼저 묻는다(앱 켠 뒤 한 번 — 일본어앱 2026-11-04)
@@ -64,6 +69,7 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
 
   @override
   void dispose() {
+    KoReadingPrefs.show.removeListener(_onRd);
     _session++;
     TtsService.instance.stop();
     super.dispose();
@@ -130,12 +136,7 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
       setState(() => _word = _word == w ? null : w);
       return;
     }
-    showModalBottomSheet(
-      context: context,
-      showDragHandle: true,
-      backgroundColor: AppColors.washi,
-      builder: (c) => SafeArea(top: false, child: GlyphSheet(word: w, note: turn.note, onClose: () => Navigator.pop(c))),
-    );
+    showGlyphSheet(context, w, turn.note);
   }
 
   String _gender(String sp) => d.voiceGender(sp); // 지금 회화는 화자 성별이 데이터에 정해져 있다(A Minjun 남 · B Priya 여)
@@ -168,7 +169,7 @@ class _EpisodePlayPaneState extends State<EpisodePlayPane> {
       onSeek: (v) => _goto(v),
       onRate: () => setState(() => _rate = _rate >= 1.25 ? 0.75 : (_rate + 0.25)),
       onGloss: () => setState(() => _showGloss = !_showGloss),
-      onRd: () => setState(() => _showRd = !_showRd),
+      onRd: () => KoReadingToggleAction.toggle(context),
       onKo: () => setState(() => _showKo = !_showKo),
     );
     return LayoutBuilder(builder: (context, c) {
@@ -270,9 +271,7 @@ class _Script extends StatelessWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        on
-                            ? TapWords(text: LearnerPrefs.fill(t.tl), style: const TextStyle(fontSize: 16.5, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.5), onWord: onWord)
-                            : Text(LearnerPrefs.fill(t.tl), style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.5)),
+                        TapWords(text: LearnerPrefs.fill(t.tl), lemmas: t.lemmas, style: TextStyle(fontSize: on ? 16.5 : 15, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.5), onWord: onWord),
                         if (showGloss && t.gloss.isNotEmpty && t.gloss != t.tl) Text(t.gloss, style: const TextStyle(fontSize: 11, color: AppColors.ai, fontWeight: FontWeight.w600)),
                         if (showRd && t.rd.isNotEmpty) Text(LearnerPrefs.fill(t.rd, ko: true), style: const TextStyle(fontSize: 11.5, color: AppColors.muted)),
                         if (showKo) Text(LearnerPrefs.fill(t.ko, ko: true), style: const TextStyle(fontSize: 12.5, color: AppColors.sumiLight, height: 1.35)),
@@ -368,7 +367,7 @@ class _Caption extends StatelessWidget {
         child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              TapWords(text: LearnerPrefs.fill(turn.tl), style: TextStyle(fontSize: wide ? 20 : 17, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.5), onWord: onWord),
+              TapWords(text: LearnerPrefs.fill(turn.tl), lemmas: turn.lemmas, style: TextStyle(fontSize: wide ? 20 : 17, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.5), onWord: onWord),
               if (showGloss && turn.gloss.isNotEmpty && turn.gloss != turn.tl) Text(turn.gloss, style: const TextStyle(fontSize: 12, color: AppColors.ai, fontWeight: FontWeight.w600)),
               if (showRd && turn.rd.isNotEmpty) Text(LearnerPrefs.fill(turn.rd, ko: true), style: const TextStyle(fontSize: 12.5, color: AppColors.muted)),
               if (showKo) Padding(padding: const EdgeInsets.only(top: 2), child: Text(LearnerPrefs.fill(turn.ko, ko: true), style: const TextStyle(fontSize: 13.5, color: AppColors.sumiLight, height: 1.35))),
@@ -603,21 +602,74 @@ class _SceneCard extends StatelessWidget {
 }
 
 
-/// 문장을 낱말 단위로 누를 수 있게 — 누르면 글자 풀이(UX 시안 01). 띄어쓰기·문장 부호는 그대로 둔다.
-class TapWords extends StatelessWidget {
+/// 글자 풀이 — 아래에서 올라오는 시트.
+Future<void> showGlyphSheet(BuildContext context, String word, String note) => showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      backgroundColor: AppColors.washi,
+      builder: (c) => SafeArea(top: false, child: GlyphSheet(word: word, note: note, onClose: () => Navigator.pop(c))),
+    );
+
+/// 문장을 낱말 단위로 누를 수 있게(2026-11-07) — **탭하면 단어창**(단어장에 있는 말), 단어장에 없으면 글자 풀이. **길게 누르면 글자 풀이**.
+/// 레마(내용어)는 표면형 → 기본형으로 찾고, 그 밖의 낱말은 표면형 그대로 찾는다. 단어장에 있는 레마는 밑줄. 띄어쓰기·문장 부호는 그대로 둔다.
+class TapWords extends StatefulWidget {
   final String text;
   final TextStyle style;
   final void Function(String) onWord;
-  const TapWords({super.key, required this.text, required this.style, required this.onWord});
+  final List<Lemma> lemmas;
+  const TapWords({super.key, required this.text, required this.style, required this.onWord, this.lemmas = const []});
+
+  @override
+  State<TapWords> createState() => _TapWordsState();
+}
+
+class _TapWordsState extends State<TapWords> {
+  late List<String> _parts;
+  late Map<String, String> _base; // 표면형 → 기본형(레마)
+  Map<String, WordRow> _found = const {};
+
+  static final _word = RegExp(r'^[\p{L}\p{M}\p{N}]+$', unicode: true);
+  bool _tappable(String p) => _word.hasMatch(p) && Devanagari.isDevanagari(p);
+  String _key(String p) => _base[p] ?? Devanagari.normalize(p);
+
+  @override
+  void initState() {
+    super.initState();
+    _prepare();
+  }
+
+  @override
+  void didUpdateWidget(TapWords old) {
+    super.didUpdateWidget(old);
+    if (old.text != widget.text || old.lemmas != widget.lemmas) _prepare();
+  }
+
+  void _prepare() {
+    _parts = RegExp(r'[\p{L}\p{M}\p{N}]+|[^\p{L}\p{M}\p{N}]+', unicode: true).allMatches(widget.text).map((m) => m[0]!).toList();
+    _base = {for (final l in widget.lemmas) l.surface: l.base};
+    final text = widget.text;
+    wordsByLemmas(_parts.where(_tappable).map(_key)).then((f) {
+      if (mounted && text == widget.text) setState(() => _found = f);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    final parts = RegExp(r'[\p{L}\p{M}\p{N}]+|[^\p{L}\p{M}\p{N}]+', unicode: true).allMatches(text).map((m) => m[0]!).toList();
+    final lemmaStyle = widget.style.copyWith(decoration: TextDecoration.underline, decorationColor: AppColors.ai.withValues(alpha: 0.5));
     return Wrap(children: [
-      for (final p in parts)
-        RegExp(r'^[\p{L}\p{M}\p{N}]+$', unicode: true).hasMatch(p) && Devanagari.isDevanagari(p)
-            ? GestureDetector(behavior: HitTestBehavior.opaque, onTap: () => onWord(p), child: Text(p, style: style))
-            : Text(p, style: style),
+      for (final p in _parts)
+        if (_tappable(p))
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              final w = _found[_key(p)];
+              w != null ? showWordSheet(context, w) : widget.onWord(p);
+            },
+            onLongPress: () => widget.onWord(p),
+            child: Text(p, style: _base.containsKey(p) && _found.containsKey(_key(p)) ? lemmaStyle : widget.style),
+          )
+        else
+          Text(p, style: widget.style),
     ]);
   }
 }

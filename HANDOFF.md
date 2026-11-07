@@ -1,11 +1,19 @@
-# HANDOFF — talkverse-hi (힌디어유니버스) · 2026-11-03
+# HANDOFF — talkverse-hi (힌디어유니버스) · 2026-11-07
+
+## 2026-11-07 단어·메뉴 개편(일본어앱 `docs/MENU_WORDS_2026-11-07.md` §1·3~6, §2 는 해당 없음)
+
+- 앱을 고치면 Zealot·TestFlight 를 항상 함께 올린다(사용자 지시).
+- **iOS 는 이 개편분이 아직 안 올라갔다.** Xcode 27.2 와 CoreSimulator 불일치로 허브가 iOS 작업을 멈춰 둠(`~/logs/rc/RELAY_xcode_20261107.md`). CoreSimulator 1174.21 이상이 되면 `bash tools/ios_release.sh`. 시뮬레이터 화면 확인(`integration_test`, 12장)도 그때 — 지금은 `test/menu_words_test.dart`(기기 없는 위젯 시험)만 통과.
+- 단어장: 2,000위까지 확장(1,909행 = 2,000위 안 1,902 + 회화 단어 7, DB 번호 5). 말뭉치를 다시 세어 경계·기존 순위가 그대로임을 확인(R1 28·R2 39·R3 84·R4 226, 2,000위 누적 94.6%). 1,566~2,000위의 뜻·독음은 이 세션이 쓴 초안이고 `picturable` 은 전부 N — 검수 전. 그림 저장소 `hi.csv` 는 그대로(1,511).
+- 「앱 업데이트」 타일 제거 → 폰 업데이트는 Zealot 으로. CLAUDE.md §2 의 앱 안 업데이트 설명은 아직 옛 내용이고, `update_screen.dart` 코드는 남아 있다.
+- 일본어앱의 「학습 기록 초기화」·프로필 안 성과 칸은 힌디어앱에 없던 것이라 넣지 않았다(성과는 「진행」 탭). 단어 검색칸은 일본어앱과 같이 없앴다.
 
 ## 상태
 
 | 항목 | 상태 |
 |---|---|
 | Android | CI 빌드 9(`c5b76d8`) · Zealot https://apps.talkverse.uk/Bt9EU/204 · PC 백업 `D:\OneDrive\app project\talkverse-hi\` |
-| iOS | TestFlight 빌드 `2611030039` 업로드 성공(번들 `com.talkverse.hindiUniverse`) · IPA 백업 `D:\OneDrive\app project\hindi_universe\ios\` |
+| iOS | TestFlight 빌드 `2611071621`(11-07, 커밋 `71475f0` — 단어·메뉴 개편 전) 업로드 성공(번들 `com.talkverse.hindiUniverse`) · IPA 백업 `D:\OneDrive\app project\hindi_universe\ios\` |
 | 서명 | `android/app/signing-key.jks` = 폰과 같은 키 SHA-1 `9C:C4:…:47:6B`. Doppler `SIGNKEY_*` + PC `D:\backup\signing_keys\talkverse-hi\` 에 백업. M6 `~/.android/debug.keystore` 는 **다른 키** — CLAUDE.md §1 의 `cp` 금지 |
 | 캐릭터 | 2026-11-03 사용자 통과 — `data/review/art/chars_hi_v1.jpg`, 특징 `data/review/uxui/CHARACTERS.md`(프리야·아난야·로한·아르준·학습자 남/여) |
 | UX/UI | 2026-11-03 사용자 통과 — 글 `data/review/uxui/sian_hi_01.md`, 그림 `sian_hi_01.jpg`(적용 전 태그 `pre-grok-uxui`) |

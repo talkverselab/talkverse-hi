@@ -1499,14 +1499,412 @@ rank,word,reading,ko,en,pos,level,picturable
 1563,दिशा,디샤,방향,direction,noun,R5,N
 1564,वर्तमान,와르타만,현재의,present,adj,R5,N
 1565,सम्मानित,삼마니트,존경받는,honored,adj,R5,N
+1566,पट्टी,팟티,띠·붕대,strip,noun,R5,N
+1567,समाधान,사마단,해결책,solution,noun,R5,N
+1568,हीरो,히로,영웅·주인공,hero,noun,R5,N
+1569,हालात,할라트,상황,circumstances,noun,R5,N
+1570,पदार्थ,파다르트,물질,substance,noun,R5,N
+1571,राख,라크,재,ash,noun,R5,N
+1572,ऑपरेशन,오퍼레이션,수술·작전,operation,noun,R5,N
+1573,मोबाइल,모바일,휴대폰,mobile phone,noun,R5,N
+1574,संसाधन,산사단,자원,resource,noun,R5,N
+1575,दैनिक,대니크,매일의,daily,adj,R5,N
+1576,साधन,사단,수단,means,noun,R5,N
+1577,निगरानी,니그라니,감시,surveillance,noun,R5,N
+1578,गिरफ्तारी,기르프타리,체포,arrest,noun,R5,N
+1579,रेगिस्तान,레기스탄,사막,desert,noun,R5,N
+1581,मोर्चा,모르차,전선,front,noun,R5,N
+1582,ईमानदार,이만다르,정직한,honest,adj,R5,N
+1583,सबकुछ,삽쿠치,모든 것,everything,pron,R5,N
+1584,चावल,차왈,쌀,rice,noun,R5,N
+1586,गांव,가온,마을,village,noun,R5,N
+1587,पर्वत,파르와트,산,mountain,noun,R5,N
+1588,मुसलमान,무살만,무슬림,Muslim,noun,R5,N
+1589,मुस्लिम,무슬림,무슬림의,Muslim,adj,R5,N
+1590,बलिदान,발리단,희생,sacrifice,noun,R5,N
+1591,शाप,샵,저주,curse,noun,R5,N
+1592,पारा,파라,수은,mercury,noun,R5,N
+1593,कठोर,카토르,엄격한,harsh,adj,R5,N
+1594,झुकना,주크나,숙이다,to bend,verb,R5,N
+1595,नोट,노트,지폐·메모,note,noun,R5,N
+1596,नाक,나크,코,nose,noun,R5,N
+1597,सूचित,수치트,알려진,informed,adj,R5,N
+1598,लांच,란치,출시,launch,noun,R5,N
+1599,बोझ,보즈,짐,burden,noun,R5,N
+1600,बोर्ड,보르드,판·위원회,board,noun,R5,N
+1601,अतीत,아티트,과거,past,noun,R5,N
+1603,तभी,타비,바로 그때,just then,adv,R5,N
+1604,बीवी,비위,아내,wife,noun,R5,N
+1605,पेय,페이,음료,drink,noun,R5,N
+1606,सिद्धान्त,싯단트,원리,principle,noun,R5,N
+1607,कक्ष,카크슈,방,chamber,noun,R5,N
+1608,अन्दर,안다르,안에,inside,adv,R5,N
+1611,अस्पष्ट,아스파슈트,불분명한,unclear,adj,R5,N
+1612,मक्खी,마키,파리,fly,noun,R5,N
+1613,इरादा,이라다,의도,intention,noun,R5,N
+1614,सींग,싱그,뿔,horn,noun,R5,N
+1615,फिट,피트,맞는·건강한,fit,adj,R5,N
+1616,चाहिये,차히예,~해야 한다,should,verb,R5,N
+1617,बचत,바차트,저축,saving,noun,R5,N
+1618,सिस्टम,시스템,시스템,system,noun,R5,N
+1619,गंभीरता,감비르타,심각함,seriousness,noun,R5,N
+1620,आभारी,아바리,고마워하는,grateful,adj,R5,N
+1621,विफल,위팔,실패한,failed,adj,R5,N
+1622,विभाजित,위바지트,나뉜,divided,adj,R5,N
+1623,दर्शक,다르샤크,관객,audience,noun,R5,N
+1624,संगठन,상가탄,조직,organization,noun,R5,N
+1625,चूसना,추스나,빨다,to suck,verb,R5,N
+1626,लागू,라구,적용되는,applicable,adj,R5,N
+1627,सफाई,사파이,청소,cleaning,noun,R5,N
+1628,अभिनय,아비나이,연기,acting,noun,R5,N
+1629,बलात्कार,발라트카르,성폭행,rape,noun,R5,N
+1630,दूध,두드,우유,milk,n,R5,Y
+1631,सुविधा,수위다,편의,facility,noun,R5,N
+1632,लोड,로드,짐·적재,load,noun,R5,N
+1633,हरा,하라,초록색의,green,adj,R5,N
+1634,पाप,팝,죄,sin,noun,R5,N
+1635,खिलाना,킬라나,먹여 주다,to feed,v,R5,Y
+1636,जोडी,조리,한 쌍,pair,noun,R5,N
+1637,हिसाब,히사브,계산,account,noun,R5,N
+1638,निर्दोष,니르도슈,무죄의,innocent,adj,R5,N
+1639,आजाद,아자드,자유로운,free,adj,R5,N
+1641,दफा,다파,번·회,time,noun,R5,N
+1642,पशु,파슈,짐승,animal,noun,R5,N
+1643,कागजात,카그자트,서류,documents,noun,R5,N
+1644,पौधा,포다,식물,plant,noun,R5,N
+1645,मीठा,미타,달콤한,sweet,adj,R5,N
+1646,दलाल,달랄,중개인,broker,noun,R5,N
+1647,ऑनलाइन,온라인,온라인,online,adj,R5,N
+1648,फ्लाइट,플라이트,항공편,flight,noun,R5,N
+1649,प्रधान,프라단,우두머리,chief,noun,R5,N
+1650,बाघ,바그,호랑이,tiger,noun,R5,N
+1651,शासन,샤산,통치,rule,noun,R5,N
+1652,अवैध,아왜드,불법의,illegal,adj,R5,N
+1653,सौभाग्य,소바갸,행운,good fortune,noun,R5,N
+1654,फ्लैट,플래트,아파트,flat,noun,R5,N
+1655,अनुसंधान,아누산단,연구,research,noun,R5,N
+1656,शर्ट,셔트,셔츠,shirt,noun,R5,N
+1657,हास्यास्पद,하스야스파드,우스꽝스러운,ridiculous,adj,R5,N
+1658,परीक्षा,파릭샤,시험,exam,noun,R5,N
+1659,आयोजित,아요지트,개최된,organized,adj,R5,N
+1660,छुटकारा,추트카라,벗어남,riddance,noun,R5,N
+1661,निपटना,니파트나,처리하다,to deal with,verb,R5,N
+1662,संकट,상카트,위기,crisis,noun,R5,N
+1663,प्रबंधन,프라반단,관리,management,noun,R5,N
+1664,समाचार,사마차르,뉴스,news,noun,R5,N
+1665,कारोबार,카로바르,사업,business,noun,R5,N
+1666,देशी,데시,국산의,native,adj,R5,N
+1667,केंद्रित,켄드리트,집중된,focused,adj,R5,N
+1668,सिवाय,시와이,~외에,except,postp,R5,N
+1669,डिग्री,디그리,학위·도,degree,noun,R5,N
+1670,सदी,사디,세기,century,noun,R5,N
+1671,टेकना,테크나,기대다,to lean,verb,R5,N
+1672,रोमांटिक,로만티크,낭만적인,romantic,adj,R5,N
+1673,लहर,라하르,파도,wave,noun,R5,N
+1674,बुद्धिमान,붓디만,똑똑한,wise,adj,R5,N
+1675,बूंद,분드,방울,drop,noun,R5,N
+1676,रस्सी,라시,밧줄,rope,noun,R5,N
+1677,भूल,불,실수,mistake,noun,R5,N
+1678,सीक्रेट,시크레트,비밀,secret,noun,R5,N
+1679,चीनी,치니,설탕·중국의,sugar,noun,R5,N
+1680,ताला,탈라,자물쇠,lock,noun,R5,N
+1682,स्ट्राइकर,스트라이카르,공격수,striker,noun,R5,N
+1683,इशारा,이샤라,신호·몸짓,gesture,noun,R5,N
+1684,अटकना,아타크나,걸리다,to get stuck,verb,R5,N
+1685,पिटाई,피타이,구타,beating,noun,R5,N
+1686,पेंटिंग,펜팅,그림,painting,noun,R5,N
+1687,सिफारिश,시파리슈,추천,recommendation,noun,R5,N
+1688,जुनून,주눈,열정,passion,noun,R5,N
+1689,झगडा,자그라,싸움,fight,noun,R5,N
+1690,माल,말,물건,goods,noun,R5,N
+1691,मीटिंग,미팅,회의,meeting,noun,R5,N
+1692,चमक,차마크,빛남,shine,noun,R5,N
+1693,हिलाना,힐라나,흔들다,to shake,verb,R5,N
+1694,चुनौती,추노티,도전,challenge,noun,R5,N
+1695,खतम,카탐,끝난,finished,adj,R5,N
+1698,एयरपोर्ट,에야르포르트,공항,airport,noun,R5,N
+1699,मजदूर,마즈두르,노동자,laborer,noun,R5,N
+1700,लैवेंडर,래웬다르,라벤더,lavender,noun,R5,N
+1702,रस,라스,즙,juice,noun,R5,N
+1703,आलू,알루,감자,potato,noun,R5,N
+1704,उबाऊ,우바우,지루한,boring,adj,R5,N
+1705,त्वरित,트와리트,신속한,quick,adj,R5,N
+1706,दशक,다샤크,10년,decade,noun,R5,N
+1707,खिलना,킬나,피다,to bloom,verb,R5,N
+1708,ओके,오케,좋아,OK,intj,R5,N
+1709,बीज,비즈,씨앗,seed,noun,R5,N
+1710,स्विच,스위치,스위치,switch,noun,R5,N
+1711,सत्य,사티야,진실,truth,noun,R5,N
+1712,क्रोध,크로드,분노,anger,noun,R5,N
+1713,अहम,아함,중요한,important,adj,R5,N
+1714,चीयर्स,치야르스,건배,cheers,intj,R5,N
+1717,मूड,무드,기분,mood,noun,R5,N
+1718,वाहन,와한,차량,vehicle,noun,R5,N
+1719,ढीला,딜라,헐거운,loose,adj,R5,N
+1720,भटकना,바타크나,헤매다,to wander,verb,R5,N
+1721,व्यक्त,위약트,표현된,expressed,adj,R5,N
+1722,टन,탄,톤,ton,noun,R5,N
+1723,तत्काल,타트칼,즉시,immediately,adv,R5,N
+1724,राय,라이,의견,opinion,noun,R5,N
+1725,पढाना,파라나,가르치다,to teach,verb,R5,N
+1726,हंस,한스,백조,swan,noun,R5,N
+1727,जादुई,자두이,마법의,magical,adj,R5,N
+1728,पोशाक,포샤크,옷,costume,noun,R5,N
+1729,बराबर,바라바르,같은·동등한,equal,adj,R5,N
+1730,ऊंचा,운차,높은,high,adj,R5,N
+1731,चयन,차얀,선택,selection,noun,R5,N
+1732,नकल,나칼,모방,copy,noun,R5,N
+1733,आंदोलन,안돌란,운동·시위,movement,noun,R5,N
+1734,बैकअप,배크아프,백업,backup,noun,R5,N
+1735,जगाना,자가나,깨우다,to wake,verb,R5,N
+1736,बिखरना,비카르나,흩어지다,to scatter,verb,R5,N
+1737,बीतना,비트나,(시간이) 지나다,to pass,verb,R5,N
+1738,दांव,당우,내기,bet,noun,R5,N
+1739,सर्विस,사르위스,서비스,service,noun,R5,N
+1740,बंकर,방카르,벙커,bunker,noun,R5,N
+1741,झंडा,잔다,깃발,flag,noun,R5,N
+1742,कविता,카위타,시,poem,noun,R5,N
+1743,दंगा,당가,폭동,riot,noun,R5,N
+1744,चीखना,치크나,비명 지르다,to scream,verb,R5,N
+1745,पतला,파틀라,얇은,thin,adj,R5,N
+1746,तहखाना,타흐카나,지하실,basement,noun,R5,N
+1747,सिगरेट,시그레트,담배,cigarette,noun,R5,N
+1748,घूरना,구르나,노려보다,to stare,verb,R5,N
+1749,माला,말라,화환,garland,noun,R5,N
+1750,सिंहासन,싱하산,왕좌,throne,noun,R5,N
+1752,खनिक,카니크,광부,miner,noun,R5,N
+1756,प्रथम,프라탐,첫째의,first,adj,R5,N
+1757,फार्म,파름,농장·양식,farm,noun,R5,N
+1758,सर्वश्रेष्ठ,사르와슈레슈트,최고의,best,adj,R5,N
+1759,क्रूर,크루르,잔인한,cruel,adj,R5,N
+1760,निवास,니와스,거주,residence,noun,R5,N
+1761,निदेशक,니데샤크,감독·이사,director,noun,R5,N
+1762,राष्ट्र,라슈트라,국가,nation,noun,R5,N
+1763,समान,사만,같은,same,adj,R5,N
+1764,गली,갈리,골목,alley,noun,R5,N
+1765,चैनल,채날,채널,channel,noun,R5,N
+1766,फ्रेंच,프렌치,프랑스의,French,adj,R5,N
+1767,पोस्टर,포스타르,포스터,poster,noun,R5,N
+1768,लेट,레트,늦은,late,adj,R5,N
+1769,इसीलिए,이실리에,그래서,that is why,adv,R5,N
+1770,रोल,롤,역할,role,noun,R5,N
+1771,डील,딜,거래,deal,noun,R5,N
+1772,भर्ती,바르티,입대·입원,recruitment,noun,R5,N
+1773,दर्जन,다르잔,다스,dozen,noun,R5,N
+1774,स्नातक,스나타크,대졸자,graduate,noun,R5,N
+1775,अति,아티,매우,very,adv,R5,N
+1776,आयोजन,아요잔,행사,event,noun,R5,N
+1777,संघ,상그,연합,union,noun,R5,N
+1778,उत्साही,우트사히,열성적인,enthusiastic,adj,R5,N
+1779,आधिकारिक,아디카리크,공식의,official,adj,R5,N
+1780,शेयर,셰야르,주식,share,noun,R5,N
+1781,दान,단,기부,donation,noun,R5,N
+1782,राहत,라하트,안도·구호,relief,noun,R5,N
+1783,परिस्थिति,파리스티티,상황,circumstance,noun,R5,N
+1784,प्रेरणा,프레르나,영감,inspiration,noun,R5,N
+1785,सेक्स,섹스,성관계,sex,noun,R5,N
+1786,प्रशंसक,프라샹사크,팬,fan,noun,R5,N
+1787,सामग्री,사마그리,재료,material,noun,R5,N
+1788,आपत्ति,아팟티,이의,objection,noun,R5,N
+1789,वापसी,와프시,귀환,return,noun,R5,N
+1790,सिक्का,식카,동전,coin,noun,R5,N
+1791,आक्रमण,아크라만,공격,attack,noun,R5,N
+1792,फुटबॉल,푸트볼,축구,football,noun,R5,N
+1793,प्रजाति,프라자티,종,species,noun,R5,N
+1794,डरावना,다라우나,무서운,scary,adj,R5,N
+1795,चमत्कार,차마트카르,기적,miracle,noun,R5,N
+1796,अंतर,안타르,차이,difference,noun,R5,N
+1797,स्तन,스탄,가슴,breast,noun,R5,N
+1798,सत्ता,사타,권력,power,noun,R5,N
+1799,प्रधानमंत्री,프라단만트리,총리,prime minister,noun,R5,N
+1800,बाड,바르,울타리,fence,noun,R5,N
+1801,कप,카프,컵,cup,noun,R5,N
+1802,मानो,마노,마치,as if,adv,R5,N
+1803,ठहरना,타하르나,머물다,to stay,verb,R5,N
+1804,डाटा,다타,데이터,data,noun,R5,N
+1805,तारीख,타리크,날짜,date,noun,R5,N
+1806,कार्बन,카르반,탄소,carbon,noun,R5,N
+1808,खांसी,칸시,기침,cough,noun,R5,N
+1809,मुख्यमंत्री,무키야만트리,주 총리,chief minister,noun,R5,N
+1810,घुमाना,구마나,돌리다,to turn,verb,R5,N
+1811,पढाई,파라이,공부,study,noun,R5,N
+1812,उद्योग,우됴그,산업,industry,noun,R5,N
+1813,धत,다트,쳇,shoo,intj,R5,N
+1814,मिथक,미타크,신화,myth,noun,R5,N
+1815,चुपचाप,추프차프,조용히,quietly,adv,R5,N
+1817,बांटना,반트나,나누다,to share,verb,R5,N
+1818,कामयाब,캄야브,성공한,successful,adj,R5,N
+1819,बीस,비스,20,twenty,num,R5,N
+1820,बाहरी,바하리,바깥의,outer,adj,R5,N
+1822,शुभकामना,슈브카마나,축원,good wishes,noun,R5,N
+1823,व्यर्थ,위야르트,헛된,futile,adj,R5,N
+1824,उदास,우다스,슬픈,sad,adj,R5,N
+1825,क्रॉस,크로스,십자가,cross,noun,R5,N
+1826,मालकिन,말킨,여주인,mistress,noun,R5,N
+1827,अखबार,아크바르,신문,newspaper,noun,R5,N
+1828,नवजात,나우자트,신생아,newborn,noun,R5,N
+1829,इनहेलर,인헬라르,흡입기,inhaler,noun,R5,N
+1830,हेलिकॉप्टर,헬리콥타르,헬리콥터,helicopter,noun,R5,N
+1831,लागत,라가트,비용,cost,noun,R5,N
+1832,प्रतिबंध,프라티반드,금지,ban,noun,R5,N
+1833,चीफ,치프,우두머리,chief,noun,R5,N
+1834,विशेषज्ञ,위셰샤그야,전문가,expert,noun,R5,N
+1835,बोली,볼리,말씨·입찰,dialect,noun,R5,N
+1837,प्रस्तुत,프라스투트,제시된,presented,adj,R5,N
+1838,बादल,바달,구름,cloud,noun,R5,N
+1839,शिक्षक,식샤크,교사,teacher,noun,R5,N
+1840,मुर्गी,무르기,암탉,hen,noun,R5,N
+1842,चॉकलेट,초콜레트,초콜릿,chocolate,noun,R5,N
+1843,नाइट,나이트,밤·기사,night,noun,R5,N
+1844,अजनबी,아자나비,낯선 사람,stranger,noun,R5,N
+1846,अंक,앙크,숫자·점수,number,noun,R5,N
+1847,रात्रि,라트리,밤(격식),night (formal),n,R5,N
+1850,उत्साहित,우트사히트,신난,excited,adj,R5,N
+1851,स्थल,스탈,장소,site,noun,R5,N
+1852,बाएं,바엔,왼쪽,left,adv,R5,Y
+1853,ब्रेक,브레크,브레이크,break,noun,R5,N
+1854,परिवहन,파리와한,운송,transport,noun,R5,N
+1855,चुपके,추프케,몰래,stealthily,adv,R5,N
+1856,चिपकना,치파크나,달라붙다,to stick,verb,R5,N
+1857,भ्रमित,브라미트,혼란스러운,confused,adj,R5,N
+1858,स्वाभाविक,스와바위크,자연스러운,natural,adj,R5,N
+1859,जुआ,주아,도박,gambling,noun,R5,N
+1860,मिश्रण,미슈란,혼합,mixture,noun,R5,N
+1861,साइन,사인,서명,sign,noun,R5,N
+1862,पंक्ति,판크티,줄,line,noun,R5,N
+1864,सह,사흐,공동,co-,noun,R5,N
+1865,मुकदमा,무카드마,소송,lawsuit,noun,R5,N
+1866,स्नान,스난,목욕,bath,noun,R5,N
+1867,अनुकूल,아누쿨,알맞은,favorable,adj,R5,N
+1868,अज्ञात,아그야트,알려지지 않은,unknown,adj,R5,N
+1869,पत्रिका,파트리카,잡지,magazine,noun,R5,N
+1870,रवाना,라와나,떠나는,departed,adj,R5,N
+1871,समलैंगिक,사말랭기크,동성애의,homosexual,adj,R5,N
+1872,प्रभावी,프라바위,효과적인,effective,adj,R5,N
+1873,कैदी,캐디,죄수,prisoner,noun,R5,N
+1874,भय,바이,두려움,fear,noun,R5,N
+1875,ब्रह्मांड,브라흐만드,우주,universe,noun,R5,N
+1876,दाढी,다리,턱수염,beard,noun,R5,N
+1877,भयभीत,바이비트,겁먹은,frightened,adj,R5,N
+1878,दरार,다라르,틈,crack,noun,R5,N
+1879,रविवार,라위와르,일요일,Sunday,noun,R5,N
+1880,रेखा,레카,선,line,noun,R5,N
+1881,ईंधन,인단,연료,fuel,noun,R5,N
+1882,मैदान,매단,들판·운동장,field,noun,R5,N
+1883,मिटना,미트나,지워지다,to be erased,verb,R5,N
+1884,उत्पादन,우트파단,생산,production,noun,R5,N
+1885,आत्महत्या,아트마하티야,자살,suicide,noun,R5,N
+1886,पीला,필라,노란,yellow,adj,R5,N
+1887,शहद,샤하드,꿀,honey,noun,R5,N
+1888,खारिज,카리즈,기각된,dismissed,adj,R5,N
+1889,खेती,케티,농사,farming,noun,R5,N
+1890,महानगर,마하나가르,대도시,metropolis,noun,R5,N
+1891,हॉल,홀,홀,hall,noun,R5,N
+1893,अंग्रेजी,앙그레지,영어,English,noun,R5,N
+1894,कटना,카트나,잘리다,to be cut,verb,R5,N
+1895,मध्य,마디야,가운데,middle,noun,R5,N
+1896,आयाम,아얌,차원,dimension,noun,R5,N
+1897,खातिर,카티르,~를 위해,for the sake of,postp,R5,N
+1898,कनेक्शन,카넥샨,연결,connection,noun,R5,N
+1899,नमूना,나무나,견본,sample,noun,R5,N
+1900,ताकतवर,타카트와르,강한,powerful,adj,R5,N
+1901,नाग,나그,코브라,cobra,noun,R5,N
+1902,अमरीकी,아마리키,미국의,American,adj,R5,N
+1903,आखरी,아크리,마지막의,last,adj,R5,N
+1904,खाल,칼,가죽,skin,noun,R5,N
+1905,सैकडा,새크라,백,hundred,num,R5,N
+1907,शपथ,샤파트,맹세,oath,noun,R5,N
+1908,राजनीतिक,라즈니티크,정치의,political,adj,R5,N
+1909,कैद,캐드,감금,imprisonment,noun,R5,N
+1910,दूल्हा,둘하,신랑,groom,noun,R5,N
+1911,साडी,사리,사리,sari,noun,R5,N
+1912,भाभी,바비,형수,sister-in-law,noun,R5,N
+1913,सायरन,사이란,사이렌,siren,noun,R5,N
+1915,धंधा,단다,장사,trade,noun,R5,N
+1916,कच्चा,카차,날것의,raw,adj,R5,N
+1917,बिजनेस,비즈네스,사업,business,noun,R5,N
+1919,पेट्रोल,페트롤,휘발유,petrol,noun,R5,N
+1920,विज्ञापन,위그야판,광고,advertisement,noun,R5,N
+1921,व्यापारी,위야파리,상인,merchant,noun,R5,N
+1923,फर्म,파름,회사,firm,noun,R5,N
+1924,रोजी,로지,생계,livelihood,noun,R5,N
+1925,सटीक,사티크,정확한,accurate,adj,R5,N
+1926,रन,란,득점,run,noun,R5,N
+1927,मार्च,마르치,3월,March,noun,R5,N
+1928,पैकेज,패케지,소포,package,noun,R5,N
+1929,कभीकभी,카비카비,가끔,sometimes,adv,R5,N
+1930,बिल्डिंग,빌딩,건물,building,noun,R5,N
+1932,नकद,나카드,현금,cash,noun,R5,N
+1933,नर्स,나르스,간호사,nurse,noun,R5,N
+1934,स्वादिष्ट,스와디슈트,맛있는,delicious,adj,R5,N
+1935,तीस,티스,30,thirty,num,R5,N
+1936,एकजुट,에크주트,단결한,united,adj,R5,N
+1937,खुशबू,쿠슈부,향기,fragrance,noun,R5,N
+1938,धूम्रपान,둠라판,흡연,smoking,noun,R5,N
+1939,जटिल,자틸,복잡한,complex,adj,R5,N
+1940,बुराई,부라이,악,evil,noun,R5,N
+1941,खुदाई,쿠다이,발굴,excavation,noun,R5,N
+1942,गुच्छा,구차,다발,bunch,noun,R5,N
+1943,गहना,가흐나,장신구,jewelry,noun,R5,N
+1944,सूचना,수츠나,정보·공지,information,noun,R5,N
+1945,खिलौना,킬로나,장난감,toy,noun,R5,N
+1946,वेतन,웨탄,월급,salary,noun,R5,N
+1947,वफादार,와파다르,충성스러운,loyal,adj,R5,N
+1948,उपचार,우파차르,치료,treatment,noun,R5,N
+1949,यौन,욘,성적인,sexual,adj,R5,N
+1950,हद,하드,한계,limit,noun,R5,N
+1951,मेल,멜,메일·화합,mail,noun,R5,N
+1952,दुर्भाग्य,두르바갸,불운,misfortune,noun,R5,N
+1953,परिसर,파리사르,구내,premises,noun,R5,N
+1954,स्पीकर,스피카르,스피커,speaker,noun,R5,N
+1955,निशाना,니샤나,표적,target,noun,R5,N
+1956,आधारित,아다리트,기반한,based,adj,R5,N
+1957,मुबारक,무바라크,축하합니다,congratulations,intj,R5,N
+1958,वक्ता,와크타,연사,speaker,noun,R5,N
+1959,पृष्ठभूमि,프리슈트부미,배경,background,noun,R5,N
+1960,क्लासिक,클라시크,고전적인,classic,adj,R5,N
+1961,गरम,가람,뜨거운,hot,adj,R5,N
+1962,फिसलना,피살나,미끄러지다,to slip,verb,R5,N
+1963,गायक,가야크,가수,singer,noun,R5,N
+1964,लापता,라파타,실종된,missing,adj,R5,N
+1965,झील,질,호수,lake,noun,R5,N
+1966,घास,가스,풀,grass,noun,R5,N
+1967,शीघ्र,시그르,빨리,soon,adv,R5,N
+1968,नोटिस,노티스,통지,notice,noun,R5,N
+1969,माहौल,마홀,분위기,atmosphere,noun,R5,N
+1970,स्रोत,스로트,출처,source,noun,R5,N
+1971,पालना,팔나,기르다,to raise,verb,R5,N
+1972,विनाश,위나슈,파괴,destruction,noun,R5,N
+1973,वायु,와유,공기,air,noun,R5,N
+1974,मामूली,마물리,사소한,trivial,adj,R5,N
+1975,डटना,다트나,버티다,to stand firm,verb,R5,N
+1976,निर्धारित,니르다리트,정해진,fixed,adj,R5,N
+1977,रेंजर,렌자르,레인저,ranger,noun,R5,N
+1978,ध्वज,드와즈,깃발,flag,noun,R5,N
+1979,पारंपरिक,파람파리크,전통적인,traditional,adj,R5,N
+1980,प्रतिभाशाली,프라티바샬리,재능 있는,talented,adj,R5,N
+1981,निभाना,니바나,지키다·해내다,to fulfill,verb,R5,N
+1982,कीडा,키라,벌레,insect,noun,R5,N
+1983,सोफा,소파,소파,sofa,noun,R5,N
+1984,उत्तम,우탐,훌륭한,excellent,adj,R5,N
+1986,ब्लू,블루,파란,blue,adj,R5,N
+1987,बगीचा,바기차,정원,garden,noun,R5,N
+1988,दौडना,도르나,달리다,to run,verb,R5,N
+1989,अपहरण,아파하란,납치,kidnapping,noun,R5,N
+1990,पृष्ठ,프리슈트,쪽,page,noun,R5,N
+1991,वैन,왠,승합차,van,noun,R5,N
+1992,शिकारी,시카리,사냥꾼,hunter,noun,R5,N
+1993,गाय,가이,소,cow,noun,R5,N
+1994,रोड,로드,도로,road,noun,R5,N
+1995,अप्रैल,아프랠,4월,April,noun,R5,N
+1996,अनाथ,아나트,고아,orphan,noun,R5,N
+1997,अपमानित,아프마니트,모욕당한,insulted,adj,R5,N
+1998,शराबी,샤라비,술꾼,drunkard,noun,R5,N
+2000,जीजाजी,지자지,매형,brother-in-law,noun,R5,N
 3001,हिंदी,힌디,힌디어,Hindi,n,R5,N
-3002,रात्रि,라트리,밤(격식),night (formal),n,R5,N
-3003,दूध,두드,우유,milk,n,R5,Y
 3004,गुलाब,굴랍,장미,rose,n,R5,Y
 3005,जामुन,자문,자문(검보라색 열매),jamun (java plum),n,R5,Y
-3006,खिलाना,킬라나,먹여 주다,to feed,v,R5,Y
 3007,संग्रहालय,상그라할라이,박물관,museum,n,R5,Y
-3008,बाएं,바엔,왼쪽,left,adv,R5,Y
 3009,पैदल,패달,걸어서,on foot,adv,R5,Y
 3010,दुखद,두카드,슬픈,sad,adj,R5,Y
 3011,मैसेज,매세지,메시지,message,n,R5,Y

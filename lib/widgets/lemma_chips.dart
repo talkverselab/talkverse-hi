@@ -5,6 +5,7 @@ import '../core/theme.dart';
 import '../data/db/app_database.dart';
 import '../main.dart' show appDb;
 import '../services/dialogue_service.dart';
+import '../services/ko_reading.dart';
 
 /// 단어장(DB `words`, 1,500)에서 기본형으로 찾기 — 문장 레마 칩용(일본어앱 2026-11-04 `WordService.byLemmas` 와 같은 역할).
 Future<Map<String, WordRow>> wordsByLemmas(Iterable<String> bases) async {
@@ -41,7 +42,7 @@ class LemmaChips extends StatelessWidget {
               label: l.base,
               gloss: found[l.base]?.meaningKo,
               compact: compact,
-              onTap: found[l.base] == null ? null : () => _showWordSheet(context, found[l.base]!),
+              onTap: found[l.base] == null ? null : () => showWordSheet(context, found[l.base]!),
             ),
         ]);
       },
@@ -81,7 +82,7 @@ class _Chip extends StatelessWidget {
 }
 
 /// 단어 시트 — 단어·독음·뜻·품사·절벽 구간.
-Future<void> _showWordSheet(BuildContext context, WordRow w) => showModalBottomSheet(
+Future<void> showWordSheet(BuildContext context, WordRow w) => showModalBottomSheet(
       context: context,
       showDragHandle: true,
       backgroundColor: AppColors.washi,
@@ -93,7 +94,7 @@ Future<void> _showWordSheet(BuildContext context, WordRow w) => showModalBottomS
             Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
               Text(w.word, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w800, color: AppColors.sumi, height: 1.4)),
               const SizedBox(width: 10),
-              if (w.cefr != null) Padding(padding: const EdgeInsets.only(bottom: 6), child: Text(w.cefr!, style: const TextStyle(fontSize: 15, color: AppColors.muted))),
+              if (w.cefr != null) Padding(padding: const EdgeInsets.only(bottom: 6), child: KoReadingText(w.cefr!, style: const TextStyle(fontSize: 15, color: AppColors.muted))),
               const Spacer(),
               if (w.region != null)
                 Container(
