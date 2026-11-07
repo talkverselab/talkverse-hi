@@ -12,7 +12,7 @@
 
 | 항목 | 상태 |
 |---|---|
-| Android | CI 빌드 9(`c5b76d8`) · Zealot https://apps.talkverse.uk/Bt9EU/204 · PC 백업 `D:\OneDrive\app project\talkverse-hi\` |
+| Android | CI 빌드 12(`caf901a`) · Zealot https://apps.talkverse.uk/Bt9EU/315 · PC 백업 `D:\OneDrive\app project\talkverse-hi\` |
 | iOS | TestFlight 빌드 `2611071621`(11-07, 커밋 `71475f0` — 단어·메뉴 개편 전) 업로드 성공(번들 `com.talkverse.hindiUniverse`) · IPA 백업 `D:\OneDrive\app project\hindi_universe\ios\` |
 | 서명 | `android/app/signing-key.jks` = 폰과 같은 키 SHA-1 `9C:C4:…:47:6B`. Doppler `SIGNKEY_*` + PC `D:\backup\signing_keys\talkverse-hi\` 에 백업. M6 `~/.android/debug.keystore` 는 **다른 키** — CLAUDE.md §1 의 `cp` 금지 |
 | 캐릭터 | 2026-11-03 사용자 통과 — `data/review/art/chars_hi_v1.jpg`, 특징 `data/review/uxui/CHARACTERS.md`(프리야·아난야·로한·아르준·학습자 남/여) |
