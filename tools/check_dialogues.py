@@ -12,6 +12,7 @@ TURNS = {'R1': (6, 8), 'R2': (8, 12), 'R3': (12, 16)}
 WORDS = {'R1': (3, 8), 'R2': (4, 12), 'R3': (5, 18)}
 TYPES = {'chaos', 'slip', 'reveal', 'emotion', 'ignore'}
 NEED = ['id', 'region', 'island', 'kind', 'title', 'emoji', 'scene', 'speakers', 'register', 'twist', 'twist_type', 'goal', 'expressions', 'turns']
+EMOTIONS = set('neutral polite stiff cheerful amused teasing excited surprised shout tsukkomi annoyed sad worried flustered shy gentle'.split())
 DEV = re.compile(r'[ऀ-ॿ]')
 
 
@@ -42,6 +43,8 @@ def check(path, fix):
         for k in ('speaker', 'tl', 'ko', 'note'):
             if not t.get(k): err.append(f'{n} {k} 없음')
         tl = t.get('tl', '')
+        for em in ([t['emotion']] if t.get('emotion') else []) + [x[0] for x in t.get('segs', [])]:
+            if em not in EMOTIONS: err.append(f'{n} 감정 {em}')
         if t.get('speaker') not in d['speakers']: err.append(f'{n} 화자 {t.get("speaker")}')
         if not DEV.search(tl): err.append(f'{n} 데바나가리 없음')
         w = wc(tl)

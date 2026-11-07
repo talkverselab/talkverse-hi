@@ -27,6 +27,11 @@
 - `love` 편은 `"speakers_f":{"B":"अर्जुन"}` 을 넣는다: 학습자 여성판의 상대는 아르준이다. B 의 성별 어미도 `tl_f` 에서 함께 바꾼다(한 줄의 `tl_f` = 여성 학습자판에서 그 턴 전체).
 - 성별 일치가 핵심인 턴은 `note` 끝에 (남성)/(여성).
 
+## 감정(2026-11-07 사용자 지시 — 음성을 고려해 함께 쓴다)
+- 턴마다 `emotion` 을 넣는다. 값: neutral polite stiff cheerful amused teasing excited surprised shout tsukkomi annoyed sad worried flustered shy gentle.
+- 한 턴에서 감정이 바뀌면 `segs` = `[[감정, 본문], …]` 로 나눈다(이어 붙이면 `tl`). neutral 만 쓰지 말 것: 점원·안내는 polite, 받아치기는 tsukkomi, 심쿵 턴은 gentle·shy.
+- 11-07 초안 150편에는 이 칸이 없다. Grok 재작성본을 넣을 때 함께 채운다(그때까지는 `data/tts/plan/` 로 쓴다).
+
 ## 출력 — `assets/data/dialogues/<R>/<island>/<id>.json`
 ```json
 {"id":"r1_friends_a1","region":"R1","island":"friends","kind":"short","draft":true,
@@ -34,7 +39,7 @@
  "speakers":{"A":"{name}","B":"प्रिया"},"genders":{"B":"f"},"register":"casual",
  "twist":5,"twist_type":"chaos","flags":[],"purpose":["making_friends"],"domain":["friends"],
  "goal":"학습 목표(한국어)","expressions":["यार","पक्का"],
- "turns":[{"num":1,"speaker":"B","tl":"힌디어","rd":"","ko":"한국어","note":"X = 뜻","tags":["expr:यार"]}]}
+ "turns":[{"num":1,"speaker":"B","tl":"힌디어","rd":"","ko":"한국어","emotion":"cheerful","note":"X = 뜻","tags":["expr:यार"]}]}
 ```
 - `register`: polite·casual·chat·mixed. 채팅 편 턴에는 `"ui":"bubble"`, `"at":"21:03"`, 이모지 `"stamp":"😂"` 1~2개, 읽씹은 `"read":false`.
 - 단역이 필요하면 `speakers` 에 C·D 추가, `genders` 도.
