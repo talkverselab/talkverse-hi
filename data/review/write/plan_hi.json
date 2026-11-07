@@ -1,0 +1,1202 @@
+[
+{
+"id": "r1_survival_s1",
+"region": "R1",
+"island": "survival",
+"kind": "survival",
+"B": "가게·길 단역",
+"twist_type": "chaos"
+},
+{
+"id": "r1_survival_s2",
+"region": "R1",
+"island": "survival",
+"kind": "survival",
+"B": "가게·길 단역",
+"twist_type": "slip"
+},
+{
+"id": "r1_survival_s3",
+"region": "R1",
+"island": "survival",
+"kind": "survival",
+"B": "가게·길 단역",
+"twist_type": "emotion"
+},
+{
+"id": "r1_friends_a1",
+"region": "R1",
+"island": "friends",
+"kind": "short",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "reveal"
+},
+{
+"id": "r1_friends_a2",
+"region": "R1",
+"island": "friends",
+"kind": "short",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_friends_a3",
+"region": "R1",
+"island": "friends",
+"kind": "short",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "ignore"
+},
+{
+"id": "r1_friends_a4",
+"region": "R1",
+"island": "friends",
+"kind": "short",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "slip"
+},
+{
+"id": "r1_friends_a5",
+"region": "R1",
+"island": "friends",
+"kind": "short",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_friends_a6",
+"region": "R1",
+"island": "friends",
+"kind": "short",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "emotion"
+},
+{
+"id": "r1_friends_b1",
+"region": "R1",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "reveal"
+},
+{
+"id": "r1_friends_b2",
+"region": "R1",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_friends_b3",
+"region": "R1",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "slip"
+},
+{
+"id": "r1_friends_b4",
+"region": "R1",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_friends_b5",
+"region": "R1",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "slip"
+},
+{
+"id": "r1_friends_b6",
+"region": "R1",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "emotion"
+},
+{
+"id": "r1_friends_c1",
+"region": "R1",
+"island": "friends",
+"kind": "chat",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "reveal"
+},
+{
+"id": "r1_friends_c2",
+"region": "R1",
+"island": "friends",
+"kind": "chat",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_friends_c3",
+"region": "R1",
+"island": "friends",
+"kind": "chat",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "ignore"
+},
+{
+"id": "r1_friends_c4",
+"region": "R1",
+"island": "friends",
+"kind": "chat",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "slip"
+},
+{
+"id": "r1_love_a1",
+"region": "R1",
+"island": "love",
+"kind": "short",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_love_a2",
+"region": "R1",
+"island": "love",
+"kind": "short",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "emotion"
+},
+{
+"id": "r1_love_a3",
+"region": "R1",
+"island": "love",
+"kind": "short",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "reveal"
+},
+{
+"id": "r1_love_a4",
+"region": "R1",
+"island": "love",
+"kind": "short",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_love_a5",
+"region": "R1",
+"island": "love",
+"kind": "short",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "slip"
+},
+{
+"id": "r1_love_a6",
+"region": "R1",
+"island": "love",
+"kind": "short",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_love_b1",
+"region": "R1",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "slip"
+},
+{
+"id": "r1_love_b2",
+"region": "R1",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "emotion"
+},
+{
+"id": "r1_love_b3",
+"region": "R1",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "reveal"
+},
+{
+"id": "r1_love_b4",
+"region": "R1",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_love_b5",
+"region": "R1",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "ignore"
+},
+{
+"id": "r1_love_b6",
+"region": "R1",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "slip"
+},
+{
+"id": "r1_love_c1",
+"region": "R1",
+"island": "love",
+"kind": "chat",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_love_c2",
+"region": "R1",
+"island": "love",
+"kind": "chat",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "emotion"
+},
+{
+"id": "r1_love_c3",
+"region": "R1",
+"island": "love",
+"kind": "chat",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "reveal"
+},
+{
+"id": "r1_love_c4",
+"region": "R1",
+"island": "love",
+"kind": "chat",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r1_life_a1",
+"region": "R1",
+"island": "life",
+"kind": "short",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "slip"
+},
+{
+"id": "r1_life_a2",
+"region": "R1",
+"island": "life",
+"kind": "short",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "chaos"
+},
+{
+"id": "r1_life_a3",
+"region": "R1",
+"island": "life",
+"kind": "short",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "slip"
+},
+{
+"id": "r1_life_a4",
+"region": "R1",
+"island": "life",
+"kind": "short",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "emotion"
+},
+{
+"id": "r1_life_a5",
+"region": "R1",
+"island": "life",
+"kind": "short",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "reveal"
+},
+{
+"id": "r1_life_a6",
+"region": "R1",
+"island": "life",
+"kind": "short",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "chaos"
+},
+{
+"id": "r1_life_b1",
+"region": "R1",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "ignore"
+},
+{
+"id": "r1_life_b2",
+"region": "R1",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "slip"
+},
+{
+"id": "r1_life_b3",
+"region": "R1",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "chaos"
+},
+{
+"id": "r1_life_b4",
+"region": "R1",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "emotion"
+},
+{
+"id": "r1_life_b5",
+"region": "R1",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "reveal"
+},
+{
+"id": "r1_life_b6",
+"region": "R1",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "chaos"
+},
+{
+"id": "r1_life_c1",
+"region": "R1",
+"island": "life",
+"kind": "chat",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "slip"
+},
+{
+"id": "r1_life_c2",
+"region": "R1",
+"island": "life",
+"kind": "chat",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "chaos"
+},
+{
+"id": "r1_life_c3",
+"region": "R1",
+"island": "life",
+"kind": "chat",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "slip"
+},
+{
+"id": "r1_life_c4",
+"region": "R1",
+"island": "life",
+"kind": "chat",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "emotion"
+},
+{
+"id": "r1_travel_a1",
+"region": "R1",
+"island": "travel",
+"kind": "short",
+"B": "प्रिया · 단역",
+"twist_type": "reveal"
+},
+{
+"id": "r1_travel_a2",
+"region": "R1",
+"island": "travel",
+"kind": "short",
+"B": "प्रिया · 단역",
+"twist_type": "chaos"
+},
+{
+"id": "r1_travel_a3",
+"region": "R1",
+"island": "travel",
+"kind": "short",
+"B": "प्रिया · 단역",
+"twist_type": "ignore"
+},
+{
+"id": "r1_travel_a4",
+"region": "R1",
+"island": "travel",
+"kind": "short",
+"B": "प्रिया · 단역",
+"twist_type": "slip"
+},
+{
+"id": "r1_travel_a5",
+"region": "R1",
+"island": "travel",
+"kind": "short",
+"B": "प्रिया · 단역",
+"twist_type": "chaos"
+},
+{
+"id": "r1_travel_a6",
+"region": "R1",
+"island": "travel",
+"kind": "short",
+"B": "प्रिया · 단역",
+"twist_type": "emotion"
+},
+{
+"id": "r1_travel_b1",
+"region": "R1",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "reveal"
+},
+{
+"id": "r1_travel_b2",
+"region": "R1",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "chaos"
+},
+{
+"id": "r1_travel_b3",
+"region": "R1",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "slip"
+},
+{
+"id": "r1_travel_b4",
+"region": "R1",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "chaos"
+},
+{
+"id": "r1_travel_b5",
+"region": "R1",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "slip"
+},
+{
+"id": "r1_travel_b6",
+"region": "R1",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "emotion"
+},
+{
+"id": "r1_travel_c1",
+"region": "R1",
+"island": "travel",
+"kind": "chat",
+"B": "प्रिया · 단역",
+"twist_type": "reveal"
+},
+{
+"id": "r1_travel_c2",
+"region": "R1",
+"island": "travel",
+"kind": "chat",
+"B": "प्रिया · 단역",
+"twist_type": "chaos"
+},
+{
+"id": "r1_travel_c3",
+"region": "R1",
+"island": "travel",
+"kind": "chat",
+"B": "प्रिया · 단역",
+"twist_type": "ignore"
+},
+{
+"id": "r1_travel_c4",
+"region": "R1",
+"island": "travel",
+"kind": "chat",
+"B": "प्रिया · 단역",
+"twist_type": "slip"
+},
+{
+"id": "r1_culture_a1",
+"region": "R1",
+"island": "culture",
+"kind": "short",
+"B": "अनन्या · प्रिया",
+"twist_type": "chaos"
+},
+{
+"id": "r1_culture_a2",
+"region": "R1",
+"island": "culture",
+"kind": "short",
+"B": "अनन्या · प्रिया",
+"twist_type": "emotion"
+},
+{
+"id": "r1_culture_a3",
+"region": "R1",
+"island": "culture",
+"kind": "short",
+"B": "अनन्या · प्रिया",
+"twist_type": "reveal"
+},
+{
+"id": "r1_culture_a4",
+"region": "R1",
+"island": "culture",
+"kind": "short",
+"B": "अनन्या · प्रिया",
+"twist_type": "chaos"
+},
+{
+"id": "r1_culture_a5",
+"region": "R1",
+"island": "culture",
+"kind": "short",
+"B": "अनन्या · प्रिया",
+"twist_type": "slip"
+},
+{
+"id": "r1_culture_a6",
+"region": "R1",
+"island": "culture",
+"kind": "short",
+"B": "अनन्या · प्रिया",
+"twist_type": "chaos"
+},
+{
+"id": "r1_culture_b1",
+"region": "R1",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "slip"
+},
+{
+"id": "r1_culture_b2",
+"region": "R1",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "emotion"
+},
+{
+"id": "r1_culture_b3",
+"region": "R1",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "reveal"
+},
+{
+"id": "r1_culture_b4",
+"region": "R1",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "chaos"
+},
+{
+"id": "r1_culture_b5",
+"region": "R1",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "ignore"
+},
+{
+"id": "r1_culture_b6",
+"region": "R1",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "slip"
+},
+{
+"id": "r1_culture_c1",
+"region": "R1",
+"island": "culture",
+"kind": "chat",
+"B": "अनन्या · प्रिया",
+"twist_type": "chaos"
+},
+{
+"id": "r1_culture_c2",
+"region": "R1",
+"island": "culture",
+"kind": "chat",
+"B": "अनन्या · प्रिया",
+"twist_type": "emotion"
+},
+{
+"id": "r1_culture_c3",
+"region": "R1",
+"island": "culture",
+"kind": "chat",
+"B": "अनन्या · प्रिया",
+"twist_type": "reveal"
+},
+{
+"id": "r1_culture_c4",
+"region": "R1",
+"island": "culture",
+"kind": "chat",
+"B": "अनन्या · प्रिया",
+"twist_type": "chaos"
+},
+{
+"id": "r2_friends_b1",
+"region": "R2",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "slip"
+},
+{
+"id": "r2_friends_b2",
+"region": "R2",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "chaos"
+},
+{
+"id": "r2_friends_b3",
+"region": "R2",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "slip"
+},
+{
+"id": "r2_friends_b4",
+"region": "R2",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "emotion"
+},
+{
+"id": "r2_friends_b5",
+"region": "R2",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "reveal"
+},
+{
+"id": "r2_friends_b6",
+"region": "R2",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "chaos"
+},
+{
+"id": "r2_love_b1",
+"region": "R2",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "ignore"
+},
+{
+"id": "r2_love_b2",
+"region": "R2",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "slip"
+},
+{
+"id": "r2_love_b3",
+"region": "R2",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r2_love_b4",
+"region": "R2",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "emotion"
+},
+{
+"id": "r2_love_b5",
+"region": "R2",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "reveal"
+},
+{
+"id": "r2_love_b6",
+"region": "R2",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r2_life_b1",
+"region": "R2",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "slip"
+},
+{
+"id": "r2_life_b2",
+"region": "R2",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "chaos"
+},
+{
+"id": "r2_life_b3",
+"region": "R2",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "slip"
+},
+{
+"id": "r2_life_b4",
+"region": "R2",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "emotion"
+},
+{
+"id": "r2_life_b5",
+"region": "R2",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "reveal"
+},
+{
+"id": "r2_life_b6",
+"region": "R2",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "chaos"
+},
+{
+"id": "r2_travel_b1",
+"region": "R2",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "ignore"
+},
+{
+"id": "r2_travel_b2",
+"region": "R2",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "slip"
+},
+{
+"id": "r2_travel_b3",
+"region": "R2",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "chaos"
+},
+{
+"id": "r2_travel_b4",
+"region": "R2",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "emotion"
+},
+{
+"id": "r2_travel_b5",
+"region": "R2",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "reveal"
+},
+{
+"id": "r2_travel_b6",
+"region": "R2",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "chaos"
+},
+{
+"id": "r2_culture_b1",
+"region": "R2",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "slip"
+},
+{
+"id": "r2_culture_b2",
+"region": "R2",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "chaos"
+},
+{
+"id": "r2_culture_b3",
+"region": "R2",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "slip"
+},
+{
+"id": "r2_culture_b4",
+"region": "R2",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "emotion"
+},
+{
+"id": "r2_culture_b5",
+"region": "R2",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "reveal"
+},
+{
+"id": "r2_culture_b6",
+"region": "R2",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "chaos"
+},
+{
+"id": "r2_work_b1",
+"region": "R2",
+"island": "work",
+"kind": "long",
+"B": "अनन्या(직장 동료)",
+"twist_type": "ignore"
+},
+{
+"id": "r2_work_b2",
+"region": "R2",
+"island": "work",
+"kind": "long",
+"B": "अनन्या(직장 동료)",
+"twist_type": "slip"
+},
+{
+"id": "r2_work_b3",
+"region": "R2",
+"island": "work",
+"kind": "long",
+"B": "अनन्या(직장 동료)",
+"twist_type": "chaos"
+},
+{
+"id": "r2_work_b4",
+"region": "R2",
+"island": "work",
+"kind": "long",
+"B": "अनन्या(직장 동료)",
+"twist_type": "emotion"
+},
+{
+"id": "r2_work_b5",
+"region": "R2",
+"island": "work",
+"kind": "long",
+"B": "अनन्या(직장 동료)",
+"twist_type": "reveal"
+},
+{
+"id": "r2_work_b6",
+"region": "R2",
+"island": "work",
+"kind": "long",
+"B": "अनन्या(직장 동료)",
+"twist_type": "chaos"
+},
+{
+"id": "r2_study_b1",
+"region": "R2",
+"island": "study",
+"kind": "long",
+"B": "रोहन(로한, 학교 친구)",
+"twist_type": "slip"
+},
+{
+"id": "r2_study_b2",
+"region": "R2",
+"island": "study",
+"kind": "long",
+"B": "रोहन(로한, 학교 친구)",
+"twist_type": "chaos"
+},
+{
+"id": "r2_study_b3",
+"region": "R2",
+"island": "study",
+"kind": "long",
+"B": "रोहन(로한, 학교 친구)",
+"twist_type": "slip"
+},
+{
+"id": "r2_study_b4",
+"region": "R2",
+"island": "study",
+"kind": "long",
+"B": "रोहन(로한, 학교 친구)",
+"twist_type": "emotion"
+},
+{
+"id": "r2_study_b5",
+"region": "R2",
+"island": "study",
+"kind": "long",
+"B": "रोहन(로한, 학교 친구)",
+"twist_type": "reveal"
+},
+{
+"id": "r2_study_b6",
+"region": "R2",
+"island": "study",
+"kind": "long",
+"B": "रोहन(로한, 학교 친구)",
+"twist_type": "chaos"
+},
+{
+"id": "r3_friends_b1",
+"region": "R3",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "ignore"
+},
+{
+"id": "r3_friends_b2",
+"region": "R3",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "slip"
+},
+{
+"id": "r3_friends_b3",
+"region": "R3",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "chaos"
+},
+{
+"id": "r3_friends_b4",
+"region": "R3",
+"island": "friends",
+"kind": "long",
+"B": "प्रिया(프리야) · 가끔 रोहन",
+"twist_type": "emotion"
+},
+{
+"id": "r3_love_b1",
+"region": "R3",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "reveal"
+},
+{
+"id": "r3_love_b2",
+"region": "R3",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r3_love_b3",
+"region": "R3",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "slip"
+},
+{
+"id": "r3_love_b4",
+"region": "R3",
+"island": "love",
+"kind": "long",
+"B": "अनन्या(아난야) · 여성판 अर्जुन",
+"twist_type": "chaos"
+},
+{
+"id": "r3_life_b1",
+"region": "R3",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "slip"
+},
+{
+"id": "r3_life_b2",
+"region": "R3",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "emotion"
+},
+{
+"id": "r3_life_b3",
+"region": "R3",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "reveal"
+},
+{
+"id": "r3_life_b4",
+"region": "R3",
+"island": "life",
+"kind": "long",
+"B": "अर्जुन(아르준, 룸메이트)",
+"twist_type": "chaos"
+},
+{
+"id": "r3_travel_b1",
+"region": "R3",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "ignore"
+},
+{
+"id": "r3_travel_b2",
+"region": "R3",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "slip"
+},
+{
+"id": "r3_travel_b3",
+"region": "R3",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "chaos"
+},
+{
+"id": "r3_travel_b4",
+"region": "R3",
+"island": "travel",
+"kind": "long",
+"B": "प्रिया · 단역",
+"twist_type": "emotion"
+},
+{
+"id": "r3_culture_b1",
+"region": "R3",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "reveal"
+},
+{
+"id": "r3_culture_b2",
+"region": "R3",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "chaos"
+},
+{
+"id": "r3_culture_b3",
+"region": "R3",
+"island": "culture",
+"kind": "long",
+"B": "अनन्या · प्रिया",
+"twist_type": "slip"
+},
+{
+"id": "r3_work_b1",
+"region": "R3",
+"island": "work",
+"kind": "long",
+"B": "अनन्या(직장 동료)",
+"twist_type": "chaos"
+},
+{
+"id": "r3_work_b2",
+"region": "R3",
+"island": "work",
+"kind": "long",
+"B": "अनन्या(직장 동료)",
+"twist_type": "slip"
+},
+{
+"id": "r3_work_b3",
+"region": "R3",
+"island": "work",
+"kind": "long",
+"B": "अनन्या(직장 동료)",
+"twist_type": "emotion"
+},
+{
+"id": "r3_study_b1",
+"region": "R3",
+"island": "study",
+"kind": "long",
+"B": "रोहन(로한, 학교 친구)",
+"twist_type": "reveal"
+},
+{
+"id": "r3_study_b2",
+"region": "R3",
+"island": "study",
+"kind": "long",
+"B": "रोहन(로한, 학교 친구)",
+"twist_type": "chaos"
+},
+{
+"id": "r3_study_b3",
+"region": "R3",
+"island": "study",
+"kind": "long",
+"B": "रोहन(로한, 학교 친구)",
+"twist_type": "ignore"
+}
+]

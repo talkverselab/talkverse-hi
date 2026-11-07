@@ -1,5 +1,12 @@
 # HANDOFF — talkverse-hi (힌디어유니버스) · 2026-11-07
 
+## 2026-11-07 회화 초안 150편
+
+- 사용자 지시로 회화 작성 제한 해제. **힌디어 흐름 = Claude 초안 → Grok 재작성 → Gemini 검수 → 사용자 리뷰 → DB**(Gemini 는 사용자가 힌디어에도 필요하다고 지시, uk 전달보다 우선).
+- 초안 끝: `assets/data/dialogues/R1|R2|R3/<주제>/<편id>.json` 150편·1,509턴(R1 83·R2 42·R3 25, 카오스 50편 33%), 검사기 오류 0. 계획 `data/review/write/plan_hi.json`, 규칙 `tools/prompts/dialogue_hi.md`, 검사 `tools/check_dialogues.py --fix-rd`, 독음 `tools/rd_hi.py`, 자신 없는 표현 `data/review/write/draft_doubts_hi.md`.
+- 앱은 아직 `L1.json` 만 읽는다(pubspec 은 `assets/data/dialogues/` 바로 아래만 묶는다). 리뷰 통과 뒤 `DialogueService` 를 R 구조로 바꾸고 pubspec 에 폴더를 넣고 `tools/add_lemmas.py` 를 새 칸(`tl`)에 맞춘다.
+- 여성 학습자판은 턴의 `tl_f`·`rd_f`·`ko_f`(255턴), 사랑 편의 여성판 상대는 `speakers_f`(아르준). 다음은 Grok(11-10 까지 주간 한도)·음성(uk 순서)·리뷰 페이지.
+
 ## 2026-11-07 단어·메뉴 개편(일본어앱 `docs/MENU_WORDS_2026-11-07.md` §1·3~6, §2 는 해당 없음)
 
 - 앱을 고치면 Zealot·TestFlight 를 항상 함께 올린다(사용자 지시).
@@ -18,7 +25,7 @@
 | 캐릭터 | 2026-11-03 사용자 통과 — `data/review/art/chars_hi_v1.jpg`, 특징 `data/review/uxui/CHARACTERS.md`(프리야·아난야·로한·아르준·학습자 남/여) |
 | UX/UI | 2026-11-03 사용자 통과 — 글 `data/review/uxui/sian_hi_01.md`, 그림 `sian_hi_01.jpg`(적용 전 태그 `pre-grok-uxui`) |
 | 로그인·결제 | Talkverse ID(client_id `hi`, 딥링크 `talkverse.hi://auth`) + 평생 이용권(iOS `com.talkverse.hindiUniverse.lifetime` / Android `lang_hi`). **잠그는 콘텐츠 없음** |
-| 회화 | 옛 초안 그대로(L1 5편×8턴, draft). 회화 작성은 사용자 지시 전까지 금지 |
+| 회화 | 앱은 옛 초안(L1 5편×8턴). 새 초안 150편은 저장소에 있고 앱에는 아직 안 들어감(아래 참조) |
 | Supabase | 사용 없음(`docs/CLOUDFLARE_MIGRATION.md`) |
 | 저작권 | 교재 이름·변환 스크립트를 파일·이력에서 삭제(2026-11-02 filter-repo + 강제 push) |
 
