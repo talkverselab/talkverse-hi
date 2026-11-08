@@ -1,4 +1,20 @@
-# HANDOFF — talkverse-hi (힌디어유니버스) · 2026-11-07
+# HANDOFF — talkverse-hi (힌디어유니버스) · 2026-11-08
+
+## 다음에 할 일 (2026-11-08 세션 종료 — 허브 지시)
+
+현재: 안드로이드 빌드 13(`a67ba62`, Zealot https://apps.talkverse.uk/Bt9EU/372)과 iOS TestFlight 2611081702 가 같은 내용. 작업 트리의 수정 표시는 빌드 도구 잡음뿐(아래 「주의」).
+
+1. **사용자 답 대기 — 굴절어 전략(`~/talkverse/INFLECTED_LANG_STRATEGY.md`) 4개 항목**(11-08 알림):
+   - A4 존댓말: 힌디어는 낯선 사이에 आप 가 기본 → R1 에 통문장으로 두는 ②안 제안.
+   - B15 레벨별 한 편: 사용자 지시로 이미 150편 → 유지 제안.
+   - A1 레벨 = 문법 단계: 지금 R(빈도 절벽) 유지 + 문법 단계는 태그 제안.
+   - A11 단어 상한: 2,000(94.6%) 유지 제안.
+   - 답을 받으면 `docs/DIALOGUE_RULES_hi.md` 에 결정과 A-빈칸 표를 적는다.
+2. **음성 시험 3편 사용자 청취 대기**(리뷰 페이지 맨 위, https://talkverse.uk/talkverse/review/hi/). 150편 전체는 Grok·Gemini 뒤에, PC 는 uk 의 "지금 시작" 뒤에만. 그 전에 `tools/tts/qa.py` 에 숫자 표기 맞춤(दो सौ ↔ 200)을 넣는다.
+3. **Grok 회화 재작성**: 11월 9일 13:30 재개(uk 공지), 사용자 지시 뒤 시작. 편 1개씩 「전문가」·모든 줄 새로 쓰기, 그다음 **Gemini 검수**(사용자 지시 — 힌디어 필요). 재작성본을 넣을 때 턴마다 `emotion`(+`segs`)을 채우고 `tools/tts/make_plan.py` 로 음성 계획을 만든다. 자신 없는 표현 목록 `data/review/write/draft_doubts_hi.md`.
+4. 리뷰 통과 뒤: `DialogueService` 를 R 구조로, pubspec 에 R 폴더, `tools/add_lemmas.py` 를 `tl` 칸에 맞춤.
+5. 사용자 몫(그대로): 유료 범위·가격, App ID 의 Sign in with Apple, 스토어 인앱 상품 등록. 조음 그림은 출시 전에 Grok 그림으로 교체.
+
 
 ## 2026-11-07 회화 초안 150편
 
