@@ -7,6 +7,7 @@ import 'package:hindi_universe/data/db/seed_loader.dart';
 import 'package:hindi_universe/main.dart' show appDb;
 import 'package:hindi_universe/screens/about_screen.dart';
 import 'package:hindi_universe/screens/word_freq_screen.dart';
+import 'package:hindi_universe/screens/devanagari_chart_screen.dart';
 import 'package:hindi_universe/services/dialogue_service.dart';
 import 'package:hindi_universe/services/ko_reading.dart';
 import 'package:hindi_universe/widgets/episode_play_pane.dart';
@@ -68,6 +69,27 @@ void main() {
       expect(find.text('R5'), findsOneWidget);
       expect(find.text('227-2000'), findsOneWidget);
       expect(find.textContaining('94.6%'), findsWidgets);
+      expect(t.takeException(), isNull);
+    });
+  }
+
+  for (final size in const [Size(360, 740), Size(800, 1100)]) {
+    testWidgets('데바나가리와 발음 $size', (t) async {
+      await show(t, const DevanagariChartScreen(), size);
+      expect(find.text('अ'), findsOneWidget);
+      final chips = find.descendant(of: find.byWidgetPredicate((w) => w is ListView && w.scrollDirection == Axis.horizontal), matching: find.byType(Scrollable));
+      for (final g in ['모음 부호', 'क 줄', 'ट 줄', 'त 줄', 'प 줄', '누크타']) {
+        final chip = find.descendant(of: find.byWidgetPredicate((w) => w is ListView && w.scrollDirection == Axis.horizontal), matching: find.textContaining(g));
+        await t.scrollUntilVisible(chip, 120, scrollable: chips);
+        await t.ensureVisible(chip);
+        await t.pumpAndSettle();
+        await t.tap(chip, warnIfMissed: false);
+        await t.pump();
+        expect(t.takeException(), isNull);
+      }
+      await t.tap(find.text('फ़'));
+      await t.pumpAndSettle();
+      expect(find.textContaining('IPA [f]'), findsOneWidget);
       expect(t.takeException(), isNull);
     });
   }

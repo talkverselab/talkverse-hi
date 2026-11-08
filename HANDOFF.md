@@ -7,6 +7,12 @@
 - 앱은 아직 `L1.json` 만 읽는다(pubspec 은 `assets/data/dialogues/` 바로 아래만 묶는다). 리뷰 통과 뒤 `DialogueService` 를 R 구조로 바꾸고 pubspec 에 폴더를 넣고 `tools/add_lemmas.py` 를 새 칸(`tl`)에 맞춘다.
 - 여성 학습자판은 턴의 `tl_f`·`rd_f`·`ko_f`(255턴), 사랑 편의 여성판 상대는 `speakers_f`(아르준). 다음은 Grok(11-10 까지 주간 한도)·음성(uk 순서)·리뷰 페이지.
 
+## 2026-11-08 데바나가리와 발음 · 수정 2건
+
+- 홈 「기초」 첫 줄 「데바나가리와 발음」(`lib/screens/devanagari_chart_screen.dart`, `lib/widgets/devanagari_sound_sheet.dart`, 데이터 `lib/services/devanagari_phonetics.dart`): 묶음 칩 9개 · 자음은 무기/유기/유성/유성 유기/비음 칸 · 로마자 토글 · 글자 탭 = 1초 뒤 자동 재생·IPA·소리나는 곳·내는 방식·한국어 비교.
+- 조음 위치·모음 그림(`assets/images/ipa/`, 일본어앱에서 복사)은 **임시** — 출처 표기 없음, 출시 전에 Grok 그림으로 바꾼다(사용자 지시).
+- 고침: 절벽 단어 타일이 데바나가리 높이에 넘치던 것(타일 높이 고정·칸 수는 실제 칸 너비), 레일 「앱 소개」가 오른쪽 칸이 아니라 전체 화면으로 열리던 것. 아이패드 스크린샷 14장 넘침 0.
+
 ## 음성 시험(2026-11-08)
 
 - 예시 3편(`r1_survival_s1`·`r1_friends_a1`·`r1_love_a1`)을 MOSS 로 생성해 R2 에 올렸다. D1 에는 넣지 않았다(사용자가 듣고 판단한 뒤). 도구 `tools/tts/`(터키어앱판 이식), 작업 폴더 `~/tts_work/hi`, 말 속도 기준 10.5 글자/초, whisper 는 `~/tts_work/it/venv`.

@@ -100,5 +100,16 @@ void main() {
     await t.tap(find.descendant(of: find.byType(NavigationRail), matching: find.text('앱 소개')));
     await wait(t, 1500);
     await shot(t, '12_about');
+
+    // 데바나가리와 발음 — 2026-11-08 (이미 홈 탭이다)
+    await t.scrollUntilVisible(find.text('데바나가리와 발음'), -200, scrollable: find.byType(Scrollable).first);
+    await t.tap(find.text('데바나가리와 발음').first);
+    await wait(t, 1500);
+    await t.tap(find.textContaining('ट 줄'));
+    await wait(t, 800);
+    await shot(t, '13_devanagari_chart');
+    await t.tap(find.text('ठ').first);
+    await wait(t, 1500);
+    await shot(t, '14_sound_sheet');
   });
 }

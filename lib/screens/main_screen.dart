@@ -8,6 +8,7 @@ import '../widgets/spanish_decor.dart';
 import 'about_screen.dart';
 import 'chunk_search_screen.dart';
 import 'conversation_screen.dart';
+import 'devanagari_chart_screen.dart';
 import 'dialogue_screen.dart';
 import 'episode_screen.dart';
 import 'grammar_lesson_screen.dart';
@@ -95,7 +96,7 @@ class _MainScreenState extends State<MainScreen> {
                       alignment: Alignment.bottomCenter,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 16),
-                        child: InkWell(
+                        child: Builder(builder: (context) => InkWell(  // Pane 아래 context 라야 오른쪽 칸에 열린다
                           onTap: () => openPane(context, (_) => const AboutScreen()),
                           borderRadius: BorderRadius.circular(8),
                           child: Padding(
@@ -106,7 +107,7 @@ class _MainScreenState extends State<MainScreen> {
                               Text(tr('앱 소개'), style: const TextStyle(color: AppColors.muted, fontSize: 11, fontWeight: FontWeight.w600)),
                             ]),
                           ),
-                        ),
+                        )),
                       ),
                     ),
                   ),
@@ -399,6 +400,10 @@ class _MenuGrid extends StatelessWidget {
       _MenuItem(label: tr('문장 말하기'), sub: tr('한글 보고 힌디어로'), badge: '🎙', color: AppColors.rojo,
         builder: (_) => const SpeakingPracticeScreen()),
     ];
+    final basics = <_MenuItem>[
+      _MenuItem(label: tr('데바나가리와 발음'), sub: 'अ आ क ख', badge: 'अ', color: AppColors.beni,
+        builder: (_) => const DevanagariChartScreen()),
+    ];
     final grammar = <_MenuItem>[
       _MenuItem(label: tr('문법'), sub: 'व्याकरण', badge: 'G', color: AppColors.rojoDeep,
         builder: (_) => const GrammarHubScreen()),
@@ -438,11 +443,13 @@ class _MenuGrid extends StatelessWidget {
         );
 
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      title(tr('기초')),
+      grid(basics),
       title(tr('문법·글자')),
       grid(grammar),
       Padding(
         padding: const EdgeInsets.fromLTRB(2, 10, 2, 0),
-        child: Text(tr('곧 열려요 · 성·수 · 발음'), style: const TextStyle(fontSize: 12, color: AppColors.gualdaDeep)),
+        child: Text(tr('곧 열려요 · 성·수'), style: const TextStyle(fontSize: 12, color: AppColors.gualdaDeep)),
       ),
       title(tr('회화')),
       grid(talk),

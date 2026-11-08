@@ -115,6 +115,7 @@ class ProfileScreen extends StatelessWidget {
             _SettingItem(icon: Icons.menu_book_outlined, title: tr('앱 소개'), subtitle: tr('절벽구간 — 이 앱이 단어를 나누는 기준'), onTap: () => openPane(context, (_) => const AboutScreen())),
             _SettingItem(icon: Icons.info_outline, title: tr('앱 버전'), subtitle: '0.1.0 · alpha'),
             _SettingItem(icon: Icons.copyright, title: tr('저작권'), subtitle: tr('힌디어유니버스 · 2026')),
+            _SettingItem(icon: Icons.article_outlined, title: tr('라이선스'), subtitle: tr('오픈소스·그림 자료'), onTap: () => showLicensePage(context: context, applicationName: tr('힌디어유니버스'))),
           ]),
           const SizedBox(height: 20),
           const BandDivider(),

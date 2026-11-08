@@ -32,14 +32,14 @@ class _WordFreqScreenState extends State<WordFreqScreen> {
   String _filter = 'ALL';
 
   static Map<String, _Region> get _regions => {
-        'ALL': _Region(tr('전체'), AppColors.sumi),
-        'R1': _Region('R1 · 1-${kWordCliffs[0]}', AppColors.beni),
-        'R2': _Region('R2 · ${kWordCliffs[0] + 1}-${kWordCliffs[1]}', AppColors.beniLight),
-        'R3': _Region('R3 · ${kWordCliffs[1] + 1}-${kWordCliffs[2]}', AppColors.kinDeep),
-        'R4': _Region('R4 · ${kWordCliffs[2] + 1}-${kWordCliffs[3]}', AppColors.matcha),
-        'R5': _Region('R5 · ${kWordCliffs[3] + 1}-$kWordCap', AppColors.muted),
-        'C': _Region(tr('회화'), AppColors.ai),
-      };
+    'ALL': _Region(tr('전체'), AppColors.sumi),
+    'R1': _Region('R1 · 1-${kWordCliffs[0]}', AppColors.beni),
+    'R2': _Region('R2 · ${kWordCliffs[0] + 1}-${kWordCliffs[1]}', AppColors.beniLight),
+    'R3': _Region('R3 · ${kWordCliffs[1] + 1}-${kWordCliffs[2]}', AppColors.kinDeep),
+    'R4': _Region('R4 · ${kWordCliffs[2] + 1}-${kWordCliffs[3]}', AppColors.matcha),
+    'R5': _Region('R5 · ${kWordCliffs[3] + 1}-$kWordCap', AppColors.muted),
+    'C': _Region(tr('회화'), AppColors.ai),
+  };
 
   static String _regionOf(WordRow w) => w.rank > kWordCap ? 'C' : (w.region ?? 'R5');
 
@@ -74,75 +74,89 @@ class _WordFreqScreenState extends State<WordFreqScreen> {
   Widget build(BuildContext context) {
     final pool = _withConv ? [..._words, ..._conv] : _words;
     final filtered = _filter == 'ALL' ? pool : pool.where((w) => _regionOf(w) == _filter).toList();
-    final units = <List<WordRow>>[
-      for (var i = 0; i < filtered.length; i += kUnit) filtered.sublist(i, (i + kUnit).clamp(0, filtered.length)),
-    ];
+    final units = <List<WordRow>>[for (var i = 0; i < filtered.length; i += kUnit) filtered.sublist(i, (i + kUnit).clamp(0, filtered.length))];
     final regions = _regions;
     final chips = regions.entries.where((e) => e.key != 'C' || _withConv).toList();
 
     return Scaffold(
       backgroundColor: AppColors.washi,
       appBar: AppBar(
-        title: Column(mainAxisSize: MainAxisSize.min, children: [
-          Text(tr('절벽 단어'), style: const TextStyle(color: AppColors.sumi, fontSize: 16, fontWeight: FontWeight.w800)),
-          const SizedBox(height: 2),
-          Text(trf('회화 빈도 {0}위 · {1}어 단원 · 탭하면 발음', ['2,000', kUnit]), style: const TextStyle(color: AppColors.sumiLight, fontSize: 10, letterSpacing: 1)),
-        ]),
+        title: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              tr('절벽 단어'),
+              style: const TextStyle(color: AppColors.sumi, fontSize: 16, fontWeight: FontWeight.w800),
+            ),
+            const SizedBox(height: 2),
+            Text(trf('회화 빈도 {0}위 · {1}어 단원 · 탭하면 발음', ['2,000', kUnit]), style: const TextStyle(color: AppColors.sumiLight, fontSize: 10, letterSpacing: 1)),
+          ],
+        ),
         actions: const [KoReadingToggleAction()],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator(color: AppColors.beni))
-          : Column(children: [
-              Container(
-                color: AppColors.washiDeep,
-                padding: const EdgeInsets.fromLTRB(12, 10, 12, 8),
-                child: Column(children: [
-                  Row(children: [
-                    _ModeButton(
-                        label: tr('절벽구간 단어만'),
-                        selected: !_withConv,
-                        onTap: () => setState(() {
+          : Column(
+              children: [
+                Container(
+                  color: AppColors.washiDeep,
+                  padding: const EdgeInsets.fromLTRB(12, 10, 12, 8),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          _ModeButton(
+                            label: tr('절벽구간 단어만'),
+                            selected: !_withConv,
+                            onTap: () => setState(() {
                               _withConv = false;
                               if (_filter == 'C') _filter = 'ALL';
-                            })),
-                    const SizedBox(width: 8),
-                    _ModeButton(label: trf('회화 단어 포함 (+{0})', [_conv.length]), selected: _withConv, onTap: () => setState(() => _withConv = true)),
-                  ]),
-                  const SizedBox(height: 8),
-                  SizedBox(
-                    height: 32,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        for (final e in chips)
-                          Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: GestureDetector(
-                              onTap: () => setState(() => _filter = e.key),
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                                decoration: BoxDecoration(
-                                  color: _filter == e.key ? e.value.color : AppColors.washi,
-                                  border: Border.all(color: e.value.color, width: _filter == e.key ? 1.5 : 0.8),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text(e.value.label, style: TextStyle(color: _filter == e.key ? AppColors.washi : e.value.color, fontWeight: FontWeight.w700, fontSize: 12)),
-                              ),
-                            ),
+                            }),
                           ),
-                      ],
-                    ),
+                          const SizedBox(width: 8),
+                          _ModeButton(label: trf('회화 단어 포함 (+{0})', [_conv.length]), selected: _withConv, onTap: () => setState(() => _withConv = true)),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      SizedBox(
+                        height: 32,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            for (final e in chips)
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8),
+                                child: GestureDetector(
+                                  onTap: () => setState(() => _filter = e.key),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                    decoration: BoxDecoration(
+                                      color: _filter == e.key ? e.value.color : AppColors.washi,
+                                      border: Border.all(color: e.value.color, width: _filter == e.key ? 1.5 : 0.8),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      e.value.label,
+                                      style: TextStyle(color: _filter == e.key ? AppColors.washi : e.value.color, fontWeight: FontWeight.w700, fontSize: 12),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ]),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  padding: EdgeInsets.fromLTRB(12, 8, 12, 16 + bottomInset(context)),
-                  itemCount: units.length,
-                  itemBuilder: (context, i) => _UnitBlock(index: i + 1, words: units[i], regions: regions),
                 ),
-              ),
-            ]),
+                Expanded(
+                  child: ListView.builder(
+                    padding: EdgeInsets.fromLTRB(12, 8, 12, 16 + bottomInset(context)),
+                    itemCount: units.length,
+                    itemBuilder: (context, i) => _UnitBlock(index: i + 1, words: units[i], regions: regions),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }
@@ -155,20 +169,23 @@ class _ModeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Expanded(
-        child: GestureDetector(
-          onTap: onTap,
-          child: Container(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: selected ? AppColors.sumi : AppColors.washi,
-              border: Border.all(color: selected ? AppColors.sumi : AppColors.line),
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: Text(label, style: TextStyle(color: selected ? AppColors.washi : AppColors.sumi, fontWeight: FontWeight.w700, fontSize: 12)),
-          ),
+    child: GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: selected ? AppColors.sumi : AppColors.washi,
+          border: Border.all(color: selected ? AppColors.sumi : AppColors.line),
+          borderRadius: BorderRadius.circular(6),
         ),
-      );
+        child: Text(
+          label,
+          style: TextStyle(color: selected ? AppColors.washi : AppColors.sumi, fontWeight: FontWeight.w700, fontSize: 12),
+        ),
+      ),
+    ),
+  );
 }
 
 /// 한 단원 = 20어. 머리줄(단원 번호·순위 범위·구간) + 네모 타일 격자.
@@ -184,33 +201,46 @@ class _UnitBlock extends StatelessWidget {
     final key = _WordFreqScreenState._regionOf(first);
     final region = regions[key];
     final conv = key == 'C';
-    final cols = (MediaQuery.sizeOf(context).width / 112).floor().clamp(3, 8);
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(2, 6, 2, 6),
-          child: Row(children: [
-            Text(trf('{0}단원', [index]), style: const TextStyle(color: AppColors.sumi, fontSize: 14, fontWeight: FontWeight.w800)),
-            const SizedBox(width: 8),
-            if (!conv) Text('#${first.rank}-${words.last.rank}', style: const TextStyle(color: AppColors.sumiLight, fontSize: 11)),
-            const Spacer(),
-            if (region != null)
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                decoration: BoxDecoration(color: region.color, borderRadius: BorderRadius.circular(4)),
-                child: Text(conv ? tr('회화') : key, style: const TextStyle(color: AppColors.washi, fontSize: 10, fontWeight: FontWeight.w800)),
-              ),
-          ]),
-        ),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: cols, mainAxisSpacing: 6, crossAxisSpacing: 6),
-          itemCount: words.length,
-          itemBuilder: (context, i) => _WordTile(w: words[i], color: region?.color ?? AppColors.sumi, conv: conv),
-        ),
-      ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(2, 6, 2, 6),
+            child: Row(
+              children: [
+                Text(
+                  trf('{0}단원', [index]),
+                  style: const TextStyle(color: AppColors.sumi, fontSize: 14, fontWeight: FontWeight.w800),
+                ),
+                const SizedBox(width: 8),
+                if (!conv) Text('#${first.rank}-${words.last.rank}', style: const TextStyle(color: AppColors.sumiLight, fontSize: 11)),
+                const Spacer(),
+                if (region != null)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    decoration: BoxDecoration(color: region.color, borderRadius: BorderRadius.circular(4)),
+                    child: Text(
+                      conv ? tr('회화') : key,
+                      style: const TextStyle(color: AppColors.washi, fontSize: 10, fontWeight: FontWeight.w800),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          // 칸 수는 실제 칸 너비로(두 화면이면 오른쪽 칸만) — 데바나가리는 글자가 높아 타일 높이를 고정한다
+          LayoutBuilder(
+            builder: (context, c) => GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: (c.maxWidth / 112).floor().clamp(3, 8), mainAxisSpacing: 6, crossAxisSpacing: 6, mainAxisExtent: 132),
+              itemCount: words.length,
+              itemBuilder: (context, i) => _WordTile(w: words[i], color: region?.color ?? AppColors.sumi, conv: conv),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -227,25 +257,65 @@ class _WordTile extends StatelessWidget {
     return InkWell(
       onTap: () => TtsService.instance.speak(w.word),
       child: Container(
-        decoration: BoxDecoration(color: AppColors.washi, border: Border.all(color: AppColors.line), borderRadius: BorderRadius.circular(8), boxShadow: kCardShadow),
+        decoration: BoxDecoration(
+          color: AppColors.washi,
+          border: Border.all(color: AppColors.line),
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: kCardShadow,
+        ),
         padding: const EdgeInsets.all(6),
-        child: LayoutBuilder(builder: (context, c) {
-          final art = (c.maxHeight * 0.36).clamp(24.0, 72.0);
-          return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-            Row(children: [
-              Text(conv ? tr('회화') : '#${w.rank}', style: TextStyle(fontSize: 9, color: color, fontWeight: FontWeight.w800)),
-              const Spacer(),
-              if (w.cefr != null && KoReadingPrefs.show.value)
-                Flexible(child: Text(w.cefr!, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 9, color: AppColors.sumiLight))),
-            ]),
-            const SizedBox(height: 2),
-            WordArtThumb(word: w.word, rank: conv ? null : w.rank, size: art),
-            const SizedBox(height: 2),
-            FittedBox(fit: BoxFit.scaleDown, child: Text(w.word, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.sumi))),
-            if ((w.meaningKo ?? '').isNotEmpty)
-              Text(w.meaningKo!, maxLines: 1, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center, style: const TextStyle(fontSize: 10, color: AppColors.sumiLight)),
-          ]);
-        }),
+        child: LayoutBuilder(
+          builder: (context, c) {
+            const art = 40.0;
+            return FittedBox(
+              fit: BoxFit.scaleDown,
+              child: SizedBox(
+                width: c.maxWidth,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          conv ? tr('회화') : '#${w.rank}',
+                          style: TextStyle(fontSize: 9, color: color, fontWeight: FontWeight.w800),
+                        ),
+                        const Spacer(),
+                        if (w.cefr != null && KoReadingPrefs.show.value)
+                          Flexible(
+                            child: Text(
+                              w.cefr!,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 9, color: AppColors.sumiLight),
+                            ),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 2),
+                    WordArtThumb(word: w.word, rank: conv ? null : w.rank, size: art),
+                    const SizedBox(height: 2),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        w.word,
+                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.sumi),
+                      ),
+                    ),
+                    if ((w.meaningKo ?? '').isNotEmpty)
+                      Text(
+                        w.meaningKo!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 10, color: AppColors.sumiLight),
+                      ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
