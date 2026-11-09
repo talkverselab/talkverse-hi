@@ -240,6 +240,7 @@ const Map<String, String> kDictEn = {
   '라이선스': 'Licenses',
   '오픈소스·그림 자료': 'Open source & image credits',
   '곧 열려요 · 성·수': 'Coming soon · gender & number',
+  '다른 언어 배우기': 'Learn another language', 'Talkverse 의 다른 언어로 이동': 'Switch to another Talkverse language',
 };
 
 const Map<String, String> kDictJa = {
@@ -468,6 +469,7 @@ const Map<String, String> kDictJa = {
   '라이선스': 'ライセンス',
   '오픈소스·그림 자료': 'オープンソース・画像の出典',
   '곧 열려요 · 성·수': '近日公開 · 性・数',
+  '다른 언어 배우기': '他の言語を学ぶ', 'Talkverse 의 다른 언어로 이동': 'Talkverse の他の言語へ移動',
 };
 
 const Map<String, String> kDictZh = {
@@ -696,4 +698,5 @@ const Map<String, String> kDictZh = {
   '라이선스': '许可',
   '오픈소스·그림 자료': '开源与图片来源',
   '곧 열려요 · 성·수': '即将推出 · 性·数',
+  '다른 언어 배우기': '学习其他语言', 'Talkverse 의 다른 언어로 이동': '切换到 Talkverse 的其他语言',
 };

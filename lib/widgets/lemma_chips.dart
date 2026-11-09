@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../core/l10n.dart';
 import '../core/theme.dart';
 import '../data/db/app_database.dart';
-import '../main.dart' show appDb;
+import '../embed.dart' show appDb;
 import '../services/dialogue_service.dart';
 import '../services/ko_reading.dart';
 

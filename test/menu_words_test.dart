@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hindi_universe/core/theme.dart';
 import 'package:hindi_universe/data/db/app_database.dart';
 import 'package:hindi_universe/data/db/seed_loader.dart';
-import 'package:hindi_universe/main.dart' show appDb;
+import 'package:hindi_universe/embed.dart' show appDb;
 import 'package:hindi_universe/screens/about_screen.dart';
 import 'package:hindi_universe/screens/word_freq_screen.dart';
 import 'package:hindi_universe/screens/devanagari_chart_screen.dart';

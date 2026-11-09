@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'about_screen.dart';
+import '../embed.dart' show switchLanguage;
 
 import '../core/theme.dart';
 import '../services/ko_reading.dart';
@@ -96,6 +97,8 @@ class ProfileScreen extends StatelessWidget {
           ValueListenableBuilder<bool>(
             valueListenable: KoReadingPrefs.show,
             builder: (context, on, _) => _SettingsGroup(items: [
+              if (switchLanguage != null)
+                _SettingItem(icon: Icons.swap_horiz, title: tr('다른 언어 배우기'), subtitle: tr('Talkverse 의 다른 언어로 이동'), onTap: switchLanguage!),
               _SettingItem(
                   icon: Icons.language,
                   title: tr('언어 / Language'),

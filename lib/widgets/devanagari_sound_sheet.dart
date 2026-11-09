@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../core/embed_env.dart';
 import '../core/l10n.dart';
 import '../core/platform.dart';
 import '../core/theme.dart';
@@ -108,7 +109,7 @@ class _SheetState extends State<_Sheet> {
                 child: Container(
                   color: Colors.white,
                   padding: const EdgeInsets.all(8),
-                  child: Image.asset(l.isVowel ? 'assets/images/ipa/ipa_vowel_chart.png' : 'assets/images/ipa/places_of_articulation.png', fit: BoxFit.contain),
+                  child: Image.asset(assetPath(l.isVowel ? 'assets/images/ipa/ipa_vowel_chart.png' : 'assets/images/ipa/places_of_articulation.png'), fit: BoxFit.contain),
                 ),
               ),
             ],
