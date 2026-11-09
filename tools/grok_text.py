@@ -38,7 +38,7 @@ def main():
         text, out, atts = opt['-m'], a[0], a[1:]
     else:
         text, out, atts = open(a[0], encoding='utf-8').read().strip(), a[1], a[2:]
-    wait = int(opt.get('--wait', 400))
+    wait = int(opt.get('--wait', 180))  # 사용자 지시 2026-11-10: Grok 답은 3분까지만, 넘으면 생성 중지
     remote = []
     if atts:
         subprocess.run(['ssh', 'pc', 'cmd /c if not exist D:\\grok_att\\hi mkdir D:\\grok_att\\hi'], check=False, capture_output=True)
@@ -80,7 +80,7 @@ def main():
         time.sleep(3)
         left = c.ev("(()=>{const e=%s;return e?(e.value||e.innerText||'').trim().length:-1})()" % G.FIND)
         if left and left > 0:
-            c.ev("(()=>{const b=[...document.querySelectorAll('button')].find(x=>/제출|Submit/.test(x.getAttribute('aria-label')||''));if(b){b.click();return 1}return 0})()")
+            c.ev("(()=>{const b=[...document.querySelectorAll('button')].find(x=>/제출|보내기|Submit|Send/.test(x.getAttribute('aria-label')||''));if(b){b.click();return 1}return 0})()")
             time.sleep(3)
         t0 = time.time(); last = ''; same = 0
         while time.time() - t0 < wait:
@@ -97,6 +97,14 @@ def main():
             else:
                 same = 0
             last = cur
+        else:  # 3분 넘김 → 생성 중지(토큰 낭비 방지)
+            hit = c.ev("(()=>{const b=[...document.querySelectorAll('button')].find(e=>/중지|stop/i.test((e.getAttribute('aria-label')||'')+' '+e.innerText));if(b){b.click();return 1}return 0})()")
+            if not hit:
+                for typ in ('keyDown', 'keyUp'):
+                    c.call('Input.dispatchKeyEvent', type=typ, key='Escape', code='Escape', windowsVirtualKeyCode=27, nativeVirtualKeyCode=27)
+            time.sleep(2)
+            print('TIMEOUT 생성 중지', 'CHAT', c.ev('location.href'))
+            sys.exit(4)
         reply = c.ev(REPLY) or ''
         href = c.ev('location.href')
         open(out, 'w', encoding='utf-8').write(reply + '\n')

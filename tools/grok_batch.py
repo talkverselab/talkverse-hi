@@ -4,6 +4,7 @@
 - 방의 첫 메시지 = 규칙(tools/prompts/rewrite_grok_hi.md) 첨부 + 「앞으로 파일 이름 한 줄만」 약속 + 첫 편.
 - 답 → data/review/grok/out/<id>.md. 이미 있으면 건너뜀(이어받기).
 - 검사: 턴 수·화자 순서 같음, expressions 전부 대사에 남음, 초안과 똑같은 줄 ≤ 2. 어긋나면 같은 방에 한 줄로 한 번 다시 요청.
+- 답은 3분까지만(사용자 지시 2026-11-10) — 넘으면 grok_text 가 생성을 중지하고 코드 4, 그 편은 실패로 남김(다음 실행 때 다시).
 - 한도(종료 코드 3)면 멈춘다. 상태 data/review/grok/batch_state.json(방 주소·방 안 편 수).
 """
 import json, os, re, subprocess, sys
@@ -18,7 +19,7 @@ TMP = os.environ.get('GROK_TMP', '/tmp')
 
 
 def turns(path):
-    return [l.split('|') for l in open(path, encoding='utf-8') if re.match(r'^[AB] \|', l)]
+    return [l.split('|') for l in open(path, encoding='utf-8') if re.match(r'^[A-Z] \|', l)]
 
 
 def head(path, key):
@@ -47,7 +48,7 @@ def check(i):
 
 
 def send(msg, out, atts, chat):
-    cmd = ['python3', TOOL, '-m', msg, out] + atts + (['--chat', chat] if chat else []) + ['--wait', '900']
+    cmd = ['python3', TOOL, '-m', msg, out] + atts + (['--chat', chat] if chat else []) + ['--wait', '180']
     r = subprocess.run(cmd, capture_output=True, text=True, env=dict(os.environ, GROK_CDP_PORT='9246'))
     print(r.stdout.strip()[-300:], r.stderr.strip()[-300:], flush=True)
     if r.returncode == 3:
