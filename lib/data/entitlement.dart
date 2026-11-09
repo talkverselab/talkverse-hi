@@ -9,8 +9,6 @@ import '../screens/paywall_screen.dart';
 class Entitlement {
   Entitlement._();
   static const lang = 'hi';
-  static const iosProduct = 'com.talkverse.hindiUniverse.lifetime';
-  static const androidProduct = 'lang_hi';
 
   static bool get premium => Account.has(lang) || Purchase.owns(lang);
 
