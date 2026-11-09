@@ -1,8 +1,14 @@
-# HANDOFF — talkverse-hi (힌디어유니버스) · 2026-11-08
+# HANDOFF — talkverse-hi (힌디어유니버스) · 2026-11-09
 
-## 다음에 할 일 (2026-11-08 세션 종료 — 허브 지시)
+## 다음에 할 일 (2026-11-09 세션 종료)
 
-현재: 안드로이드 빌드 13(`a67ba62`, Zealot https://apps.talkverse.uk/Bt9EU/372)과 iOS TestFlight 2611081702 가 같은 내용. 작업 트리의 수정 표시는 빌드 도구 잡음뿐(아래 「주의」).
+현재: 안드로이드 빌드 15(`aa51e0a`, Zealot https://apps.talkverse.uk/Bt9EU/423)과 iOS TestFlight 2611091212 가 같은 내용. 작업 트리의 수정 표시는 빌드 도구 잡음뿐(아래 「주의」).
+
+11-09 한 일(uk 전달 사용자 지시):
+- 가격 확정 `5a07353`(uk 작성) 푸시 — 상품 lang_hi_1m·3m·1y·life·all_1y·all_life, 결제 시트 정가 취소선.
+- 통합 앱 연결점 `aa51e0a`(EMBED_GUIDE 8단계): `lib/embed.dart`(embedInit·embedApp), `core/embed_env.dart`(storePrefix `hi_`, assetPath, dataDir), `core/prefs.dart`(설정 키 접두, 단독 앱은 옛 키 한 번 이동), DB `hi_hindi_universe`(옛 `hindi_universe` 한 번 이동), 통합 앱이면 clientId `talkverse`·로그아웃은 tv_ 키만·결제 스트림은 공용(`Purchase.ownStream`·`onPurchaseUpdates`), 프로필에 「다른 언어 배우기」. 통합 앱 연결은 uk 가 한다(패키지 `hindi_universe`, 콜백 `talkverse.hi://auth`).
+- 스토어 차별화 `docs/STORE_PRODUCTS.md`(설명 첫 줄·전용 도구·실측 숫자·심사 메모·스크린샷 순서). 출시 전 채울 것도 거기 적음.
+- ⚠ 통합 앱 연결 코드는 위젯 테스트 15개·analyze 통과, **아이패드 스크린샷은 메모리 부족으로 중단되어 다시 못 돌렸다** — 다음 세션 첫 일: `python3 tools/pane_shots.py <UDID> <폴더>` 로 14장 확인(폰에서 업데이트 뒤 기존 학습 기록이 남는지도).
 
 1. **사용자 답 대기 — 굴절어 전략(`~/talkverse/INFLECTED_LANG_STRATEGY.md`) 4개 항목**(11-08 알림):
    - A4 존댓말: 힌디어는 낯선 사이에 आप 가 기본 → R1 에 통문장으로 두는 ②안 제안.
@@ -47,8 +53,8 @@
 
 | 항목 | 상태 |
 |---|---|
-| Android | CI 빌드 13(`a67ba62`) · Zealot https://apps.talkverse.uk/Bt9EU/372 · PC 백업 `D:\OneDrive\app project\talkverse-hi\` |
-| iOS | TestFlight 빌드 `2611081702`(`a67ba62`, Android 13 과 같은 내용) 업로드 성공(번들 `com.talkverse.hindiUniverse`) · IPA 백업 `D:\OneDrive\app project\hindi_universe\ios\` |
+| Android | CI 빌드 15(`aa51e0a`) · Zealot https://apps.talkverse.uk/Bt9EU/423 · PC 백업 `D:\OneDrive\app project\talkverse-hi\` |
+| iOS | TestFlight 빌드 `2611091212`(`aa51e0a`, Android 15 와 같은 내용) 업로드 성공(번들 `com.talkverse.hindiUniverse`) · IPA 백업 `D:\OneDrive\app project\hindi_universe\ios\` |
 | 서명 | `android/app/signing-key.jks` = 폰과 같은 키 SHA-1 `9C:C4:…:47:6B`. Doppler `SIGNKEY_*` + PC `D:\backup\signing_keys\talkverse-hi\` 에 백업. M6 `~/.android/debug.keystore` 는 **다른 키** — CLAUDE.md §1 의 `cp` 금지 |
 | 캐릭터 | 2026-11-03 사용자 통과 — `data/review/art/chars_hi_v1.jpg`, 특징 `data/review/uxui/CHARACTERS.md`(프리야·아난야·로한·아르준·학습자 남/여) |
 | UX/UI | 2026-11-03 사용자 통과 — 글 `data/review/uxui/sian_hi_01.md`, 그림 `sian_hi_01.jpg`(적용 전 태그 `pre-grok-uxui`) |
