@@ -19,6 +19,7 @@
 2. **음성 시험 3편 사용자 청취 대기**(리뷰 페이지 맨 위, https://talkverse.uk/talkverse/review/hi/). 150편 전체는 Grok·Gemini 뒤에, PC 는 uk 의 "지금 시작" 뒤에만. 그 전에 `tools/tts/qa.py` 에 숫자 표기 맞춤(दो सौ ↔ 200)을 넣는다.
 3. **Grok 회화 재작성**: 11월 9일 13:30 재개(uk 공지), 사용자 지시 뒤 시작. 편 1개씩 「전문가」·모든 줄 새로 쓰기, 그다음 **Gemini 검수**(사용자 지시 — 힌디어 필요). 재작성본을 넣을 때 턴마다 `emotion`(+`segs`)을 채우고 `tools/tts/make_plan.py` 로 음성 계획을 만든다. 자신 없는 표현 목록 `data/review/write/draft_doubts_hi.md`.
    - **Grok 쓰는 법 바뀜(2026-11-09 공지 `~/logs/rc/RELAY_grok_20261109.md`)**: 한자 세션은 더 이상 대행하지 않는다. 자기 크롬을 켜고 M4 에서 `ssh macmini4 /usr/bin/python3 ~/talkverse-uk/tools/grok_cookie_sync.py 9231 <자기 포트>` 로 쿠키를 맞춘 뒤 직접 보낸다. 도구는 M6 `~/Hanja/tools/grok_req.py`·`grok_cdp.py` 를 이 저장소로 복사. uk 의 방(9231)은 건드리지 않는다.
+   - **Grok 은 PC 에서(2026-11-09 사용자 지시 "소수언어들에게 pc에서 그록 켜서 집필 그림 작업 하라고 해", uk 전달)** — 위의 M6/M4 크롬 방식 대신: PC(`ssh Administrator@100.127.143.37`)에서 크롬을 `--remote-debugging-port` 로 띄움(작업 스케줄러로 — SSH 직접 실행은 세션과 함께 죽음) → M4 에서 `ssh -N -L <M4포트>:127.0.0.1:<PC포트> Administrator@100.127.143.37` → M4 `/usr/bin/python3 ~/talkverse-uk/tools/grok_cookie_sync.py 9231 <M4포트>`(uk 9231 과 같은 계정, 값은 안 남음). 쓰는 포트는 `~/talkverse-uk/docs/GROK_CHROME_PORTS.md` 에 적는다. 한도는 공유 — 회차를 작게.
    - **Grok 프롬프트 최소화(2026-11-09 사용자 지시, uk 전달)**: 규칙은 저장소 문서에 한 번만 쓴다. 방 첫 메시지에서 「앞으로 파일 이름 한 줄만 보낸다」고 약속하고, 이후 채팅은 한 줄만 보낸다. 그림이 처음과 달라지면 최초로 통과한 그림을 기준으로 한다(이미 만든 그림은 그대로).
    - 감정 열은 이미 규칙에 들어가 있다(`tools/prompts/dialogue_hi.md` §감정 — 턴마다 `emotion`, 바뀌면 `segs`).
 4. 리뷰 통과 뒤: `DialogueService` 를 R 구조로, pubspec 에 R 폴더, `tools/add_lemmas.py` 를 `tl` 칸에 맞춤.
