@@ -183,3 +183,6 @@
 - Grok 재작성 66편 전부 검사 통과(`data/review/grok/out/`). 1차 37편, 나머지는 `tools/grok_fix.py`(짧은 새 방, 그대로 둔 줄 번호 짚기)로 다시 씀. 앞 답은 `out/<id>.prev.md`.
 - Gemini 검수: 1차 36편(`gem1.tsv`) → 2차 29편(`gem2.tsv`) 순서로 진행 중, 결과 `data/review/gemini/<id>.md`. r1_love_a1 은 먼저 끝남.
 - 다음: Gemini 지적을 Grok 에 다시 쓰게(Claude 는 문장 손대지 않음) → 사용자 확인 → 앱에 싣기(HANDOFF 위 통합 단계).
+- 2026-11-18 21:00 검수 1회전 끝: 66편 모두 Grok 재작성 → Gemini(Pro) 검수 → Grok 반영(`tools/grok_review.py`, 앞 답 `out/<id>.g0.md`) → 검사 통과. 바뀐 줄 333.
+  사용자 검토 페이지 https://claude.ai/artifact/LUo7t2rzbVR8RJCS4p1GGv (생성기 scratchpad — 다시 만들려면 out·gemini 에서 편 목록·줄·검수 원문을 뽑아 같은 틀로).
+  다음: 사용자 확인 → 앱 통합 단계(R0 id 바꾸기·JSON 변환·pubspec·script_publish --init·turn_lock --write).
