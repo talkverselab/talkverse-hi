@@ -1,10 +1,12 @@
 import 'dart:convert';
 import '../core/embed_env.dart';
 
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart' show AssetManifest, rootBundle;
 import '../core/prefs.dart';
 
 import 'learner_prefs.dart';
+import 'script_sync.dart';
 
 /// 회화 리더(일본어앱 시안 02 「만화책 읽기형」)용 회화 모델 — 2026-11-02, 일본어앱 `dialogue_service.dart` 를 옮김.
 ///
@@ -54,6 +56,23 @@ class DialogueTurn {
         lemmas: [for (final l in (j['lemmas'] as List? ?? const [])) if (l is List && l.length >= 2) Lemma('${l[0]}', '${l[1]}', l.length > 2 ? '${l[2]}' : '')],
       );
 
+  /// 새 회화 파일(R0~R4, `tools/prompts/dialogue_hi.md` 형식). [female] = 학습자 여성판 — `tl_f`·`rd_f`·`ko_f` 가 있으면 그것.
+  factory DialogueTurn.fromJson(Map<String, dynamic> j, {bool female = false}) {
+    String pick(String k) => (female ? j['${k}_f'] as String? : null) ?? j[k] as String? ?? '';
+    return DialogueTurn(
+      num: j['num'] as int? ?? 0,
+      speaker: j['speaker'] as String? ?? 'A',
+      tl: pick('tl'),
+      gloss: '',
+      rd: pick('rd'),
+      ko: pick('ko'),
+      note: j['note'] as String? ?? '',
+      tags: (j['tags'] as List?)?.cast<String>() ?? const [],
+      art: j['art'] as String?,
+      lemmas: [for (final l in (j['lemmas'] as List? ?? const [])) if (l is List && l.length >= 2) Lemma('${l[0]}', '${l[1]}', l.length > 2 ? '${l[2]}' : '')],
+    );
+  }
+
   /// 그림 조회용 핵심 단어 후보: 단어 힌트(note)의 표제어(`je m'appelle = 내 이름은`의 왼쪽).
   List<String> get pictureWords => [
         for (final part in note.split(RegExp(r'[,;·]')))
@@ -86,6 +105,42 @@ class Dialogue {
     required this.turns,
     this.art,
   });
+
+  /// 새 회화 파일 한 편. 학습자 여성판이면 `speakers_f`(사랑 편 상대 = 아르준)로 바꾸고 그 화자의 성별도 뒤집는다.
+  factory Dialogue.fromJson(Map<String, dynamic> j, {bool female = false}) {
+    final sp = ((j['speakers'] as Map?) ?? const {}).map((k, v) => MapEntry('$k', '$v'));
+    final g = ((j['genders'] as Map?) ?? const {}).map((k, v) => MapEntry('$k', '$v'.startsWith('m') ? 'male' : 'female'));
+    if (female) {
+      for (final e in ((j['speakers_f'] as Map?) ?? const {}).entries) {
+        sp['${e.key}'] = '${e.value}';
+        g['${e.key}'] = g['${e.key}'] == 'male' ? 'female' : 'male';
+      }
+    }
+    return Dialogue(
+      id: j['id'] as String,
+      region: j['region'] as String? ?? 'R1',
+      island: j['island'] as String? ?? '',
+      title: j['title'] as String? ?? '',
+      emoji: j['emoji'] as String? ?? '💬',
+      scene: j['scene'] as String? ?? '',
+      speakers: sp,
+      genders: g,
+      expressions: (j['expressions'] as List?)?.cast<String>() ?? const [],
+      turns: ((j['turns'] as List?) ?? const []).map((t) => DialogueTurn.fromJson(t as Map<String, dynamic>, female: female)).toList(),
+      art: j['art'] as String?,
+    );
+  }
+
+  /// 화면에 보일 장면 설명 — 원고의 「A」(학습자)를 이름(없으면 「나」)으로(일본어앱 빌드 111).
+  String get sceneShown => scene.replaceAllMapped(RegExp(r'(?<![A-Za-z])A(?![A-Za-z]) ?(?=[가-힣])'), (_) => speakerName('A'));
+
+  /// 편 순서 키: survival → a → b → c, 번호 순.
+  String get orderKey {
+    final m = RegExp(r'_([abcs])(\d+)$').firstMatch(id);
+    if (m == null) return id;
+    const o = {'s': 0, 'a': 1, 'b': 2, 'c': 3};
+    return '${o[m.group(1)]}${m.group(2)!.padLeft(2, '0')}';
+  }
 
   /// 화자 표시 이름. `{name}` 자리는 학습자 이름(없으면 「나」).
   String speakerName(String sp) {
@@ -138,8 +193,54 @@ class DialogueService {
   Future<void>? _loading;
   Future<void> ensureLoaded() => _loading ??= _load();
 
+  /// 원고가 서버 판으로 바뀌거나 학습자 성별이 바뀌어 다시 읽힐 때마다 오른다.
+  final ValueNotifier<int> revision = ValueNotifier(0);
+  bool _female = false;
+
+  /// 새 회화(R0~R4) 파일을 읽는다 — 앱 안 편 + 서버에서 받은 새 편, 덮어쓴 판이 있으면 그것([ScriptSync], 일본어앱 빌드 113·114).
+  /// 하나도 없으면 false(옛 L1 로 돈다).
+  Future<bool> _readR() async {
+    final sync = ScriptSync.instance;
+    await sync.init();
+    final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
+    final pat = RegExp(r'^assets/data/dialogues/R[0-4]/[^/]+/[^/]+\.json$');
+    // 통합 앱이면 매니페스트 키에 packages/hindi_universe/ 가 붙어 있다 — 접두를 떼고 견준다
+    final rels = <String>{
+      for (final p in manifest.listAssets().map(stripAssetPrefix).where(pat.hasMatch)) p.substring('assets/data/'.length),
+      ...sync.added.where((p) => pat.hasMatch('assets/data/$p')),
+    }..removeAll(sync.removed);
+    final next = <Dialogue>[];
+    for (final rel in rels) {
+      try {
+        final d = Dialogue.fromJson(json.decode(await sync.load(rel)) as Map<String, dynamic>, female: _female);
+        if (d.turns.isNotEmpty) next.add(d);
+      } catch (_) {}
+    }
+    if (next.isEmpty) return false;
+    next.sort((a, b) => '${a.region}${a.orderKey}'.compareTo('${b.region}${b.orderKey}'));
+    _all
+      ..clear()
+      ..addAll(next);
+    return true;
+  }
+
+
   Future<void> _load() async {
     _lastOpened = (await Prefs.getInstance()).getString(_prefLast);
+    _female = LearnerPrefs.isFemale;
+    if (await _readR()) {
+      // 서버에 더 새 원고가 있으면 뒤에서 받아 다시 읽는다(없거나 실패하면 그대로)
+      ScriptSync.instance.refresh().then((changed) async {
+        if (changed && await _readR()) revision.value++;
+      });
+      // 학습자 성별이 바뀌면 그 판으로 다시 읽는다(तुम थके हो ↔ थकी हो)
+      LearnerPrefs.gender.addListener(() async {
+        if (_female == LearnerPrefs.isFemale) return;
+        _female = LearnerPrefs.isFemale;
+        if (await _readR()) revision.value++;
+      });
+      return;
+    }
     try {
       final j = json.decode(await rootBundle.loadString(assetPath('assets/data/dialogues/L1.json'))) as Map<String, dynamic>;
       final chars = (j['characters'] as Map<String, dynamic>? ?? const {});

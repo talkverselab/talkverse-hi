@@ -14,6 +14,7 @@ import 'services/achievement_service.dart';
 import 'services/content_sync.dart';
 import 'services/ko_reading.dart';
 import 'services/learner_prefs.dart';
+import 'services/script_sync.dart';
 
 export 'core/embed_env.dart' show embedded;
 
@@ -52,6 +53,10 @@ Future<void> embedInit({bool standalone = false}) async {
     Plan('all_1y', 12, 79000, listKrw: 112900, bundle: true),
     Plan('all_life', 0, 329000, listKrw: 469000, bundle: true),
   ]);
+  // 회화 원고 서버 받기 — 켤 때마다 무조건, 그림·음성 내려받기와 따로(일본어앱 빌드 114). 15초 넘으면 앱을 열고 뒤에서 마저.
+  try {
+    await ScriptSync.instance.refresh().timeout(ScriptSync.startupWait);
+  } catch (_) {}
   // 그림(장면 컷·단어 그림) 기기 내려받기: 버전이 다르면 로딩 화면에서 받고 시작(일본어앱 2026-11-04)
   final v = WidgetsBinding.instance.platformDispatcher.views.first;
   final wide = v.physicalSize.shortestSide / v.devicePixelRatio >= 600;
