@@ -84,7 +84,10 @@ def main():
         errs = check(i)
         if errs:
             print('다시', i, errs, flush=True)
-            send('%s.txt 다시: %s' % (i, ', '.join(errs)), out, [], st['chat'])
+            msg = '%s.txt 다시: %s' % (i, ', '.join(errs))
+            if any(e.startswith('초안과 같은 줄') for e in errs):  # 빠른 모드가 감정 칸만 채우고 대사를 그대로 둘 때(2026-11-18)
+                msg += ' — 규칙 1: 모든 대사 줄을 초안과 다른 새 문장으로 다시 써라. 그대로 둔 줄이 있으면 안 된다'
+            send(msg, out, [], st['chat'])
             errs = check(i)
         print('끝', i, errs or 'OK', flush=True)
 

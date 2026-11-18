@@ -4,7 +4,7 @@ grok_req.py(그림용, ~/Hanja/tools)를 글용으로 고친 것(2026-11-09). �
   GROK_CDP_PORT=9246 python3 tools/grok_text.py <보낼 글.txt | "-m 한 줄"> <답.md> [첨부 ...] [--chat <챗 주소 또는 id>] [--wait 400]
 첨부는 PC D:\\grok_att\\hi\\ 로 scp 한 뒤 그 경로로 붙인다(크롬이 PC 에서 돌기 때문). 한도 문구면 종료 코드 3. 끝나면 탭을 닫는다.
 마지막 줄에 `CHAT <주소>` 를 찍는다 — 같은 방에 이어 보낼 때 --chat 으로 넘긴다."""
-import json, os, subprocess, sys, time, urllib.request
+import json, os, re, subprocess, sys, time, urllib.request
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import grok_cdp as G
 
@@ -65,8 +65,16 @@ def main():
             time.sleep(4 + 2 * len(remote))
         model = c.ev("[...document.querySelectorAll('button')].map(b=>b.getAttribute('aria-label')||'').find(x=>/^모델/.test(x))||''")
         print(model)
-        if text is not None and '전문가' not in model:  # 사용자 지시: 전문가 모드로만(2026-11-09)
-            raise SystemExit('Grok 모델이 전문가가 아님: ' + model)
+        # 사용자 지시 2026-11-18(일본어앱 전달): Grok 은 「빠른」 모드 — 아니면 모델 단추 → 빠른 으로 한 번 바꿔 본다
+        if text is not None and not re.search('빠른|Fast', model):
+            c.ev("(()=>{const b=[...document.querySelectorAll('button')].find(b=>/^모델/.test(b.getAttribute('aria-label')||''));if(!b)return 0;['pointerdown','pointerup'].forEach(t=>b.dispatchEvent(new PointerEvent(t,{bubbles:true})));b.click();return 1})()")
+            time.sleep(2)
+            c.ev("(()=>{const it=[...document.querySelectorAll('[role=menuitem],[role=option],[role=menuitemradio],[role=menuitemcheckbox],button,div')].find(x=>/^(빠른|Fast)(\\s|$)/.test((x.innerText||'').trim())&&x.offsetParent&&!(x.getAttribute('aria-label')||'').match(/^(모델|Model):/));if(!it)return 0;['pointerdown','pointerup'].forEach(t=>it.dispatchEvent(new PointerEvent(t,{bubbles:true})));it.click();return 1})()")
+            time.sleep(2)
+            model = c.ev("[...document.querySelectorAll('button')].map(b=>b.getAttribute('aria-label')||'').find(x=>/^모델/.test(x))||''")
+            print('→', model)
+            if not re.search('빠른|Fast', model):
+                raise SystemExit('Grok 모델이 빠른 모드가 아님: ' + model)
         if text is None:
             r = c.ev(REPLY) or ''
             open(out, 'w', encoding='utf-8').write(r + '\n'); print('저장', out, len(r), '자'); return

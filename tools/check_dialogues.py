@@ -8,8 +8,8 @@ from rd_hi import convert
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = ROOT / 'assets/data/dialogues'
-TURNS = {'R1': (6, 8), 'R2': (8, 12), 'R3': (12, 16)}
-WORDS = {'R1': (3, 8), 'R2': (4, 12), 'R3': (5, 18)}
+TURNS = {'R1': (6, 8), 'R2': (8, 12), 'R3': (12, 16), 'R4': (12, 18)}
+WORDS = {'R1': (3, 8), 'R2': (4, 12), 'R3': (5, 18), 'R4': (5, 18)}
 TYPES = {'chaos', 'slip', 'reveal', 'emotion', 'ignore'}
 NEED = ['id', 'region', 'island', 'kind', 'title', 'emoji', 'scene', 'speakers', 'register', 'twist', 'twist_type', 'goal', 'expressions', 'turns']
 EMOTIONS = set('neutral polite stiff cheerful amused teasing excited surprised shout tsukkomi annoyed sad worried flustered shy gentle'.split())
