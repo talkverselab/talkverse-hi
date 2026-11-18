@@ -31,7 +31,7 @@ def main():
     rows = []
     for f in sorted(glob.glob(os.path.join(ROOT, 'data/review/grok/out/*.md'))):
         i = os.path.basename(f)[:-3]
-        if only and i not in only: continue
+        if '.' in i or (only and i not in only): continue  # .prev·.g0 는 앞 답
         dst = os.path.join(OUT, i + '.md')
         if os.path.exists(dst): continue
         h, lines = parse(f)
