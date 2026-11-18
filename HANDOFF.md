@@ -17,6 +17,11 @@
    - A11 단어 상한: 2,000(94.6%) 유지 제안.
    - 답을 받으면 `docs/DIALOGUE_RULES_hi.md` 에 결정과 A-빈칸 표를 적는다.
 2. **음성 생성은 새벽 01:00~07:00 KST 에만**(2026-11-09 사용자 지시, 전역 CLAUDE.md). **음성 시험 3편 사용자 청취 대기**(리뷰 페이지 맨 위, https://talkverse.uk/talkverse/review/hi/). 150편 전체는 Grok·Gemini 뒤에, PC 는 uk 의 "지금 시작" 뒤에만. 그 전에 `tools/tts/qa.py` 에 숫자 표기 맞춤(दो सौ ↔ 200)을 넣는다.
+0-1. **2026-11-18 iOS 심사 준비 — 일본어앱 수준 맞추기(일본어앱 세션 전달, 사용자 지시)**: 전달문 `~/talkverse/ja/docs/RELAY_2026-11-18_ja_parity.md`(규격 `CONTENT_SYNC.md` §6). 기준 = 회화 30%를 급마다(R0 14·R1 21·R2 17·R3 13·R4 1, 합 66) + 단어 그림은 공용 DB + 장면 컷 10장 + 회화 원고 서버 받기(`script_sync.dart`, `/art/script/hi/…`).
+   - **사용자 결정(2026-11-18, 이 세션 질문에 답)**: 「검수부터 마치기」 — 66편은 Grok 재작성 → Gemini 검수를 끝낸 뒤에 앱에 넣는다(초안을 먼저 넣지 않음).
+   - 걸림: 지금 앱은 옛 L1 5편만 읽는다(`DialogueService` 가 `L1.json`). R 폴더 편을 읽는 구조부터 일본어앱처럼 옮겨야 서버 받기가 붙는다. R0(0편)·R4(0편)는 새로 써야 한다(14편·1편).
+   - Grok 3분 제한 결정 대기는 전달문 §4 「Grok 은 빠른 모드(사용자 지시 11-18)」로 풀림 → 빠른 모드로 재개. `~/talkverse-uk/tools/grok_mode.py` 는 전문가 전용이라 빠른 모드 전환은 화면 또는 이 저장소 도구로.
+   - 순서: ① 66편 고르기(R1·R2·R3 는 plan 에서 주제 고르게) + R0 14·R4 1 초안 ② Grok(빠른) 재작성 ③ Gemini 검수 ④ 사용자 리뷰 ⑤ 앱 회화 구조를 R 폴더로 + `ScriptSync` ⑥ 장면 컷 10장 ⑦ Android·iOS 빌드 → uk 에 커밋·패키지·의존성·rev 보고. 언어감각·외국어 단어 퀴즈·〇〇→이름(전달문 §2)은 ⑤와 함께.
 0. **2026-11-10 정리 후 종료(허브 지시, M6 디스크 꽉 참)**: `flutter clean`·android/.gradle·ios/Pods·`__pycache__`·`.wrangler` 삭제(약 1.1GB). 다음 빌드 전 `flutter pub get`·`cd ios && pod install`.
    - **자산 DB 올리기(uk 전달 사용자 지시 "모든 자산 db 에")** — 디스크 문제로 못 함, 올린 것 0. D1 `talkverse-db` 확인: `audio_lines` hi 0줄(시험 3편 mp4 는 R2 에만), `art_words` hi 1,557(uk 담당), `art_scenes` 0. 할 일: `python3 tools/tts/pack.py ~/tts_work/hi/<…> r1_survival_s1 r1_friends_a1 r1_love_a1 --upload` 로 D1 줄 넣기(새 음성 생성 아님). 회화·문장은 D1 에 받을 표가 없음 → uk 에 위치 확인.
    - **지울 후보(지우지 않음)**: `~/tts_work/hi`(23MB, 시험 3편 wav — D1 넣기에 필요).
