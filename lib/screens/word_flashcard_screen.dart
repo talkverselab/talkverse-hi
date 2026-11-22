@@ -11,6 +11,7 @@ import '../services/memorized_store.dart';
 import '../services/tts_service.dart';
 import '../core/platform.dart';
 import '../core/l10n.dart';
+import 'word_quiz_screen.dart';
 
 class _Word {
   final String ko;
@@ -95,6 +96,11 @@ class _WordFlashcardScreenState extends State<WordFlashcardScreen> {
         title: Text(tr('단어 카드')),
         actions: [
           const KoReadingToggleAction(),
+          IconButton(
+            tooltip: tr('퀴즈 복습'),
+            icon: const Icon(Icons.quiz_outlined),
+            onPressed: _all.isEmpty ? null : () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => WordQuizScreen(words: [for (final w in _all) WQWord(w.tx, w.rd, w.ko)]))),
+          ),
           IconButton(
             tooltip: _hideMemorized ? tr('외운 단어도 보기') : tr('외운 단어 빼기'),
             icon: Icon(_hideMemorized ? Icons.visibility_off : Icons.visibility),
