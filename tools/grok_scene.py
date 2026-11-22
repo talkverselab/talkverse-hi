@@ -37,7 +37,7 @@ def prompt(ep, cuts):
             f"\n지금 바로 이미지 {len(cuts)}장을 생성하세요.")
 
 
-IMGS = "[...document.querySelectorAll('img')].filter(i=>i.src.includes('assets.grok.com')&&i.naturalWidth>=300).map(i=>i.src)"
+IMGS = "[...document.querySelectorAll('img')].filter(i=>i.src.includes('assets.grok.com')&&i.src.includes('/generated/')&&i.naturalWidth>=300).map(i=>i.src)"
 BUSY = ("!![...document.querySelectorAll('button')].find(e=>/응답 중지|Stop/.test(e.getAttribute('aria-label')||''))"
         "||[...document.querySelectorAll('img')].some(i=>i.src.startsWith('data:image')&&i.naturalWidth>200)")
 

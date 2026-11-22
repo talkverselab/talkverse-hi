@@ -201,3 +201,5 @@
 - 장면 컷 10장 — Grok 자리를 uk 에 요청함. 컷을 만든 뒤 공용 D1·R2 올리기는 uk 에 넘길 예정(`~/talkverse/ja/tools/grok_scene_batch.py`·`scene_upload.py` 참고).
 - 언어감각 과정 — 힌디어 문장을 새로 써야 해서 Grok·Gemini 를 거쳐야 함. 아직 시작 안 함.
 - 장면 컷: `tools/grok_scene.py`(PC 크롬 9246, 편마다 4컷 한 번에, 한 방 이어 쓰기) → `~/talkverse/hi-art`(그림 저장소 sparse, scene/hi). 고른 편 r0_culture_a3·r0_love_c2·r0_life_a2(12컷). Grok 차례 = 아랍어앱 「Grok 끝」 뒤(uk 순서). 올리기는 이 세션이 직접(uk 는 대신 안 함) — 막히면 사용자 확인.
+- 2026-11-22 16:10 장면 컷 12장 끝: r0_culture_a3·r0_love_c2·r0_life_a2 각 4컷(Grok 빠른, PC 9246 — 끝나고 끔). 그림 저장소 067eb35a9 push, `tools/scene_upload.py`(일본어앱 것을 hi 로)로 R2+D1 올림 → `/art/hi/scene/manifest` count 12. 앱은 실행 중 매니페스트를 읽으므로 새 빌드 없이 보인다.
+- 일본어앱 수준 기준(회화 30%·단어 그림 공용 DB·장면 컷 10장·원고 서버 받기) 충족. 남은 선택 항목: 언어감각 과정(새 힌디어 문장 → Grok·Gemini 필요), 학습자 여성판 장면 컷(`<편id>_f`).
