@@ -4,6 +4,15 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 const Map<String, String> kDictEn = {
+  // 언어감각 익히기(2026-11-22)
+  '마침 · 다음 회': 'Done · next lesson',
+  '한국어와 다른 곳만 잠깐': 'Only where it differs from Korean',
+  '대화를 통째로 외워요. 규칙은 참고에만 있어요.': 'Memorise the whole dialogue. Rules are only in the reference.',
+  '언어감각 익히기': 'Language feel',
+  '참고': 'Reference',
+  '{0}회': 'Lesson {0}',
+  '{0}/{1}회 마침': '{0}/{1} lessons done',
+  '정규과정': 'Core course',
   '퀴즈 복습': 'Quiz review',
   '뜻으로 맞는 것을 고르세요.': 'Choose the correct meaning.',
   '한 번 더': 'Once more',
@@ -255,6 +264,15 @@ const Map<String, String> kDictEn = {
 };
 
 const Map<String, String> kDictJa = {
+  // 언어감각 익히기(2026-11-22)
+  '마침 · 다음 회': '完了 · 次の回',
+  '한국어와 다른 곳만 잠깐': '韓国語と違うところだけ',
+  '대화를 통째로 외워요. 규칙은 참고에만 있어요.': '会話を丸ごと覚えます。規則は参考にだけあります。',
+  '언어감각 익히기': '言語感覚を身につける',
+  '참고': '参考',
+  '{0}회': '第{0}回',
+  '{0}/{1}회 마침': '{0}/{1}回 完了',
+  '정규과정': '正規コース',
   '퀴즈 복습': 'クイズ復習',
   '뜻으로 맞는 것을 고르세요.': '正しい意味を選んでください。',
   '한 번 더': 'もう一度',
@@ -495,6 +513,15 @@ const Map<String, String> kDictJa = {
 };
 
 const Map<String, String> kDictZh = {
+  // 언어감각 익히기(2026-11-22)
+  '마침 · 다음 회': '完成 · 下一课',
+  '한국어와 다른 곳만 잠깐': '只讲和韩语不同的地方',
+  '대화를 통째로 외워요. 규칙은 참고에만 있어요.': '整段背下会话。规则只在参考里。',
+  '언어감각 익히기': '培养语感',
+  '참고': '参考',
+  '{0}회': '第{0}课',
+  '{0}/{1}회 마침': '已完成 {0}/{1} 课',
+  '정규과정': '正式课程',
   '퀴즈 복습': '测验复习',
   '뜻으로 맞는 것을 고르세요.': '请选择正确的意思。',
   '한 번 더': '再来一次',

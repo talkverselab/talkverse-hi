@@ -8,6 +8,7 @@ import '../widgets/spanish_decor.dart';
 import 'about_screen.dart';
 import 'chunk_search_screen.dart';
 import 'conversation_screen.dart';
+import 'sense_course_screen.dart';
 import 'devanagari_chart_screen.dart';
 import 'dialogue_screen.dart';
 import 'episode_screen.dart';
@@ -403,6 +404,11 @@ class _MenuGrid extends StatelessWidget {
       _MenuItem(label: tr('문장 말하기'), sub: tr('한글 보고 힌디어로'), badge: '🎙', color: AppColors.rojo,
         builder: (_) => const SpeakingPracticeScreen()),
     ];
+    final course = <_MenuItem>[ // 일본어앱 정규과정(빌드 96~112) — 헝가리어앱을 거쳐 옮김(2026-11-22)
+      // soon = Grok·Gemini 검수 전(초안). 검수 대사가 sense_course.json 에 들어가면 soon 을 뺀다.
+      _MenuItem(label: tr('언어감각 익히기'), sub: 'भाषा-बोध', badge: 'L', color: AppColors.ai, soon: true,
+        builder: (_) => const SenseCourseScreen()),
+    ];
     final basics = <_MenuItem>[
       _MenuItem(label: tr('데바나가리와 발음'), sub: 'अ आ क ख', badge: 'अ', color: AppColors.beni,
         builder: (_) => const DevanagariChartScreen()),
@@ -445,11 +451,12 @@ class _MenuGrid extends StatelessWidget {
           itemBuilder: (context, i) => _MenuTile(item: items[i]),
         );
     // 심사 정리(2026-11-22): 데이터가 아직 빈 메뉴(soon)는 감춘다 — 데이터가 차면 soon 을 빼서 다시 보이게.
-    for (final l in [talk, basics, grammar, words]) {
+    for (final l in [course, talk, basics, grammar, words]) {
       l.removeWhere((e) => e.soon);
     }
 
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      if (course.isNotEmpty) ...[title(tr('정규과정')), grid(course)],
       title(tr('기초')),
       grid(basics),
       title(tr('문법·글자')),

@@ -7,7 +7,7 @@
 #   레코드가 없으면 업로드가 missingApp 으로 실패한다(export 까지는 된다 — 번들 ID 는 그때 포털에 자동 등록).
 # 원본: ~/interval-camera/tools/ios_release.sh (언어앱 공통, 2026-11-01)
 set -euo pipefail
-PC="pc"  # ~/.ssh/config 별칭
+PC="${IOS_BACKUP_HOST:-pc}"  # ~/.ssh/config 별칭, none 이면 PC 백업 건너뜀
 TEAM="QP8QRMA9CC"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
@@ -49,7 +49,9 @@ VER="$(grep '^version:' pubspec.yaml | awk '{print $2}' | cut -d+ -f1)"
 REV="$(git rev-parse --short HEAD)"
 STAMP="$(TZ=Asia/Seoul date +%Y%m%d_%H%M)"
 NAME="${APP}_${VER}_${BUILD}_${STAMP}_${REV}_appstore.ipa"
-if ssh -o ConnectTimeout=10 "$PC" "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force -Path 'D:\\OneDrive\\app project\\$APP\\ios' | Out-Null\"" \
+if [ "$PC" = none ]; then
+  echo "PC 백업 건너뜀(IOS_BACKUP_HOST=none)"
+elif ssh -o ConnectTimeout=10 "$PC" "powershell -NoProfile -Command \"New-Item -ItemType Directory -Force -Path 'D:\\OneDrive\\app project\\$APP\\ios' | Out-Null\"" \
    && scp -q "$IPA" "$PC:D:/OneDrive/app project/$APP/ios/$NAME"; then
   echo "백업 완료: OneDrive/app project/$APP/ios/$NAME"
 else
