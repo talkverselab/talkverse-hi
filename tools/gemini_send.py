@@ -14,7 +14,7 @@ ANS = "[...document.querySelectorAll('model-response')].map(e=>e.innerText)"
 BOX = "document.querySelector('rich-textarea .ql-editor, div[contenteditable=true]')"
 BUSY = "!!document.querySelector('button[aria-label*=\"중지\"], button[aria-label*=\"Stop\"]')"
 SEND = "(()=>{const b=document.querySelector('button.send-button, button[aria-label*=\"보내기\"], button[aria-label*=\"Send\"]');if(b)b.click()})()"
-MODEL = "[...document.querySelectorAll('button')].map(b=>b.innerText.trim()).filter(t=>/Flash|Pro|Argon/.test(t))[0]||''"
+MODEL = "[...document.querySelectorAll('button')].map(b=>(b.getAttribute('aria-label')||'').includes('모드 선택')?(b.getAttribute('aria-label')||''):b.innerText.trim()).filter(t=>/Flash|Pro|Argon|모드 선택/.test(t))[0]||''"  # 2026-11-23 새 화면은 「모드 선택 … 현재 심층 분석 모드」
 
 
 def browser(method, **params):
