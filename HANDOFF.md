@@ -2,7 +2,7 @@
 
 ## 다음에 할 일 (2026-11-09 세션 종료)
 
-현재: 안드로이드 빌드 15(`aa51e0a`, Zealot https://apps.talkverse.uk/Bt9EU/423)과 iOS TestFlight 2611091212 가 같은 내용. 작업 트리의 수정 표시는 빌드 도구 잡음뿐(아래 「주의」).
+현재(2026-11-22): 안드로이드 빌드 18(`fd5d999`, Zealot https://apps.talkverse.uk/Bt9EU/535, APK 에 회화 66편·script_rev.json 들어 있음 확인)과 iOS TestFlight 2611221548 이 같은 내용. 서버 원고 rev 1. 작업 트리의 수정 표시는 빌드 도구 잡음뿐(아래 「주의」).
 
 11-09 한 일(uk 전달 사용자 지시):
 - 가격 확정 `5a07353`(uk 작성) 푸시 — 상품 lang_hi_1m·3m·1y·life·all_1y·all_life, 결제 시트 정가 취소선.
@@ -200,3 +200,4 @@
 남은 것:
 - 장면 컷 10장 — Grok 자리를 uk 에 요청함. 컷을 만든 뒤 공용 D1·R2 올리기는 uk 에 넘길 예정(`~/talkverse/ja/tools/grok_scene_batch.py`·`scene_upload.py` 참고).
 - 언어감각 과정 — 힌디어 문장을 새로 써야 해서 Grok·Gemini 를 거쳐야 함. 아직 시작 안 함.
+- 장면 컷: `tools/grok_scene.py`(PC 크롬 9246, 편마다 4컷 한 번에, 한 방 이어 쓰기) → `~/talkverse/hi-art`(그림 저장소 sparse, scene/hi). 고른 편 r0_culture_a3·r0_love_c2·r0_life_a2(12컷). Grok 차례 = 아랍어앱 「Grok 끝」 뒤(uk 순서). 올리기는 이 세션이 직접(uk 는 대신 안 함) — 막히면 사용자 확인.
