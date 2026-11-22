@@ -387,6 +387,9 @@ class _TodayMissionState extends State<_TodayMission> {
   }
 }
 
+/// 성·수 메뉴 데이터가 생기면 true(심사 빌드에서 「곧 열려요」 줄을 감춤, 2026-11-22).
+const bool _kGenderNumberReady = false;
+
 class _MenuGrid extends StatelessWidget {
   // UX 시안 01(2026-11-03 통과): 메뉴를 묶음 3개로 — 순서 문법 → 회화 → 단어(2026-11-07, 일본어앱과 같은 순서). 준비중(성·수·발음)은 타일 대신 묶음 끝 한 줄,
   // 데이터가 아직 빈 메뉴(동사 활용·표현·빈도 단어)는 타일에 「준비 중」 꼬리표.
@@ -441,13 +444,17 @@ class _MenuGrid extends StatelessWidget {
           itemCount: items.length,
           itemBuilder: (context, i) => _MenuTile(item: items[i]),
         );
+    // 심사 정리(2026-11-22): 데이터가 아직 빈 메뉴(soon)는 감춘다 — 데이터가 차면 soon 을 빼서 다시 보이게.
+    for (final l in [talk, basics, grammar, words]) {
+      l.removeWhere((e) => e.soon);
+    }
 
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       title(tr('기초')),
       grid(basics),
       title(tr('문법·글자')),
       grid(grammar),
-      Padding(
+      if (_kGenderNumberReady) Padding(
         padding: const EdgeInsets.fromLTRB(2, 10, 2, 0),
         child: Text(tr('곧 열려요 · 성·수'), style: const TextStyle(fontSize: 12, color: AppColors.gualdaDeep)),
       ),
