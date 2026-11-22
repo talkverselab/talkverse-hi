@@ -132,4 +132,15 @@ void main() {
     }
     expect(find.textContaining('100'), findsOneWidget);
   });
+
+  for (final w in [300.0, 390.0]) {
+    testWidgets('코스 고르기 칩 줄 — ${w.toInt()}px 폭에서 넘치지 않음', (t) async {
+      t.view.physicalSize = Size(w, 800);
+      t.view.devicePixelRatio = 1;
+      addTearDown(t.view.reset);
+      await t.pumpWidget(MaterialApp(home: Scaffold(body: Padding(padding: const EdgeInsets.all(16), child: CurriculumPickBar(count: 5, onCount: (_) {}, onRecommend: () {})))));
+      expect(t.takeException(), isNull);
+      expect(find.text('추천으로 채우기'), findsOneWidget);
+    });
+  }
 }

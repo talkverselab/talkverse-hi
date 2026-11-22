@@ -332,28 +332,16 @@ class _CurriculumScreenState extends State<CurriculumScreen> {
         ),
       ],
       const SizedBox(height: 10),
-      Row(children: [
-        for (final n in const [3, 5, 10])
-          Padding(
-            padding: const EdgeInsets.only(right: 6),
-            child: ChoiceChip(
-              label: Text(trf('{0}편', [n])),
-              selected: _pickCount == n,
-              onSelected: (_) => setState(() {
-                _pickCount = n;
-                while (_picked.length > n) {
-                  _picked.remove(_picked.last);
-                }
-              }),
-            ),
-          ),
-        const Spacer(),
-        TextButton.icon(
-          onPressed: () => setState(() => _picked.addAll(recommend(list, passed, _picked, _pickCount))),
-          icon: const Icon(Icons.auto_awesome, size: 16),
-          label: Text(tr('추천으로 채우기')),
-        ),
-      ]),
+      CurriculumPickBar(
+        count: _pickCount,
+        onCount: (n) => setState(() {
+          _pickCount = n;
+          while (_picked.length > n) {
+            _picked.remove(_picked.last);
+          }
+        }),
+        onRecommend: () => setState(() => _picked.addAll(recommend(list, passed, _picked, _pickCount))),
+      ),
       const SizedBox(height: 6),
       SizedBox(
         width: double.infinity,
@@ -734,3 +722,22 @@ Future<void> _speakTurn(Dialogue d, DialogueTurn t) =>
 
 /// 화면에 보일 줄 — 자리 표시({name})는 학습자 이름(없으면 「나」).
 String _shown(Dialogue d, DialogueTurn t) => t.tl.replaceAll('{name}', d.speakerName('A')).replaceAll(RegExp(r'\{[a-z_]+\}'), '○○');
+
+/// 코스 고르기의 3·5·10 칩 + 「추천으로 채우기」. Row 는 300px 폭(아이패드 분할 왼쪽)에서 넘쳐 Wrap(몽골어앱 발견, uk 공지 2026-11-22).
+class CurriculumPickBar extends StatelessWidget {
+  final int count;
+  final ValueChanged<int> onCount;
+  final VoidCallback onRecommend;
+  const CurriculumPickBar({super.key, required this.count, required this.onCount, required this.onRecommend});
+
+  @override
+  Widget build(BuildContext context) => Wrap(spacing: 6, runSpacing: 4, crossAxisAlignment: WrapCrossAlignment.center, children: [
+        for (final n in const [3, 5, 10])
+          ChoiceChip(label: Text(trf('{0}편', [n])), selected: count == n, onSelected: (_) => onCount(n)),
+        TextButton.icon(
+          onPressed: onRecommend,
+          icon: const Icon(Icons.auto_awesome, size: 16),
+          label: Text(tr('추천으로 채우기')),
+        ),
+      ]);
+}
