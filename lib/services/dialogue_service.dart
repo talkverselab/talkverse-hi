@@ -178,6 +178,7 @@ class DialogueService {
     'work': '💼',
     'study': '🎓',
   };
+  static const levels = ['R0', 'R1', 'R2', 'R3', 'R4']; // 회화 레벨(커리큘럼 레벨 순서)
   static const levelKo = {'L1': '이야기', 'R0': '왕초보', 'R1': '초보', 'R2': '중급', 'R3': '고급', 'R4': '최상급'};
   static const _prefLast = 'dialogue_last';
 
