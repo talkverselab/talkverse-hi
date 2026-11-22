@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""힌디어 회화 검사기. python3 tools/check_dialogues.py [--fix-rd] [파일…] (파일 없으면 R1~R3 전부)
+"""힌디어 회화 검사기. python3 tools/check_dialogues.py [--fix-rd] [파일…] (파일 없으면 R0~R4 전부)
 오류는 고칠 때까지 남고, 경고는 참고. 끝에 묶음 비율(카오스 30% 이상)을 낸다."""
 import collections, json, re, sys
 from pathlib import Path
@@ -8,8 +8,8 @@ from rd_hi import convert
 
 ROOT = Path(__file__).resolve().parent.parent
 BASE = ROOT / 'assets/data/dialogues'
-TURNS = {'R1': (6, 8), 'R2': (8, 12), 'R3': (12, 16), 'R4': (12, 18)}
-WORDS = {'R1': (3, 8), 'R2': (4, 12), 'R3': (5, 18), 'R4': (5, 18)}
+TURNS = {'R0': (6, 8), 'R1': (6, 8), 'R2': (8, 12), 'R3': (12, 16), 'R4': (12, 18)}
+WORDS = {'R0': (3, 8), 'R1': (3, 8), 'R2': (4, 12), 'R3': (5, 18), 'R4': (5, 18)}
 TYPES = {'chaos', 'slip', 'reveal', 'emotion', 'ignore'}
 NEED = ['id', 'region', 'island', 'kind', 'title', 'emoji', 'scene', 'speakers', 'register', 'twist', 'twist_type', 'goal', 'expressions', 'turns']
 EMOTIONS = set('neutral polite stiff cheerful amused teasing excited surprised shout tsukkomi annoyed sad worried flustered shy gentle'.split())
@@ -50,7 +50,7 @@ def check(path, fix):
         w = wc(tl)
         chat = d['kind'] == 'chat'
         if w > b or (w < (1 if chat else a) and i != d['twist'] and i != len(turns)):
-            (warn if chat or w == a - 1 else err).append(f'{n} 단어 수 {w} (기준 {a}~{b})')
+            (warn if chat or w == a - 1 or d.get('reviewed') else err).append(f'{n} 단어 수 {w} (기준 {a}~{b})')  # 검수 끝난 편은 Grok 대사 그대로라 경고만
         if t.get('speaker') == prev: warn.append(f'{n} 같은 화자 연속')
         prev = t.get('speaker')
         if 'tl_f' in t and t['tl_f'] == tl: err.append(f'{n} tl_f 가 tl 과 같음')
@@ -70,7 +70,7 @@ def check(path, fix):
 def main():
     args = [a for a in sys.argv[1:] if a != '--fix-rd']
     fix = '--fix-rd' in sys.argv
-    files = [Path(a) for a in args] or sorted(BASE.glob('R[123]/*/*.json'))
+    files = [Path(a) for a in args] or sorted(BASE.glob('R[0-4]/*/*.json'))
     bad = 0; tw = collections.Counter(); by = collections.Counter()
     for f in files:
         d, e, w = check(f, fix)

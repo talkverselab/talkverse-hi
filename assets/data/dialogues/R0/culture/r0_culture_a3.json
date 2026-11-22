@@ -1,0 +1,138 @@
+{
+ "id": "r0_culture_a3",
+ "region": "R0",
+ "island": "culture",
+ "kind": "short",
+ "title": "이기는 쪽 팬",
+ "emoji": "🏏",
+ "scene": "짜이 가판대 TV 앞. 크리켓 경기 중, 프리야가 제일 크게 소리치는데 A 는 룰을 모른다",
+ "where": "짜이 가판대 TV 앞",
+ "speakers": {
+  "A": "{name}",
+  "B": "प्रिया"
+ },
+ "genders": {
+  "B": "f"
+ },
+ "register": "casual",
+ "twist": 7,
+ "twist_type": "reveal",
+ "flags": [],
+ "purpose": [
+  "making_friends",
+  "media"
+ ],
+ "domain": [
+  "culture",
+  "friends"
+ ],
+ "goal": "크리켓 응원의 말(छक्का·आउट·टीम)과 모른다고 말하기(पता नहीं)",
+ "expressions": [
+  "चलो",
+  "पता नहीं",
+  "क्या बात है"
+ ],
+ "turns": [
+  {
+   "num": 1,
+   "speaker": "B",
+   "tl": "अरे छक्का! छक्का! देखा क्या {name}?",
+   "ko": "야 식스! 식스! 봤어 {name}?",
+   "note": "छक्का = 식스",
+   "emotion": "excited",
+   "segs": [
+    [
+     "excited"
+    ],
+    [
+     "shout"
+    ]
+   ],
+   "rd": "아레 차카! 차카! 데카 캬 {name}?"
+  },
+  {
+   "num": 2,
+   "speaker": "A",
+   "tl": "देखा यार। ये कौन सी टीम है?",
+   "ko": "봤어. 이거 어느 팀이야?",
+   "note": "कौन सी = 어느",
+   "emotion": "neutral",
+   "rd": "데카 야르. 예 카운 시 팀 헤?"
+  },
+  {
+   "num": 3,
+   "speaker": "B",
+   "tl": "नीली वाली टीम। चलो, ज़ोर से चिल्लाओ!",
+   "ko": "파란 팀이야. 자, 크게 소리 질러!",
+   "note": "चलो = 자",
+   "tags": [
+    "expr:चलो"
+   ],
+   "emotion": "excited",
+   "rd": "닐리 왈리 팀. 찰로, 조르 세 칠라오!"
+  },
+  {
+   "num": 4,
+   "speaker": "A",
+   "tl": "ठीक है… आउट! वो आउट हो गया क्या?",
+   "ko": "알았어… 아웃! 저거 아웃 된 거야?",
+   "note": "आउट = 아웃",
+   "emotion": "surprised",
+   "rd": "티크 헤… 아우트! 워 아우트 호 가야 캬?"
+  },
+  {
+   "num": 5,
+   "speaker": "B",
+   "tl": "पता नहीं, पर चिल्लाओ तो!",
+   "ko": "몰라, 그래도 질러 봐!",
+   "note": "पता नहीं = 몰라",
+   "tags": [
+    "expr:पता नहीं"
+   ],
+   "emotion": "amused",
+   "rd": "파타 나힝, 파르 칠라오 토!"
+  },
+  {
+   "num": 6,
+   "speaker": "A",
+   "tl": "तुम किसकी तरफ़ हो?",
+   "ko": "넌 어느 쪽이야?",
+   "note": "किसकी तरफ़ = 어느 쪽",
+   "emotion": "neutral",
+   "rd": "툼 키스키 타라프 호?"
+  },
+  {
+   "num": 7,
+   "speaker": "B",
+   "tl": "जो जीत रही है, उसी की।",
+   "ko": "이기고 있는 쪽.",
+   "note": "जो … की = ~하는 쪽의",
+   "tags": [
+    "twist"
+   ],
+   "emotion": "teasing",
+   "segs": [
+    [
+     "teasing"
+    ],
+    [
+     "amused"
+    ]
+   ],
+   "rd": "조 지트 라히 헤, 우시 키."
+  },
+  {
+   "num": 8,
+   "speaker": "A",
+   "tl": "क्या बात है। पक्की फ़ैन हो तुम।",
+   "ko": "대단하다. 찐팬이네.",
+   "note": "क्या बात है = 대단하다 · पक्की = 확고한",
+   "tags": [
+    "expr:क्या बात है"
+   ],
+   "emotion": "teasing",
+   "rd": "캬 바트 헤. 파키 펜 호 툼."
+  }
+ ],
+ "reviewed": "grok+gemini 2026-11-18"
+}

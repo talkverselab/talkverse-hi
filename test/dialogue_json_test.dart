@@ -13,15 +13,19 @@ void main() {
     expect(d.region, 'R4');
     expect(d.speakers['B'], 'अनन्या');
     expect(d.genders['B'], 'female');
-    expect(d.turns.first.tl, contains('काम कर रहे हो'));
+    expect(d.turns.first.tl, (j['turns'] as List).first['tl']);
   });
 
   test('여성판 — tl_f 와 상대(speakers_f)·성별', () {
     final d = Dialogue.fromJson(j, female: true);
     expect(d.speakers['B'], 'अर्जुन');
     expect(d.genders['B'], 'male');
-    expect(d.turns.first.tl, contains('काम कर रही हो'));
-    expect(d.turns[1].tl, d.turns[1].tl); // tl_f 없는 턴은 기본판 그대로
+    final ts = (j['turns'] as List).cast<Map<String, dynamic>>();
+    final i = ts.indexWhere((t) => t['tl_f'] != null);
+    expect(i, isNonNegative);
+    expect(d.turns[i].tl, ts[i]['tl_f']);
+    final k = ts.indexWhere((t) => t['tl_f'] == null);
+    expect(d.turns[k].tl, ts[k]['tl']); // tl_f 없는 턴은 기본판 그대로
   });
 
   test('편 순서 키', () {
