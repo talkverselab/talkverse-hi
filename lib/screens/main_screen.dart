@@ -8,6 +8,7 @@ import '../widgets/spanish_decor.dart';
 import 'about_screen.dart';
 import 'chunk_search_screen.dart';
 import 'conversation_screen.dart';
+import 'curriculum_screen.dart';
 import 'sense_course_screen.dart';
 import 'devanagari_chart_screen.dart';
 import 'dialogue_screen.dart';
@@ -456,6 +457,9 @@ class _MenuGrid extends StatelessWidget {
     }
 
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      // 토크버스 커리큘럼(전 언어 공통, 2026-11-22) — 홈 첫 칸, 회화 메뉴 위
+      title(tr('토크버스 커리큘럼')),
+      const CurriculumHomeCard(),
       if (course.isNotEmpty) ...[title(tr('정규과정')), grid(course)],
       title(tr('기초')),
       grid(basics),
