@@ -411,8 +411,8 @@ class _MenuGrid extends StatelessWidget {
           builder: (_) => const CustomScriptScreen()),
     ];
     final course = <_MenuItem>[ // 일본어앱 정규과정(빌드 96~112) — 헝가리어앱을 거쳐 옮김(2026-11-22)
-      // soon = Grok·Gemini 검수 전(초안). 검수 대사가 sense_course.json 에 들어가면 soon 을 뺀다.
-      _MenuItem(label: tr('언어감각 익히기'), sub: 'भाषा-बोध', badge: 'L', color: AppColors.ai, soon: true,
+      // 2026-11-22 사용자 지시 「언어감각 10급은 클로드로만」 — Claude 검토 끝(L1·L4 는 먼저 쓴 Grok 대사 그대로), 메뉴 보임
+      _MenuItem(label: tr('언어감각 익히기'), sub: 'भाषा-बोध', badge: 'L', color: AppColors.ai,
         builder: (_) => const SenseCourseScreen()),
     ];
     final basics = <_MenuItem>[
