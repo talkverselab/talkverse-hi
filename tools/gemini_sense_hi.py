@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""언어감각 외울 대화(Grok 답 data/review/grok/sense_out/<급>.md)를 Gemini 검수 프롬프트로 만든다(2026-11-22).
+"""언어감각 외울 대화(Grok 답이 있으면 그것, 없으면 Claude 검토본 = 앱에 든 문장)를 Gemini 검수 프롬프트로 만든다(2026-11-22).
   python3 tools/gemini_sense_hi.py   → data/review/gemini/sense/<급>.prompt.md + 목록 data/review/gemini/sense/list.tsv
   /usr/bin/python3 tools/gemini_batch.py data/review/gemini/sense/list.tsv   → data/review/gemini/sense/<급>.md
-지적만 받는다(고쳐 쓰기는 Grok 몫)."""
+지적만 받는다 — 고쳐 쓰기는 Claude(사용자 지시 2026-11-22 「언어감각 10급은 클로드로만」)."""
 import re
 import sys
 from pathlib import Path
@@ -27,10 +27,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     rows = []
     for lid, title, sub, lines, foot, points in S.LEVELS:
-        g = S.grok_lines(lid, len(lines))
-        if not g:
-            print('Grok 답 없음/어긋남 — 건너뜀', lid)
-            continue
+        g = S.grok_lines(lid, len(lines)) or lines
         body = '\n'.join(f"{i} {x['who']}: {S.plain(x['tl'])} / {S.plain(x['ko'])}" for i, x in enumerate(g, 1))
         p = OUT / f'{lid}.prompt.md'
         p.write_text(HEAD.format(lid=lid, title=title, target=' / '.join(foot)) + body + '\n', encoding='utf-8')
