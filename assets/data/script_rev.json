@@ -65,7 +65,9 @@
 "dialogues/R3/travel/r3_travel_b2.json": "21a91ed6cfca",
 "dialogues/R3/work/r3_work_b1.json": "c0e90ef6436f",
 "dialogues/R3/work/r3_work_b2.json": "be63f2d3ba38",
-"dialogues/R4/love/r4_love_b1.json": "571aa06900f0"
+"dialogues/R4/love/r4_love_b1.json": "571aa06900f0",
+"grammar/lesson1.json": "09ae32dae840",
+"grammar/sense_course.json": "33a1fd539060"
 },
-"rev": 1
+"rev": 2
 }
