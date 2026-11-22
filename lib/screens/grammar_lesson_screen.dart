@@ -2,10 +2,11 @@ import 'dart:convert';
 import '../core/embed_env.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart' show AssetManifest, rootBundle;
 
 import '../core/theme.dart';
 import '../services/ko_reading.dart';
+import '../services/script_sync.dart';
 import '../services/tts_service.dart';
 import '../widgets/spanish_decor.dart';
 import 'grammar_test_screen.dart';
@@ -26,23 +27,38 @@ class GrammarLesson {
   int get exampleCount =>
       patterns.fold(0, (n, p) => n + ((p['examples'] as List?)?.length ?? 0));
 
-  static Future<List<GrammarLesson>> loadAll() async {
-    final out = <GrammarLesson>[];
-    for (var i = 1; i <= 20; i++) {
+  static final _path = RegExp(r'^grammar/lesson(\d+)\.json$');
+
+  /// 문법 스텝 목록 — 틀만 코드, 내용은 데이터(사용자 지시 2026-11-23 「스텝 10까지 미리 만들어 놓고 DB 업데이트로 업뎃」).
+  /// 파일 = 앱 안 `assets/data/grammar/lessonN.json` + 서버 원고에서 새로 받은 파일([ScriptSync.added]), 서버 목록에서 빠진 것은 뺀다.
+  /// 같은 경로는 서버 판이 먼저([ScriptSync.load]). 순서는 파일 안 `lesson` 번호, 제목도 파일에서. 예문 없는 스텝은 숨긴다(서버에 내용이 오면 저절로 보임).
+  static Future<List<GrammarLesson>> loadAll({ScriptSync? sync, Iterable<String>? bundled}) async {
+    final ss = sync ?? ScriptSync.instance;
+    await ss.init();
+    Iterable<String> inApp = bundled ?? const [];
+    if (bundled == null) {
       try {
-        final raw = await rootBundle.loadString(assetPath('assets/data/grammar/lesson$i.json'));
-        final d = json.decode(raw) as Map<String, dynamic>;
-        out.add(GrammarLesson(
+        final m = await AssetManifest.loadFromAssetBundle(rootBundle);
+        inApp = m.listAssets().map(stripAssetPrefix).where((p) => p.startsWith('assets/data/')).map((p) => p.substring('assets/data/'.length));
+      } catch (_) {}
+    }
+    final paths = {...inApp.where(_path.hasMatch), ...ss.added.where(_path.hasMatch)}..removeAll(ss.removed);
+    final out = <GrammarLesson>[];
+    for (final rel in paths) {
+      try {
+        final d = json.decode(await ss.load(rel)) as Map<String, dynamic>;
+        final i = int.parse(_path.firstMatch(rel)!.group(1)!);
+        final l = GrammarLesson(
           (d['lesson'] as num?)?.toInt() ?? i,
           d['title'] as String? ?? trf('문법 {0}', [i]),
           d['subtitle'] as String? ?? '',
           [for (final s in (d['stages'] as List? ?? const [])) Map<String, dynamic>.from(s as Map)],
           [for (final p in (d['patterns'] as List? ?? const [])) Map<String, dynamic>.from(p as Map)],
-        ));
-      } catch (_) {
-        break;
-      }
+        );
+        if (l.exampleCount > 0) out.add(l);
+      } catch (_) {}
     }
+    out.sort((a, b) => a.number.compareTo(b.number));
     return out;
   }
 }
