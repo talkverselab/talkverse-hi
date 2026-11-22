@@ -186,3 +186,17 @@
 - 2026-11-18 21:00 검수 1회전 끝: 66편 모두 Grok 재작성 → Gemini(Pro) 검수 → Grok 반영(`tools/grok_review.py`, 앞 답 `out/<id>.g0.md`) → 검사 통과. 바뀐 줄 333.
   사용자 검토 페이지 https://claude.ai/artifact/LUo7t2rzbVR8RJCS4p1GGv (생성기 scratchpad — 다시 만들려면 out·gemini 에서 편 목록·줄·검수 원문을 뽑아 같은 틀로).
   다음: 사용자 확인 → 앱 통합 단계(R0 id 바꾸기·JSON 변환·pubspec·script_publish --init·turn_lock --write).
+
+### 0-1 앱 통합 (2026-11-22, 사용자 「사용자 리뷰 - 그냥 진행」 uk 경유)
+사용자 검토를 기다리지 않고 진행. 스스로 고른 것:
+- 66편을 Grok 원고 그대로 JSON 으로(`tools/grok_apply.py`, fb1a88b). R0 14편은 R1 초안에서 id·region 을 r0 로. 나머지 초안 99편은 `data/review/drafts/`(앱에 안 실림).
+- 형식만 정리: 감정 칸의 공백 구분·목록 밖 값(confused→flustered, reluctant→stiff, hopeful→gentle) 17곳, tl_f 가 tl 과 같은 줄은 tl_f 뺌. 대사 문장은 그대로.
+- 단어 수 상한을 넘는 Grok 대사(65줄)는 줄이지 않고 경고로 둠(`check_dialogues.py` 의 `reviewed` 편).
+- pubspec 에 R 하위 폴더 26개 + `script_rev.json`. 서버 원고 rev 1(index.json 200). turn_lock 기준표 66편 674턴.
+- 메모 칸 구성 표시 1줄(r1_survival_s3) 지움.
+- 〇〇→이름: 회화 화면들이 이미 `LearnerPrefs.fill`·`sceneShown` 을 씀(추가 작업 없음). 단어 그림: 공용 매니페스트 1,056장 연결돼 있음.
+- 외국어 단어 퀴즈: 힌디어는 외래어 표기가 따로 없어 전달문대로 단어 카드의 퀴즈 복습으로(`word_quiz_screen.dart`, d9af5eb).
+- CI Flutter 3.47.7 고정(fd5d999) — 새 stable 이 Gradle 9.3.1 요구.
+남은 것:
+- 장면 컷 10장 — Grok 자리를 uk 에 요청함. 컷을 만든 뒤 공용 D1·R2 올리기는 uk 에 넘길 예정(`~/talkverse/ja/tools/grok_scene_batch.py`·`scene_upload.py` 참고).
+- 언어감각 과정 — 힌디어 문장을 새로 써야 해서 Grok·Gemini 를 거쳐야 함. 아직 시작 안 함.
