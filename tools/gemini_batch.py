@@ -9,6 +9,18 @@ gap = int(sys.argv[sys.argv.index('--gap') + 1]) if '--gap' in sys.argv else 60 
 stop = threading.Event()
 
 
+def _gem_tabs(port):
+    ts = json.load(urllib.request.urlopen(f'http://127.0.0.1:{port}/json/list', timeout=5))
+    return {t['id'] for t in ts if t.get('type') == 'page' and 'gemini.google.com' in t.get('url', '')}
+
+
+# 시작할 때 이미 열려 있던 Gemini 탭은 남의 작업으로 보지 않는다(11-23: 9226 은 로그인을 지키려고 Gemini 창 하나를 켜 둔 채로 둔다)
+try:
+    _KEEP = _gem_tabs(os.environ.get('GEMINI_CDP_PORT', '9226'))
+except Exception:
+    _KEEP = set()
+
+
 def wait_free():
     # 9226 은 베트남어 세션과 같이 쓴다(2026-11-10 vi 합의) — 다른 세션의 Gemini 탭이 열려 있으면 닫힐 때까지 기다린다
     port = os.environ.get('GEMINI_CDP_PORT', '9226')
@@ -17,7 +29,7 @@ def wait_free():
             ts = json.load(urllib.request.urlopen(f'http://127.0.0.1:{port}/json/list', timeout=5))
         except Exception:
             time.sleep(10); continue
-        if not any(t.get('type') == 'page' and 'gemini.google.com' in t.get('url', '') for t in ts): return
+        if not ({t['id'] for t in ts if t.get('type') == 'page' and 'gemini.google.com' in t.get('url', '')} - _KEEP): return
         time.sleep(10)
 
 
