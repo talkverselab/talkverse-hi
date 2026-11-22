@@ -31,7 +31,7 @@ def one(j):
         if r.startswith('OK'):
             print(f'OK {j[1]} try={t} {time.time() - t0:.0f}s', flush=True); time.sleep(gap); return
         print(f'  try{t} {j[1].split("/")[-1]}: {r[:90]} {time.time() - t0:.0f}s', flush=True)
-        if r.startswith(('BADMODEL', 'BLOCKED')): stop.set(); return
+        if r.startswith(('BADMODEL', 'BLOCKED', 'LOGGEDOUT')): stop.set(); return  # 로그아웃이면 재시도 없이 물러남(uk 11-23)
     print(f'FAIL {j[1]} {r[:90]}', flush=True)
 
 

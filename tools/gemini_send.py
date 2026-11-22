@@ -2,7 +2,7 @@
 """Gemini(M4 Chrome, GEMINI_CDP_PORT 기본 9226 — ssh -L 터널)에 프롬프트 파일을 보내고 답을 저장한다.
   /usr/bin/python3 tools/gemini_send.py <프롬프트> <저장>
 건마다 전용 백그라운드 탭을 열고 끝나면 닫는다(새 창은 M4 화면을 가린다) — 그래서 여러 건을 동시에 돌릴 수 있다(tools/gemini_batch.py).
-마지막 줄: OK <저장> | TIMEOUT | NOINPUT | BLOCKED(Google 로봇 확인) | NOSEND | BADMODEL <모델> | REFUSED <답 앞부분>
+마지막 줄: OK <저장> | LOGGEDOUT | TIMEOUT | NOINPUT | BLOCKED(Google 로봇 확인) | NOSEND | BADMODEL <모델> | REFUSED <답 앞부분>
 모델은 Pro 여야 한다(2026-11-06: 기본 Flash-Lite 는 거절·끊긴 답이 많았다 — 화면 왼쪽 아래 선택기에서 3.1 Pro). 저장 파일 첫 줄에 모델을 남긴다.
 왜 전용 창인가(2026-11-06): 한 탭을 새 채팅으로 돌리면 옛 채팅이 남은 사이에 글을 넣었다가 화면이 바뀌며 글이 사라져, 질문 없이 5분을 기다리는 TIMEOUT 이 났다."""
 import json, os, sys, time, urllib.request
@@ -14,6 +14,8 @@ ANS = "[...document.querySelectorAll('model-response')].map(e=>e.innerText)"
 BOX = "document.querySelector('rich-textarea .ql-editor, div[contenteditable=true]')"
 BUSY = "!!document.querySelector('button[aria-label*=\"중지\"], button[aria-label*=\"Stop\"]')"
 SEND = "(()=>{const b=document.querySelector('button.send-button, button[aria-label*=\"보내기\"], button[aria-label*=\"Send\"]');if(b)b.click()})()"
+SIGNIN = "[...document.querySelectorAll('a,button')].filter(b=>/^(로그인|Sign in)$/.test((b.innerText||'').trim())).length"
+ACCOUNT = "!!document.querySelector('a[aria-label*=\"Google 계정\"],a[aria-label*=\"Google Account\"],img.gb_P,img.gbii')"
 MODEL = "[...document.querySelectorAll('button')].map(b=>(b.getAttribute('aria-label')||'').includes('모드 선택')?(b.getAttribute('aria-label')||''):b.innerText.trim()).filter(t=>/Flash|Pro|Argon|모드 선택/.test(t))[0]||''"  # 2026-11-23 새 화면은 「모드 선택 … 현재 심층 분석 모드」
 
 
@@ -35,6 +37,8 @@ def run(c):
     else:
         return 'BLOCKED' if 'google.com/sorry' in (c.ev('location.href') or '') else 'NOINPUT'
     if 'Lite' in model: return 'BADMODEL ' + model
+    # 로그인 판정(uk 11-23): 계정 단추가 있고 「로그인」 단추가 0개일 때만 — 로그아웃에서도 입력창·모드 단추는 뜬다
+    if c.ev(SIGNIN) or not c.ev(ACCOUNT): return 'LOGGEDOUT'
     c.ev(BOX + ".focus()")
     c.call('Input.insertText', text=open(src, encoding='utf-8').read().strip()); time.sleep(1)
     for _ in range(5):
