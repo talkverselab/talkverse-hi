@@ -73,7 +73,9 @@ class Course {
 /// `curriculum_v1` 한 벌. 기준 형식 + `today`(오늘 한 양 — 홈 카드 진행 막대용, 기준 문서에 없는 칸이라 uk 에 알림).
 class CurriculumState {
   String? level;
-  int dailyGoal; // 새 편 수: 1 가볍게 · 2 보통 · 3 집중
+  int dailyGoal; // 고른 하루 목표: 1 가볍게 · 2 보통 · 3 집중
+  /// 목표별 하루 새 편 수 — 단계 JSON 의 daily{light,normal,focus}(§12, 없으면 1·2·3). 저장하지 않음.
+  Map<int, int> goalCounts = const {1: 1, 2: 2, 3: 3};
   Course? course;
   final List<String> passedDialogues;
   final List<ReviewItem> review;
@@ -133,7 +135,7 @@ class CurriculumState {
   List<ReviewItem> dueReview(String today) => review.where((r) => r.due.compareTo(today) <= 0).toList();
 
   /// 오늘 남은 새 편 수.
-  int newLeft(String today) => max(0, dailyGoal - (todayDay == today ? todayNew : 0));
+  int newLeft(String today) => max(0, (goalCounts[dailyGoal] ?? dailyGoal) - (todayDay == today ? todayNew : 0));
 
   /// 오늘 분량을 다 했나(복습 0 + 새 편 목표 채움).
   bool dayDone(String today) => dueReview(today).isEmpty && newLeft(today) == 0;
@@ -187,12 +189,12 @@ class CurriculumState {
   }
 
   /// 코스 시험 결과. 통과면 코스 완료·통과 편 기록, 아니면 틀린 편의 연습 표시를 지워 다시 연습하게.
-  bool recordExam(int correct, int total, Set<String> wrongDialogues, String today) {
+  bool recordExam(int correct, int total, Set<String> wrongDialogues, String today, {int pass = kPassPercent}) {
     final c = course;
     if (c == null) return false;
     final s = scorePercent(correct, total);
     c.examScores.add(s);
-    if (s >= kPassPercent) {
+    if (s >= pass) {
       c.passedAt = today;
       for (final id in c.dialogueIds) {
         if (!passedDialogues.contains(id)) passedDialogues.add(id);
@@ -320,6 +322,7 @@ class CurriculumService {
     await _loadStages();
     final lv = state.level;
     if (_stages != null && lv != null && RegExp(r'^R\d$').hasMatch(lv)) state.level = stageForOldLevel(lv);
+    syncStage();
     _loaded = true;
   }
 
@@ -360,6 +363,7 @@ class CurriculumService {
     _fetchStages().then((j) async {
       if (j == null || _rev(j) <= stagesRev || parseStages(j) == null) return;
       _apply(j);
+      syncStage();
       await (await Prefs.getInstance()).setString(_stagesCache, json.encode(j));
       changed.value++;
     });
@@ -386,6 +390,11 @@ class CurriculumService {
             [for (final id in (s['dialogueIds'] as List? ?? const [])) '$id'],
             [for (final n in (s['pick'] as List? ?? const [3, 5, 10])) (n as num).toInt()],
             (s['pass'] as num?)?.toInt() ?? kPassPercent,
+            {
+              1: ((s['daily'] as Map?)?['light'] as num?)?.toInt() ?? 1,
+              2: ((s['daily'] as Map?)?['normal'] as num?)?.toInt() ?? 2,
+              3: ((s['daily'] as Map?)?['focus'] as num?)?.toInt() ?? 3,
+            },
           ),
       ]..sort((a, b) => (int.tryParse(a.key) ?? 0).compareTo(int.tryParse(b.key) ?? 0));
       return out.isEmpty ? null : out;
@@ -420,6 +429,12 @@ class CurriculumService {
   /// 화면 이름: 단계면 데이터의 제목(「1단계」), 옛 레벨이면 「R1 초보」.
   String levelTitle(String key) => _stage(key) != null ? tr(_stage(key)!.title) : '$key ${DialogueService.levelKo[key] ?? ''}'.trim();
   String levelDesc(String key) => _stage(key)?.desc ?? '';
+  /// 통과 점수 — 단계 JSON 의 pass(없으면 80). 시험 판정과 화면 문구 둘 다.
+  int passPercent([String? key]) => _stage(key ?? state.level)?.pass ?? kPassPercent;
+
+  /// 지금 단계의 하루 새 편 수를 상태에 반영(단계를 바꾸거나 서버 판을 받을 때).
+  void syncStage() => state.goalCounts = _stage(state.level)?.daily ?? const {1: 1, 2: 2, 3: 3};
+
   List<int> pickOptions([String? key]) => _stage(key ?? state.level)?.pick ?? const [3, 5, 10];
 
   List<Dialogue> levelList([String? level]) {
@@ -469,5 +484,6 @@ class CurStage {
   final List<String> ids;
   final List<int> pick;
   final int pass;
-  const CurStage(this.key, this.title, this.desc, this.ids, this.pick, this.pass);
+  final Map<int, int> daily; // 1 가볍게 · 2 보통 · 3 집중 → 새 편 수
+  const CurStage(this.key, this.title, this.desc, this.ids, this.pick, this.pass, [this.daily = const {1: 1, 2: 2, 3: 3}]);
 }

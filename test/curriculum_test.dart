@@ -193,4 +193,30 @@ void main() {
       expect(st.expand((s) => s.ids).length, 66);
     });
   });
+
+  test('§12 덧붙임 — pass·daily 도 단계 JSON 에서(없으면 80·1·2·3)', () {
+    final svc = CurriculumService.instance;
+    DialogueService.instance.setForTest([_d('a', 'life', 3), _d('b', 'love', 3)]);
+    final st = CurriculumService.parseStages({
+      'rev': 2,
+      'stages': [
+        {'n': 1, 'dialogueIds': ['a'], 'pass': 70, 'daily': {'light': 2, 'normal': 4, 'focus': 6}},
+        {'n': 2, 'dialogueIds': ['b']},
+      ],
+    })!;
+    svc.setStages(st, rev: 2);
+    svc.state = CurriculumState(level: '1', dailyGoal: 2);
+    svc.syncStage();
+    expect(svc.passPercent(), 70);
+    expect(svc.levelTitle('2'), '2단계');
+    expect(svc.state.newLeft('2026-11-23'), 4);
+    svc.state.course = Course('c', ['a'], practiced: ['a']);
+    expect(svc.state.recordExam(7, 10, {}, '2026-11-23', pass: svc.passPercent()), isTrue);
+    svc.state.level = '2';
+    svc.syncStage();
+    expect(svc.passPercent(), 80);
+    expect(svc.state.newLeft('2026-11-23'), 2);
+    svc.setStages(null);
+    svc.state = CurriculumState();
+  });
 }
