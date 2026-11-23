@@ -268,6 +268,15 @@ class DialogueService {
     } catch (_) {}
   }
 
+  /// 시험용 — 편 목록을 바꿔 끼운다.
+  @visibleForTesting
+  void setForTest(List<Dialogue> ds) {
+    _all
+      ..clear()
+      ..addAll(ds);
+    _loading = Future.value();
+  }
+
   Dialogue? byId(String id) => _all.where((d) => d.id == id).firstOrNull;
   List<Dialogue> get all => List.unmodifiable(_all);
   List<String> get regions => _all.map((d) => d.region).toSet().toList();

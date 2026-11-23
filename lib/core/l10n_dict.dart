@@ -4,6 +4,12 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 const Map<String, String> kDictEn = {
+  '단계를 골라요': 'Choose a stage',
+  '1단계': 'Stage 1',
+  '2단계': 'Stage 2',
+  '3단계': 'Stage 3',
+  '4단계': 'Stage 4',
+  '5단계': 'Stage 5',
   '{0}턴': '{0} turns',
   '나만의 회화 만들기': 'Create my dialogue',
   '내 맞춤 회화': 'My dialogues',
@@ -345,6 +351,12 @@ const Map<String, String> kDictEn = {
 };
 
 const Map<String, String> kDictJa = {
+  '단계를 골라요': 'ステージを選びます',
+  '1단계': 'ステージ1',
+  '2단계': 'ステージ2',
+  '3단계': 'ステージ3',
+  '4단계': 'ステージ4',
+  '5단계': 'ステージ5',
   '{0}턴': '{0}ターン',
   '나만의 회화 만들기': '自分だけの会話を作る',
   '내 맞춤 회화': 'マイ会話',
@@ -675,6 +687,12 @@ const Map<String, String> kDictJa = {
 };
 
 const Map<String, String> kDictZh = {
+  '단계를 골라요': '选择阶段',
+  '1단계': '第1阶段',
+  '2단계': '第2阶段',
+  '3단계': '第3阶段',
+  '4단계': '第4阶段',
+  '5단계': '第5阶段',
   '{0}턴': '{0}轮',
   '나만의 회화 만들기': '生成我的会话',
   '내 맞춤 회화': '我的会话',

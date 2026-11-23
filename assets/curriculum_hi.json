@@ -1,0 +1,145 @@
+{
+ "lang": "hi",
+ "rev": 1,
+ "stages": [
+  {
+   "n": 1,
+   "title": "1단계",
+   "desc": "인사·자기소개·아주 쉬운 일상",
+   "dialogueIds": [
+    "r0_culture_a3",
+    "r0_culture_a4",
+    "r0_culture_c2",
+    "r0_friends_a2",
+    "r0_friends_c3",
+    "r0_life_a2",
+    "r0_life_a5",
+    "r0_life_c2",
+    "r0_love_a5",
+    "r0_love_b4",
+    "r0_love_c2",
+    "r0_travel_a1",
+    "r0_travel_a2",
+    "r0_travel_c3",
+    "r1_culture_a1",
+    "r1_culture_b1",
+    "r1_culture_c1",
+    "r1_friends_a1",
+    "r1_friends_a4",
+    "r1_friends_b1",
+    "r1_friends_c1",
+    "r1_life_a1",
+    "r1_life_a3",
+    "r1_life_b1",
+    "r1_life_c1",
+    "r1_love_a1",
+    "r1_love_a2",
+    "r1_love_b1",
+    "r1_love_c1",
+    "r1_survival_s1",
+    "r1_survival_s2",
+    "r1_survival_s3",
+    "r1_travel_a5",
+    "r1_travel_b1",
+    "r1_travel_c1"
+   ],
+   "pick": [
+    3,
+    5,
+    10
+   ],
+   "pass": 80,
+   "daily": {
+    "light": 1,
+    "normal": 2,
+    "focus": 3
+   }
+  },
+  {
+   "n": 2,
+   "title": "2단계",
+   "desc": "장보기·길 묻기·약속",
+   "dialogueIds": [
+    "r2_culture_b1",
+    "r2_culture_b2",
+    "r2_friends_b1",
+    "r2_friends_b2",
+    "r2_friends_b3",
+    "r2_life_b1",
+    "r2_life_b2",
+    "r2_life_b3",
+    "r2_love_b1",
+    "r2_love_b2",
+    "r2_love_b3",
+    "r2_study_b1",
+    "r2_study_b2",
+    "r2_travel_b1",
+    "r2_travel_b2",
+    "r2_work_b1",
+    "r2_work_b2"
+   ],
+   "pick": [
+    3,
+    5,
+    10
+   ],
+   "pass": 80,
+   "daily": {
+    "light": 1,
+    "normal": 2,
+    "focus": 3
+   }
+  },
+  {
+   "n": 3,
+   "title": "3단계",
+   "desc": "여행·일·감정 표현",
+   "dialogueIds": [
+    "r3_culture_b1",
+    "r3_friends_b1",
+    "r3_friends_b2",
+    "r3_life_b1",
+    "r3_life_b2",
+    "r3_love_b1",
+    "r3_love_b2",
+    "r3_study_b1",
+    "r3_study_b2",
+    "r3_travel_b1",
+    "r3_travel_b2",
+    "r3_work_b1",
+    "r3_work_b2"
+   ],
+   "pick": [
+    3,
+    5,
+    10
+   ],
+   "pass": 80,
+   "daily": {
+    "light": 1,
+    "normal": 2,
+    "focus": 3
+   }
+  },
+  {
+   "n": 4,
+   "title": "4단계",
+   "desc": "의견·설명·긴 대화",
+   "dialogueIds": [
+    "r4_love_b1"
+   ],
+   "pick": [
+    3,
+    5,
+    10
+   ],
+   "pass": 80,
+   "daily": {
+    "light": 1,
+    "normal": 2,
+    "focus": 3
+   }
+  }
+ ],
+ "prep": []
+}

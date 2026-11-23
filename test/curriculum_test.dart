@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hindi_universe/screens/curriculum_screen.dart';
@@ -143,4 +145,52 @@ void main() {
       expect(find.text('추천으로 채우기'), findsOneWidget);
     });
   }
+
+  group('단계(§12) — 데이터에서', () {
+    final svc = CurriculumService.instance;
+    Map<String, dynamic> j(int rev) => {
+          'rev': rev,
+          'stages': [
+            {'n': 2, 'title': '2단계', 'dialogueIds': ['c', 'zz'], 'pick': [3, 5], 'pass': 80},
+            {'n': 1, 'title': '1단계', 'dialogueIds': ['a', 'b']},
+            {'n': 3, 'title': '3단계', 'dialogueIds': ['없는편']},
+          ],
+          'prep': [],
+        };
+    setUp(() => DialogueService.instance.setForTest([_d('a', 'life', 3), _d('b', 'love', 3), _d('c', 'travel', 3)]));
+    tearDown(() => svc.setStages(null));
+
+    test('단계 순서는 n, 앱에 없는 편은 건너뜀, 편 0개 단계는 숨김', () {
+      final st = CurriculumService.parseStages(j(1))!;
+      svc.setStages(st, rev: 1);
+      expect(svc.levelKeys, ['1', '2']);
+      expect(svc.levelList('2').map((d) => d.id), ['c']);
+      expect(svc.levelTitle('1'), '1단계');
+      expect(svc.pickOptions('2'), [3, 5]);
+      expect(svc.nextLevel('1'), '2');
+      expect(svc.nextLevel('2'), isNull);
+      expect(svc.poolFor(DialogueService.instance.byId('b')!).map((d) => d.id), ['a', 'b']);
+    });
+
+    test('형식이 틀리면 null → 옛 동작(회화 레벨)', () {
+      expect(CurriculumService.parseStages({'rev': 1}), isNull);
+      expect(CurriculumService.parseStages({'rev': 1, 'stages': []}), isNull);
+      svc.setStages(null);
+      expect(svc.levelKeys, ['R1']); // 시험용 편은 모두 R1
+    });
+
+    test('옛 저장값 R → 단계: R0·R1 → 1, R2 → 2, R4 → 4', () {
+      expect(svc.stageForOldLevel('R0'), '1');
+      expect(svc.stageForOldLevel('R1'), '1');
+      expect(svc.stageForOldLevel('R2'), '2');
+      expect(svc.stageForOldLevel('R4'), '4');
+    });
+
+    test('앱 안 기본 JSON: 단계 4개, 편 id 가 모두 형식에 맞음', () {
+      final raw = File('assets/curriculum_hi.json').readAsStringSync();
+      final st = CurriculumService.parseStages(json.decode(raw) as Map)!;
+      expect(st.map((s) => s.key), ['1', '2', '3', '4']);
+      expect(st.expand((s) => s.ids).length, 66);
+    });
+  });
 }
