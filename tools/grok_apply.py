@@ -37,7 +37,7 @@ def parse(path):
 def build(draft, head, gt):
     d = dict(draft)
     d.pop('draft', None)
-    d['reviewed'] = 'grok+gemini 2026-11-18'
+    d['checked'] = '2026-11-18'  # 공개 원고엔 작업 도구 이름을 남기지 않는다(심사 점검 11-23) — 기록은 data/review
     for k in ('title', 'scene'):
         if head.get(k):
             d[k] = head[k]

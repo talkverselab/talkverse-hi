@@ -4,6 +4,11 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 const Map<String, String> kDictEn = {
+  '이메일로 로그인': 'Sign in with email',
+  '로그인하면 아이폰·아이패드 어디서나': 'Sign in to use it on iPhone and iPad',
+  '로그인하면 다른 안드로이드 기기에서도': 'Sign in to use it on your other Android devices',
+  '결제는 App Store 에서 처리됩니다. 표시 가격은 스토어 가격을 따르며 세금이 포함될 수 있습니다. 숨은 요금은 없습니다.': 'Payments are processed by the App Store. Prices follow the store and may include tax. No hidden fees.',
+  '결제는 Google Play 에서 처리됩니다. 표시 가격은 스토어 가격을 따르며 세금이 포함될 수 있습니다. 숨은 요금은 없습니다.': 'Payments are processed by Google Play. Prices follow the store and may include tax. No hidden fees.',
   '{0}점 — {1}점을 넘었어요. 다음 코스를 골라요.': '{0}% — over {1}. Pick your next course.',
   '{0}점 — {1}점이 넘어야 통과예요. 틀린 편만 다시 연습하고 시험을 봐요.': '{0}% — you need {1} to pass. Practise the missed dialogues again, then retake.',
   '코스 시험 보기 ({0}% 이상 통과)': 'Take the course test (pass at {0}%)',
@@ -356,6 +361,11 @@ const Map<String, String> kDictEn = {
 };
 
 const Map<String, String> kDictJa = {
+  '이메일로 로그인': 'メールでログイン',
+  '로그인하면 아이폰·아이패드 어디서나': 'ログインすればiPhone・iPadどこでも',
+  '로그인하면 다른 안드로이드 기기에서도': 'ログインすれば他のAndroid端末でも',
+  '결제는 App Store 에서 처리됩니다. 표시 가격은 스토어 가격을 따르며 세금이 포함될 수 있습니다. 숨은 요금은 없습니다.': '決済は App Store で行われます。表示価格はストア価格に従い、税込の場合があります。隠れた料金はありません。',
+  '결제는 Google Play 에서 처리됩니다. 표시 가격은 스토어 가격을 따르며 세금이 포함될 수 있습니다. 숨은 요금은 없습니다.': '決済は Google Play で行われます。表示価格はストア価格に従い、税込の場合があります。隠れた料金はありません。',
   '{0}점 — {1}점을 넘었어요. 다음 코스를 골라요.': '{0}点 — {1}点クリア。次のコースを選びましょう。',
   '{0}점 — {1}점이 넘어야 통과예요. 틀린 편만 다시 연습하고 시험을 봐요.': '{0}点 — 合格は{1}点以上。間違えた会話だけ練習して再挑戦。',
   '코스 시험 보기 ({0}% 이상 통과)': 'コーステスト（{0}%以上で合格）',
@@ -697,6 +707,11 @@ const Map<String, String> kDictJa = {
 };
 
 const Map<String, String> kDictZh = {
+  '이메일로 로그인': '邮箱登录',
+  '로그인하면 아이폰·아이패드 어디서나': '登录后iPhone、iPad通用',
+  '로그인하면 다른 안드로이드 기기에서도': '登录后其他Android设备也能用',
+  '결제는 App Store 에서 처리됩니다. 표시 가격은 스토어 가격을 따르며 세금이 포함될 수 있습니다. 숨은 요금은 없습니다.': '付款由 App Store 处理。显示价格以商店为准，可能含税。无隐藏费用。',
+  '결제는 Google Play 에서 처리됩니다. 표시 가격은 스토어 가격을 따르며 세금이 포함될 수 있습니다. 숨은 요금은 없습니다.': '付款由 Google Play 处理。显示价格以商店为准，可能含税。无隐藏费用。',
   '{0}점 — {1}점을 넘었어요. 다음 코스를 골라요.': '{0}分 — 超过{1}分。请选择下一个课程。',
   '{0}점 — {1}점이 넘어야 통과예요. 틀린 편만 다시 연습하고 시험을 봐요.': '{0}分 — {1}分以上才通过。只重练答错的对话后再考。',
   '코스 시험 보기 ({0}% 이상 통과)': '参加课程考试（{0}%以上通过）',

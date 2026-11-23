@@ -68,16 +68,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  if (catalog.forLevel(level).isEmpty)
-                    Padding(
-                      padding: const EdgeInsets.only(left: 36, bottom: 16),
-                      child: Text(
-                        tr('준비 중'),
-                        style: TextStyle(color: AppColors.tintaLight, fontSize: 12),
-                      ),
-                    )
-                  else
-                    for (final meta in catalog.forLevel(level))
+                  for (final meta in catalog.forLevel(level))
                       _EpisodeTile(
                         meta: meta,
                         progress: _progress['${meta.level}/${meta.id}'] ?? (0, 0),

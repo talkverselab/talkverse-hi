@@ -50,7 +50,7 @@ def check(path, fix):
         w = wc(tl)
         chat = d['kind'] == 'chat'
         if w > b or (w < (1 if chat else a) and i != d['twist'] and i != len(turns)):
-            (warn if chat or w == a - 1 or d.get('reviewed') else err).append(f'{n} 단어 수 {w} (기준 {a}~{b})')  # 검수 끝난 편은 Grok 대사 그대로라 경고만
+            (warn if chat or w == a - 1 or (d.get('checked') or d.get('reviewed')) else err).append(f'{n} 단어 수 {w} (기준 {a}~{b})')  # 검수 끝난 편은 Grok 대사 그대로라 경고만
         if t.get('speaker') == prev: warn.append(f'{n} 같은 화자 연속')
         prev = t.get('speaker')
         if 'tl_f' in t and t['tl_f'] == tl: err.append(f'{n} tl_f 가 tl 과 같음')

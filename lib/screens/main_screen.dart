@@ -20,7 +20,6 @@ import 'sentence_flashcard_screen.dart';
 import 'speaking_practice_screen.dart';
 import 'progress_screen.dart';
 import 'topic_vocab_screen.dart';
-import 'verb_screen.dart';
 import 'word_flashcard_screen.dart';
 import 'word_freq_screen.dart';
 import '../core/l10n.dart';
@@ -419,11 +418,10 @@ class _MenuGrid extends StatelessWidget {
       _MenuItem(label: tr('데바나가리와 발음'), sub: 'अ आ क ख', badge: 'अ', color: AppColors.beni,
         builder: (_) => const DevanagariChartScreen()),
     ];
+    // 심사(11-23 uk 점검): 데이터가 빈 「동사 활용」·「표현」 메뉴는 아예 뺐다 — 데이터가 생기면 다시 넣을 것
     final grammar = <_MenuItem>[
       _MenuItem(label: tr('문법'), sub: 'व्याकरण', badge: 'G', color: AppColors.rojoDeep,
         builder: (_) => const GrammarHubScreen()),
-      _MenuItem(label: tr('동사 활용'), sub: 'Rūp', badge: 'V', color: AppColors.irregular, soon: true,
-        builder: (_) => const VerbScreen()),
       _MenuItem(label: tr('청크 검색'), sub: 'खोज', badge: '🔍', color: AppColors.gualdaDeep,
         builder: (_) => const ChunkSearchScreen()),
     ];
@@ -432,10 +430,6 @@ class _MenuGrid extends StatelessWidget {
         builder: (_) => const WordFreqScreen()),
       _MenuItem(label: tr('단어'), sub: 'Śabd', badge: 'W', color: AppColors.oliva,
         builder: (_) => const TopicVocabScreen()),
-      _MenuItem(label: tr('표현'), sub: 'Abhivyakti', badge: 'E', color: AppColors.rojoLight, soon: true,
-        builder: (_) => TopicVocabScreen(
-            title: tr('주제별 표현'),
-            asset: 'assets/data/vocab/travel_expressions.json')),
       _MenuItem(label: tr('단어 카드'), sub: 'कार्ड', badge: 'R', color: AppColors.gualdaDeep,
         builder: (_) => const WordFlashcardScreen()),
     ];
@@ -488,14 +482,13 @@ class _MenuItem {
   final String badge;
   final Color color;
   final WidgetBuilder builder;
-  final bool soon; // 데이터가 아직 비어 있음 → 「준비 중」 꼬리표
+  final bool soon = false; // 데이터가 빈 메뉴 표시(지금은 쓰는 메뉴 없음 — 다시 쓰려면 생성자 인자로 되돌릴 것)
   _MenuItem({
     required this.label,
     required this.sub,
     required this.badge,
     required this.color,
     required this.builder,
-    this.soon = false,
   });
 }
 

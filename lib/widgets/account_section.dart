@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../screens/custom_script_screen.dart' show kCustomScriptLive;
+
 import '../core/l10n.dart';
 import '../core/theme.dart';
 import '../data/account.dart';
@@ -44,7 +46,8 @@ class AccountSection extends StatelessWidget {
                 ]),
         )),
         const SizedBox(height: 8),
-        _card(AnimatedBuilder(
+        // 이용권 입구 — 지금 이용권으로 여는 것이 맞춤 회화(숨김)뿐이라 그것이 켜질 때만 보인다(애플 2.1, uk 점검 11-23)
+        if (kCustomScriptLive) _card(AnimatedBuilder(
           animation: Listenable.merge([Account.entitlements, Purchase.owned]),
           builder: (context, _) => ListTile(
             leading: const Icon(Icons.workspace_premium_outlined, color: AppColors.rojo),
