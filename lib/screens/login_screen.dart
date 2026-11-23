@@ -6,7 +6,7 @@ import '../core/theme.dart';
 import '../data/account.dart';
 
 /// 로그인 — Talkverse 공용 계정(한자 앱 login_screen 을 옮김, 2026-11-02).
-/// 네 버튼을 고정 순서로 보이고, 서버(/providers)에 아직 없는 제공자는 누르면 '준비 중'. 아래 이메일 칸은 심사·테스트용 데모 계정만.
+/// 네 버튼을 고정 순서로, 서버(/providers)에 켜진 제공자만 보인다(없는 것은 숨김, 심사 11-23). 아래 이메일 칸은 심사·테스트용 데모 계정만.
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
   static Future<bool?> open(BuildContext context) =>
@@ -99,7 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Center(child: Padding(padding: EdgeInsets.all(24), child: CircularProgressIndicator()))
                   else
                     for (final p in const ['google', 'naver', 'kakao', 'apple'])
-                      Padding(padding: const EdgeInsets.only(bottom: 12), child: _button(p)),
+                      if (_ready(p)) // 서버(/providers)에 켜진 제공자만 — 누르면 「준비 중」이 뜨는 버튼은 심사 거절 사유(2.1, uk 11-23)
+                        Padding(padding: const EdgeInsets.only(bottom: 12), child: _button(p)),
                   if (error != null) ...[
                     const SizedBox(height: 8),
                     Text(error!, textAlign: TextAlign.center, style: const TextStyle(color: Colors.redAccent, fontSize: 13)),
