@@ -4,24 +4,21 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../core/prefs.dart';
 
 import '../core/platform.dart';
 import 'account.dart';
 
-/// 판매 상품 하나(가격은 스토어가 정한다 — [krw] 는 스토어 가격을 못 받았을 때의 참고가).
-/// 가격·상품 ID 규칙 = Talkverse 공통(2026-11-09 사용자 최종 확정, ~/talkverse/PRICING.md 앱 정가/할인가): 언어 1개 `lang_<코드>_1m`·`_3m`·`_1y`(자동 갱신 구독)·`_life`(비소모성),
-/// 종합 패키지(모든 언어) `all_1y`·`all_life`. 앱 안에서는 사이트 가격을 안내·유도하지 않는다(스토어 규정).
+/// 판매 상품 하나 — 가격은 스토어가 정한다(코드에 원화를 두지 않음, PAYWALL_SPEC §3).
+/// 상품 ID 규칙 = Talkverse 공통: 언어 1개 `lang_<코드>_1m`·`_3m`·`_1y`(자동 갱신 구독)·`_life`(비소모성), 종합(모든 언어) `all_1y`·`all_life`.
+/// 앱 안에서는 사이트 가격을 안내·유도하지 않는다(스토어 규정).
 class Plan {
   final String id;
   final int months; // 0 = 평생
   final bool bundle;
-  final int krw; // 앱 할인가(스토어 판매가) — 스토어 가격을 못 받았을 때 표시
-  final int listKrw; // 앱 정가(취소선 표기용, ~/talkverse/PRICING.md)
-  const Plan(this.id, this.months, this.krw, {this.listKrw = 0, this.bundle = false});
+  const Plan(this.id, this.months, {this.bundle = false});
   bool get lifetime => months == 0;
-  bool get discounted => listKrw > krw;
-  int get discountPct => discounted ? ((1 - krw / listKrw) * 100).round() : 0;
 }
 
 /// 앱 안 결제 — Talkverse 공용 클라이언트(한자앱 방식). 결제는 스토어(iOS StoreKit 2 · Android Play Billing),
@@ -44,6 +41,8 @@ class Purchase {
   static final products = ValueNotifier<Map<String, ProductDetails>>(const {});
   /// 구매 진행 상태 알림(화면이 듣고 안내): null = 없음, 'pending' · 'error' · 'done' · 'restored' · 'nothing'
   static final status = ValueNotifier<String?>(null);
+  /// 상품 정보 불러오기: 'loading' · 'ok' · 'failed'(스토어 연결 실패 — 결제 화면은 「잠시 뒤 다시 시도」).
+  static final load = ValueNotifier<String>('loading');
   static StreamSubscription<List<PurchaseDetails>>? _sub;
   static bool _restoring = false, _restoredAny = false;
   /// 옛 평생 상품 ID(2026-11-02 첫 판) — 복원·영수증에 오면 `lang_<코드>_life` 로 친다.
@@ -64,16 +63,48 @@ class Purchase {
     final raw = p.getString('iap_owned2');
     final m = <String, int>{if (raw != null) ...(jsonDecode(raw) as Map).map((k, v) => MapEntry('$k', (v as num).toInt()))};
     if ((p.getStringList('iap_owned') ?? const []).contains(code)) m['lang_${code}_life'] = 0; // 옛 저장 방식(평생 하나)
+    // PAYWALL_SPEC §4: 언어 키 <언어>_entitlement_v1(Prefs 가 접두를 붙임) + 22개 언어 공통 all_entitlement_v1(접두 없음)
+    for (final raw2 in [p.getString(_kLang), (await SharedPreferences.getInstance()).getString(_kAll)]) {
+      if (raw2 == null) continue;
+      try {
+        for (final e in (jsonDecode(raw2) as Map).entries) {
+          final v = (e.value as num).toInt();
+          final cur = m['${e.key}'];
+          if (cur == null || (cur != 0 && (v == 0 || v > cur))) m['${e.key}'] = v;
+        }
+      } catch (_) {}
+    }
     owned.value = m;
     Account.user.addListener(_onAccount);
     if (!(isIOS || isAndroid)) return;
     if (ownStream) _sub ??= InAppPurchase.instance.purchaseStream.listen(onPurchaseUpdates, onError: (_) => status.value = 'error');
-    try {
-      if (!await InAppPurchase.instance.isAvailable()) return;
-      final r = await InAppPurchase.instance.queryProductDetails({for (final x in list) x.id});
-      products.value = {for (final d in r.productDetails) d.id: d};
-    } catch (_) {}
+    await reloadProducts();
+    // 시작 때 복원 조회(§4) — 안드로이드는 조용히 된다. iOS 는 복원 호출이 Apple ID 암호 창을 띄울 수 있어
+    // 끝나지 않은 거래가 스트림으로 오는 것에 맡기고, 「구매 복원」 단추로만 묻는다.
+    if (isAndroid && ownStream) {
+      try {
+        await InAppPurchase.instance.restorePurchases();
+      } catch (_) {}
+    }
   }
+
+  /// 스토어에서 상품 정보를 다시 받는다(결제 화면의 「다시 시도」). 끝없이 기다리지 않게 15초 제한.
+  static Future<void> reloadProducts() async {
+    load.value = 'loading';
+    try {
+      if (!(isIOS || isAndroid) || !await InAppPurchase.instance.isAvailable().timeout(const Duration(seconds: 10))) {
+        load.value = 'failed';
+        return;
+      }
+      final r = await InAppPurchase.instance.queryProductDetails({for (final x in plans) x.id}).timeout(const Duration(seconds: 15));
+      products.value = {for (final d in r.productDetails) d.id: d};
+      load.value = products.value.isEmpty ? 'failed' : 'ok';
+    } catch (_) {
+      load.value = 'failed';
+    }
+  }
+
+  static const _kLang = 'entitlement_v1', _kAll = 'all_entitlement_v1';
 
   /// 스토어 표시 가격(예 ₩3,900). 상품을 못 받았으면 null.
   static String? price(String id) => products.value[id]?.price;
@@ -147,6 +178,10 @@ class Purchase {
     if (!keep) owned.value = {...owned.value, id: exp};
     final p = await Prefs.getInstance();
     await p.setString('iap_owned2', jsonEncode(owned.value));
+    final mine = {for (final e in owned.value.entries) if (e.key.startsWith('lang_${lang}_') || e.key.startsWith('all_')) e.key: e.value};
+    await p.setString(_kLang, jsonEncode(mine));
+    final all = {for (final e in owned.value.entries) if (e.key.startsWith('all_')) e.key: e.value};
+    if (all.isNotEmpty) await (await SharedPreferences.getInstance()).setString(_kAll, jsonEncode(all));
     // 서버로 보낼 영수증 — 로그인 전이면 쌓아 두었다가 로그인 때 보낸다
     final rec = {
       'platform': isIOS ? 'ios' : 'android',

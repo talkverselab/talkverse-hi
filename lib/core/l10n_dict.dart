@@ -4,6 +4,12 @@
 // ignore_for_file: lines_longer_than_80_chars
 
 const Map<String, String> kDictEn = {
+  '커리큘럼 2단계 이상과 그 회화 편': 'Curriculum stage 2 and up, with their dialogues',
+  '문법 3스텝부터': 'Grammar from step 3',
+  '언어감각 익히기 2급부터': 'Language feel from level 2',
+  '스토어에서 상품 정보를 불러오지 못했어요. 잠시 뒤 다시 시도해 주세요.': "Couldn't load the store products. Please try again in a moment.",
+  '다시 시도': 'Try again',
+  '이용권이 있으면 열려요': 'Unlocks with a pass',
   '이메일로 로그인': 'Sign in with email',
   '로그인하면 아이폰·아이패드 어디서나': 'Sign in to use it on iPhone and iPad',
   '로그인하면 다른 안드로이드 기기에서도': 'Sign in to use it on your other Android devices',
@@ -361,6 +367,12 @@ const Map<String, String> kDictEn = {
 };
 
 const Map<String, String> kDictJa = {
+  '커리큘럼 2단계 이상과 그 회화 편': 'カリキュラム ステージ2以上とその会話',
+  '문법 3스텝부터': '文法 ステップ3から',
+  '언어감각 익히기 2급부터': '言語感覚 2級から',
+  '스토어에서 상품 정보를 불러오지 못했어요. 잠시 뒤 다시 시도해 주세요.': 'ストアの商品情報を読み込めませんでした。しばらくしてからもう一度お試しください。',
+  '다시 시도': '再試行',
+  '이용권이 있으면 열려요': 'パスで解放されます',
   '이메일로 로그인': 'メールでログイン',
   '로그인하면 아이폰·아이패드 어디서나': 'ログインすればiPhone・iPadどこでも',
   '로그인하면 다른 안드로이드 기기에서도': 'ログインすれば他のAndroid端末でも',
@@ -707,6 +719,12 @@ const Map<String, String> kDictJa = {
 };
 
 const Map<String, String> kDictZh = {
+  '커리큘럼 2단계 이상과 그 회화 편': '课程第2阶段及以上和其中的对话',
+  '문법 3스텝부터': '语法第3步起',
+  '언어감각 익히기 2급부터': '语感第2级起',
+  '스토어에서 상품 정보를 불러오지 못했어요. 잠시 뒤 다시 시도해 주세요.': '无法加载商店商品信息，请稍后再试。',
+  '다시 시도': '重试',
+  '이용권이 있으면 열려요': '购买会员后解锁',
   '이메일로 로그인': '邮箱登录',
   '로그인하면 아이폰·아이패드 어디서나': '登录后iPhone、iPad通用',
   '로그인하면 다른 안드로이드 기기에서도': '登录后其他Android设备也能用',

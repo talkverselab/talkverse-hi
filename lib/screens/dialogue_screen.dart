@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../data/entitlement.dart';
+import '../services/curriculum_service.dart';
 
 import '../core/l10n.dart';
 import '../core/platform.dart';
@@ -28,7 +30,8 @@ class _DialogueHomeScreenState extends State<DialogueHomeScreen> {
   @override
   void initState() {
     super.initState();
-    DialogueService.instance.ensureLoaded().then((_) {
+    // 무료 편 판정(커리큘럼 단계의 free)을 위해 단계 JSON 도 읽어 둔다
+    Future.wait([DialogueService.instance.ensureLoaded(), CurriculumService.instance.ensureLoaded()]).then((_) {
       if (mounted) setState(() => _loading = false);
     });
     DialogueService.instance.revision.addListener(_onRevision); // 서버 원고·성별판이 바뀌면 다시 그림
@@ -182,11 +185,11 @@ class DialogueListScreen extends StatelessWidget {
             child: Material(
               color: Colors.transparent,
               child: ListTile(
-                onTap: () => openPane(context, (_) => DialogueScreen(dialogue: d)),
+                onTap: () => Entitlement.dialogueOpen(d) ? openPane(context, (_) => DialogueScreen(dialogue: d)) : Entitlement.showPaywall(context),
                 leading: Text(d.emoji, style: const TextStyle(fontSize: 24)),
                 title: Text(d.title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: AppColors.sumi)),
                 subtitle: Text(d.sceneShown, maxLines: 2, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 11, color: AppColors.muted, height: 1.3)),
-                trailing: Text(trf('{0}턴', [d.turns.length]), style: const TextStyle(fontSize: 11, color: AppColors.muted)),
+                trailing: Entitlement.dialogueOpen(d) ? Text(trf('{0}턴', [d.turns.length]), style: const TextStyle(fontSize: 11, color: AppColors.muted)) : const LockMark(),
               ),
             ),
           );
@@ -224,6 +227,31 @@ class _DialogueScreenState extends State<DialogueScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (!Entitlement.dialogueOpen(d)) {
+      // 잠긴 편(2단계 이상, PAYWALL_SPEC §2) — 어느 입구로 와도 여기서 막는다
+      return Scaffold(
+        backgroundColor: AppColors.washi,
+        appBar: AppBar(title: Text('${d.emoji} ${d.title}', style: const TextStyle(color: AppColors.sumi, fontWeight: FontWeight.w800, fontSize: 15))),
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              const Icon(Icons.lock_outline, size: 40, color: AppColors.muted),
+              const SizedBox(height: 10),
+              Text(tr('이용권이 있으면 열려요'), style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.sumi)),
+              const SizedBox(height: 14),
+              FilledButton(
+                onPressed: () async {
+                  await Entitlement.showPaywall(context);
+                  if (mounted) setState(() {});
+                },
+                child: Text(tr('이용권')),
+              ),
+            ]),
+          ),
+        ),
+      );
+    }
     final wide = isWide(context);
     return Scaffold(
       backgroundColor: AppColors.washi,

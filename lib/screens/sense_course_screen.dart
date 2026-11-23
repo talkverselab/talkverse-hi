@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import '../data/entitlement.dart';
 import '../services/script_sync.dart';
 
 import '../core/l10n.dart';
@@ -46,6 +47,12 @@ class SenseCourse {
     await p.setStringList(_kDoneKey, s.toList());
   }
 
+  /// 회차 [index] 가 든 급의 순번(1부터) — 무료 급 판정(PAYWALL_SPEC §2: 언어감각 1급만 무료).
+  static int levelNo(Map<String, dynamic> d, int index) {
+    final lv = flat(d)[index].$1;
+    return (d['levels'] as List).indexOf(lv) + 1;
+  }
+
   /// 모든 회차를 순서대로 (레벨, 회차) 쌍으로.
   static List<(Map<String, dynamic>, Map<String, dynamic>)> flat(Map<String, dynamic> d) => [
         for (final lv in (d['levels'] as List).cast<Map<String, dynamic>>())
@@ -81,6 +88,11 @@ class _SenseCourseScreenState extends State<SenseCourseScreen> {
   }
 
   Future<void> _open(int index) async {
+    if (!Entitlement.senseLevelOpen(SenseCourse.levelNo(_data!, index))) {
+      await Entitlement.showPaywall(context);
+      if (mounted) setState(() {});
+      return;
+    }
     await openFull(context, (_) => SenseLessonScreen(index: index));
     _load();
   }
@@ -108,11 +120,19 @@ class _SenseCourseScreenState extends State<SenseCourseScreen> {
           style: const TextStyle(fontSize: 12, color: AppColors.muted)),
     ];
     var i = 0;
+    var lvNo = 0;
     for (final lv in (d['levels'] as List).cast<Map<String, dynamic>>()) {
+      lvNo++;
+      final locked = !Entitlement.senseLevelOpen(lvNo);
       children.add(Padding(
         padding: const EdgeInsets.fromLTRB(2, 18, 2, 8),
-        child: Text('${lv['id']}  ${lv['title']}',
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.sumi)),
+        child: Row(children: [
+          Expanded(
+            child: Text('${lv['id']}  ${lv['title']}',
+                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: AppColors.sumi)),
+          ),
+          if (locked) const LockMark(),
+        ]),
       ));
       var n = 1;
       for (final ls in (lv['lessons'] as List).cast<Map<String, dynamic>>()) {
@@ -187,12 +207,18 @@ class SenseLessonScreen extends StatefulWidget {
 
 class _SenseLessonScreenState extends State<SenseLessonScreen> {
   List<(Map<String, dynamic>, Map<String, dynamic>)>? _all;
+  Map<String, dynamic>? _data2;
 
   @override
   void initState() {
     super.initState();
     SenseCourse.load().then((d) {
-      if (mounted) setState(() => _all = SenseCourse.flat(d));
+      if (mounted) {
+        setState(() {
+          _data2 = d;
+          _all = SenseCourse.flat(d);
+        });
+      }
     });
   }
 
@@ -208,7 +234,7 @@ class _SenseLessonScreenState extends State<SenseLessonScreen> {
     while (nextIdx < all.length && all[nextIdx].$2['kind'] == 'ref') {
       nextIdx++;
     }
-    if (nextIdx < all.length) {
+    if (nextIdx < all.length && Entitlement.senseLevelOpen(SenseCourse.levelNo(_data2!, nextIdx))) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => SenseLessonScreen(index: nextIdx)));
     } else {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../data/entitlement.dart';
 
 import '../core/l10n.dart';
 import '../core/pane.dart';
@@ -42,6 +43,11 @@ class _CurriculumScreenState extends State<CurriculumScreen> {
   }
 
   Future<void> _setLevel(String lv) async {
+    // 잠긴 단계(PAYWALL_SPEC §2)는 결제 화면 → 이용권이 생기면 그대로 진행
+    if (!Entitlement.stageOpen(lv)) {
+      await Entitlement.showPaywall(context);
+      if (!mounted || !Entitlement.stageOpen(lv)) return;
+    }
     _st.level = lv;
     _svc.syncStage();
     await _svc.save();
@@ -165,7 +171,7 @@ class _CurriculumScreenState extends State<CurriculumScreen> {
                   ),
                 ]),
               ),
-              if (_st.level == null && lv == lowest) _pill(tr('추천'), AppColors.matcha),
+              if (!Entitlement.stageOpen(lv)) const LockMark() else if (_st.level == null && lv == lowest) _pill(tr('추천'), AppColors.matcha),
             ]),
           ),
     ];
@@ -241,6 +247,25 @@ class _CurriculumScreenState extends State<CurriculumScreen> {
   // ── 코스 ──
   List<Widget> _courseBody() {
     final c = _st.course;
+    final lvNow = _st.level;
+    if (lvNow != null && !Entitlement.stageOpen(lvNow)) {
+      // 이용권이 끝났거나 옛 저장값이 잠긴 단계 — 자물쇠 카드(무엇이 열리는지 보이게)
+      return [
+        _card(
+          onTap: () async {
+            await Entitlement.showPaywall(context);
+            if (mounted) setState(() {});
+          },
+          child: Row(children: [
+            const LockMark(),
+            const SizedBox(width: 10),
+            Expanded(child: Text(trf('{0} — {1}', [_svc.levelTitle(lvNow), tr('이용권이 있으면 열려요')]), style: const TextStyle(fontWeight: FontWeight.w800, color: AppColors.sumi))),
+          ]),
+        ),
+        const SizedBox(height: 8),
+        TextButton(onPressed: () => setState(() => _levelPick = true), child: Text(tr('단계를 골라요'))),
+      ];
+    }
     if (_confirmNew) {
       return [
         _card(

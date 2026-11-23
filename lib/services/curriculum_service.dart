@@ -376,6 +376,22 @@ class CurriculumService {
     if (st == null) return;
     _stages = st;
     stagesRev = _rev(j);
+    freeSteps = (j!['freeSteps'] as num?)?.toInt() ?? 2;
+    freeSenseLevels = (j['freeSenseLevels'] as num?)?.toInt() ?? 1;
+  }
+
+  // ── 무료 범위(PAYWALL_SPEC §2, 값은 커리큘럼 JSON — 없으면 기본) ──
+  /// 문법 스텝 무료 한도·언어감각 무료 급 수.
+  int freeSteps = 2, freeSenseLevels = 1;
+
+  /// 이 단계가 이용권 없이 열리나(JSON 이 없으면 옛 레벨: R0·R1 만).
+  bool stageFree(String key) => _stage(key)?.free ?? (_stages == null ? const {'R0', 'R1', 'L1'}.contains(key) : false);
+
+  /// 이 회화 편이 이용권 없이 열리나 — 무료 단계에 든 편(JSON 이 없으면 R0·R1·옛 L1).
+  bool dialogueFree(Dialogue d) {
+    final st = _stages?.where((s) => s.ids.contains(d.id)).firstOrNull;
+    if (st != null) return st.free;
+    return const {'R0', 'R1', 'L1'}.contains(d.region);
   }
 
   /// 서버 JSON → 단계 목록. 형식이 틀리면 null(옛 동작으로).
@@ -395,6 +411,7 @@ class CurriculumService {
               2: ((s['daily'] as Map?)?['normal'] as num?)?.toInt() ?? 2,
               3: ((s['daily'] as Map?)?['focus'] as num?)?.toInt() ?? 3,
             },
+            s['free'] as bool?,
           ),
       ]..sort((a, b) => (int.tryParse(a.key) ?? 0).compareTo(int.tryParse(b.key) ?? 0));
       return out.isEmpty ? null : out;
@@ -485,5 +502,6 @@ class CurStage {
   final List<int> pick;
   final int pass;
   final Map<int, int> daily; // 1 가볍게 · 2 보통 · 3 집중 → 새 편 수
-  const CurStage(this.key, this.title, this.desc, this.ids, this.pick, this.pass, [this.daily = const {1: 1, 2: 2, 3: 3}]);
+  final bool free; // 이용권 없이 열림(PAYWALL_SPEC §2 — 서버 값, 없으면 1단계만)
+  const CurStage(this.key, this.title, this.desc, this.ids, this.pick, this.pass, [this.daily = const {1: 1, 2: 2, 3: 3}, bool? free]) : free = free ?? key == '1';
 }

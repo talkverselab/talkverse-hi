@@ -6,6 +6,7 @@ import '../data/account.dart';
 import '../data/purchase.dart';
 import '../core/theme.dart';
 import '../widgets/legal_links.dart';
+import 'custom_script_screen.dart' show kCustomScriptLive;
 import 'login_screen.dart';
 
 const _line = Color(0xFFD5DBE3);
@@ -18,6 +19,7 @@ class PaywallScreen extends StatefulWidget {
 
   static Future<void> show(BuildContext context) {
     Purchase.status.value = null;
+    if (Purchase.load.value == 'failed') Purchase.reloadProducts();
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -34,8 +36,6 @@ class PaywallScreen extends StatefulWidget {
 
 class _PaywallScreenState extends State<PaywallScreen> {
   String? _sel; // 미리 고르지 않는다
-
-  static String _won(int v) => '₩${v.toString().replaceAllMapped(RegExp(r'(\d)(?=(\d{3})+$)'), (m) => '${m[1]},')}';
 
   String _title(Plan p) => switch ((p.bundle, p.months)) {
         (false, 1) => tr('1개월'),
@@ -71,16 +71,37 @@ class _PaywallScreenState extends State<PaywallScreen> {
                     Text('Talkverse', style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: AppColors.rojo)),
                     Text(tr('이용권 선택'), style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: AppColors.tinta)),
                     const SizedBox(height: 10),
-                    _row(Icons.check_circle, trf('{0}의 유료 과정 전부 — 지금 있는 것과 앞으로 추가되는 것', ['Talkverse'])),
+                    // 혜택 = 잠긴 것 그대로(PAYWALL_SPEC §2·§3)
+                    _row(Icons.check_circle, tr('커리큘럼 2단계 이상과 그 회화 편')),
+                    _row(Icons.check_circle, tr('문법 3스텝부터')),
+                    _row(Icons.check_circle, tr('언어감각 익히기 2급부터')),
+                    if (kCustomScriptLive) _row(Icons.check_circle, tr('맞춤 회화 만들기')),
                     _row(Icons.check_circle, isIOS ? tr('로그인하면 아이폰·아이패드 어디서나') : tr('로그인하면 다른 안드로이드 기기에서도')),
                     const SizedBox(height: 10),
                     Text('Talkverse', style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w800, color: AppColors.tintaLight)),
                     const SizedBox(height: 6),
-                    for (final p in Purchase.plans.where((x) => !x.bundle)) _planTile(p, busy),
+                    ValueListenableBuilder<String>(
+                      valueListenable: Purchase.load,
+                      builder: (c, ld, _) => ld == 'failed'
+                          ? Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                child: Text(tr('스토어에서 상품 정보를 불러오지 못했어요. 잠시 뒤 다시 시도해 주세요.'), textAlign: TextAlign.center, style: const TextStyle(fontSize: 13, color: AppColors.tinta, fontWeight: FontWeight.w700)),
+                              ),
+                              Row(children: [
+                                Expanded(child: OutlinedButton(onPressed: () => Purchase.reloadProducts(), child: Text(tr('다시 시도')))),
+                                const SizedBox(width: 8),
+                                Expanded(child: OutlinedButton(onPressed: () => Navigator.maybePop(c), child: Text(tr('닫기')))),
+                              ]),
+                            ])
+                          : ld == 'loading' && Purchase.products.value.isEmpty
+                              ? const Padding(padding: EdgeInsets.all(12), child: Center(child: SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.5))))
+                              : Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [for (final p in Purchase.plans.where((x) => !x.bundle && Purchase.price(x.id) != null)) _planTile(p, busy)]),
+                    ),
                     const SizedBox(height: 8),
                     Text(tr('종합 패키지 — Talkverse 모든 언어 앱'), style: const TextStyle(fontSize: 12.5, fontWeight: FontWeight.w800, color: AppColors.tintaLight)),
                     const SizedBox(height: 6),
-                    for (final p in Purchase.plans.where((x) => x.bundle)) _planTile(p, busy),
+                    for (final p in Purchase.plans.where((x) => x.bundle && Purchase.price(x.id) != null)) _planTile(p, busy),
                     const SizedBox(height: 10),
                     if (st == 'error') Padding(padding: const EdgeInsets.only(bottom: 8), child: Text(tr('결제를 마치지 못했습니다. 다시 시도해 주세요.'), style: const TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w700))),
                     if (st == 'nothing') Padding(padding: const EdgeInsets.only(bottom: 8), child: Text(tr('복원할 구매가 없습니다.'), style: const TextStyle(color: AppColors.tintaLight, fontWeight: FontWeight.w700))),
@@ -89,8 +110,8 @@ class _PaywallScreenState extends State<PaywallScreen> {
                         padding: const EdgeInsets.only(bottom: 8),
                         child: Text(
                           sel.lifetime
-                              ? trf('{0} · {1} · 한 번 결제, 자동 갱신 없음', [_title(sel), selPrice ?? _won(sel.krw)])
-                              : trf('{0} · {1} · 기간이 끝나면 같은 가격으로 자동 갱신됩니다. 갱신 24시간 전까지 해지하면 다음 결제가 되지 않습니다.', [_title(sel), selPrice ?? _won(sel.krw)]),
+                              ? trf('{0} · {1} · 한 번 결제, 자동 갱신 없음', [_title(sel), selPrice ?? ''])
+                              : trf('{0} · {1} · 기간이 끝나면 같은 가격으로 자동 갱신됩니다. 갱신 24시간 전까지 해지하면 다음 결제가 되지 않습니다.', [_title(sel), selPrice ?? '']),
                           style: const TextStyle(fontSize: 12, color: AppColors.tinta, height: 1.45, fontWeight: FontWeight.w600),
                         ),
                       ),
@@ -136,7 +157,7 @@ class _PaywallScreenState extends State<PaywallScreen> {
 
   Widget _planTile(Plan p, bool busy) {
     final on = _sel == p.id;
-    final price = Purchase.price(p.id) ?? _won(p.krw);
+    final price = Purchase.price(p.id) ?? ''; // 가격은 스토어 값만(코드에 원화를 두지 않음, §3)
     return Padding(
       padding: const EdgeInsets.only(bottom: 6),
       child: Semantics(
@@ -159,9 +180,7 @@ class _PaywallScreenState extends State<PaywallScreen> {
                 ]),
               ),
               Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                if (p.discounted) Text(_won(p.listKrw), style: const TextStyle(fontSize: 11.5, color: AppColors.tintaLight, decoration: TextDecoration.lineThrough)),
                 Text(price, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900, color: AppColors.tinta)),
-                if (p.discounted) Text(tr('30% 할인'), style: const TextStyle(fontSize: 10.5, fontWeight: FontWeight.w800, color: AppColors.rojo)),
               ]),
             ]),
           ),

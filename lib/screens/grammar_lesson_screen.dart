@@ -2,6 +2,7 @@ import 'dart:convert';
 import '../core/embed_env.dart';
 
 import 'package:flutter/material.dart';
+import '../data/entitlement.dart';
 import 'package:flutter/services.dart' show AssetManifest, rootBundle;
 
 import '../core/theme.dart';
@@ -97,7 +98,7 @@ class _GrammarHubScreenState extends State<GrammarHubScreen> {
               : ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
-                    for (final l in lessons)
+                    for (final (li, l) in lessons.indexed)
                       Card(
                         color: Colors.white,
                         margin: const EdgeInsets.only(bottom: 10),
@@ -109,7 +110,7 @@ class _GrammarHubScreenState extends State<GrammarHubScreen> {
                           subtitle: Text(
                               '${l.subtitle.isEmpty ? '' : '${l.subtitle}\n'}${trf('패턴 {0} · 예문 {1}', [l.patterns.length, l.exampleCount])}',
                               style: const TextStyle(fontSize: 12, height: 1.4)),
-                          trailing: IconButton(
+                          trailing: !Entitlement.grammarStepOpen(li + 1) ? const LockMark() : IconButton(
                             tooltip: tr('테스트'),
                             icon: const Icon(Icons.quiz, color: AppColors.rojo),
                             onPressed: () => Navigator.push(
@@ -117,10 +118,16 @@ class _GrammarHubScreenState extends State<GrammarHubScreen> {
                               MaterialPageRoute(builder: (_) => GrammarTestScreen(lesson: l)),
                             ),
                           ),
-                          onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => GrammarLessonScreen(lesson: l)),
-                          ),
+                          onTap: () async {
+                            // 문법 3스텝부터 이용권(PAYWALL_SPEC §2, 무료 한도는 커리큘럼 JSON freeSteps)
+                            if (!Entitlement.grammarStepOpen(li + 1)) {
+                              await Entitlement.showPaywall(context);
+                              if (mounted) setState(() {});
+                              return;
+                            }
+                            if (!context.mounted) return;
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => GrammarLessonScreen(lesson: l)));
+                          },
                         ),
                       ),
                   ],
